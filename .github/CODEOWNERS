@@ -1,0 +1,4 @@
+/.github/CODEOWNERS @BrizoSec
+/.github/workflows/promotion.yml @BrizoSec
+/scripts/promotion_gate.py @BrizoSec
+/promotion-policy.yaml @BrizoSec

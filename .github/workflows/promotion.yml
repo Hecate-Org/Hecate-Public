@@ -1,0 +1,184 @@
+name: Hecate promotion
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, edited]
+  pull_request_review:
+    types: [submitted]
+
+permissions: {}
+
+jobs:
+  content-validation:
+    name: content-validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      hunt_id: ${{ steps.bundle.outputs.hunt_id }}
+      manual_edits: ${{ steps.bundle.outputs.manual_edits }}
+      promotion: ${{ steps.bundle.outputs.promotion }}
+      policy_change: ${{ steps.bundle.outputs.policy_change }}
+      control_change: ${{ steps.bundle.outputs.control_change }}
+      decision: ${{ steps.decision.outputs.decision }}
+    steps:
+      - name: Checkout promotion PR
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+
+      - name: Inspect promotion paths
+        id: bundle
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          git show "$BASE_SHA:scripts/promotion_gate.py" > "$RUNNER_TEMP/promotion_gate.py"
+          python "$RUNNER_TEMP/promotion_gate.py" inspect --base-ref "$BASE_SHA" --head-ref "$HEAD_SHA"
+
+      - name: Checkout Hecate-Core
+        if: steps.bundle.outputs.promotion == 'true'
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Core
+          ref: ${{ vars.HECATE_CORE_REF || 'main' }}
+          path: .hecate-core-checkout
+
+      - name: Checkout Hecate-Runner
+        if: steps.bundle.outputs.promotion == 'true'
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Runner
+          ref: ${{ vars.HECATE_RUNNER_REF || 'main' }}
+          path: .hecate-runner-checkout
+
+      - name: Install uv and Python
+        if: steps.bundle.outputs.promotion == 'true'
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: .hecate-runner-checkout/uv.lock
+
+      - name: Place shared dependencies beside Runner
+        if: steps.bundle.outputs.promotion == 'true'
+        run: |
+          mv .hecate-core-checkout ../Hecate-Core
+          mv .hecate-runner-checkout ../Hecate-Runner
+
+      - name: Install Hecate validation dependencies
+        if: steps.bundle.outputs.promotion == 'true'
+        run: |
+          uv python install 3.12
+          uv sync --project ../Hecate-Runner --dev
+
+      - name: Validate hunt structure
+        if: steps.bundle.outputs.promotion == 'true' && steps.bundle.outputs.hunt_id != ''
+        env:
+          HECATE_WORKSPACE: ${{ github.workspace }}
+          HUNT_ID: ${{ steps.bundle.outputs.hunt_id }}
+        run: uv run --project ../Hecate-Runner hecate-agent hunt validate "$HUNT_ID"
+
+      - name: Re-run grounding audit
+        if: steps.bundle.outputs.promotion == 'true' && steps.bundle.outputs.hunt_id != ''
+        env:
+          HECATE_WORKSPACE: ${{ github.workspace }}
+          HUNT_ID: ${{ steps.bundle.outputs.hunt_id }}
+        run: uv run --project ../Hecate-Runner hecate-runner audit "$HUNT_ID"
+
+      - name: Validate Sigma and scan for credentials
+        if: steps.bundle.outputs.promotion == 'true' && steps.bundle.outputs.hunt_id != ''
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          HECATE_WORKSPACE: ${{ github.workspace }}
+        run: uv run --project ../Hecate-Runner python "$RUNNER_TEMP/promotion_gate.py" validate --base-ref "$BASE_SHA" --head-ref "$HEAD_SHA"
+
+      - name: Evaluate deterministic promotion policy
+        if: steps.bundle.outputs.promotion == 'true'
+        id: decision
+        env:
+          HECATE_WORKSPACE: ${{ github.workspace }}
+          HUNT_ID: ${{ steps.bundle.outputs.hunt_id }}
+        run: |
+          if [ -n "$HUNT_ID" ]; then
+            decision="$(uv run --project ../Hecate-Runner hecate-runner promotion-check "$HUNT_ID" --json)"
+          else
+            decision='{"eligible":false,"review_required":true,"reasons":["promotion policy change requires approval"]}'
+          fi
+          delimiter="$(python -c 'import secrets; print(secrets.token_hex(16))')"
+          {
+            echo "decision<<$delimiter"
+            printf '%s\n' "$decision"
+            echo "$delimiter"
+          } >> "$GITHUB_OUTPUT"
+          echo "$decision"
+
+      - name: Validate policy configuration
+        if: steps.bundle.outputs.policy_change == 'true'
+        env:
+          HECATE_WORKSPACE: ${{ github.workspace }}
+        run: uv run --project ../Hecate-Runner hecate-runner promotion-policy-validate
+
+  promotion-policy:
+    name: promotion-policy
+    needs: content-validation
+    if: needs.content-validation.outputs.promotion == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      # GitHub's auto-merge mutation requires write access to repository
+      # contents as well as pull requests. This job runs the base branch gate.
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout promotion PR
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          fetch-depth: 0
+
+      - name: Use base branch policy gate
+        run: git show "${{ github.event.pull_request.base.sha }}:scripts/promotion_gate.py" > "$RUNNER_TEMP/promotion_gate.py"
+
+      - name: Checkout Hecate-Core
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Core
+          ref: ${{ vars.HECATE_CORE_REF || 'main' }}
+          path: .hecate-core-checkout
+
+      - name: Checkout Hecate-Runner
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Runner
+          ref: ${{ vars.HECATE_RUNNER_REF || 'main' }}
+          path: .hecate-runner-checkout
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: .hecate-runner-checkout/uv.lock
+
+      - name: Place shared dependencies beside Runner
+        run: |
+          mv .hecate-core-checkout ../Hecate-Core
+          mv .hecate-runner-checkout ../Hecate-Runner
+
+      - name: Install Hecate policy dependencies
+        run: |
+          uv python install 3.12
+          uv sync --project ../Hecate-Runner --dev
+
+      - name: Require current human approval when policy escalates
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_EVENT_PATH: ${{ github.event_path }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_WORKSPACE: ${{ github.workspace }}
+          PROMOTION_DECISION: ${{ needs.content-validation.outputs.decision }}
+          MANUAL_EDITS: ${{ needs.content-validation.outputs.manual_edits }}
+        run: |
+          uv run --project ../Hecate-Runner python "$RUNNER_TEMP/promotion_gate.py" review \
+            --decision "$PROMOTION_DECISION" --manual-edits "$MANUAL_EDITS"

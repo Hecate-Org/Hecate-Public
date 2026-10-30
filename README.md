@@ -36,4 +36,6 @@ Use the CLI to create, validate, and manage research, hunts, and investigations.
 
 This repository is public. Review new content before publishing it. Credentials, local runtime state, evidence, and query results belong in local or private storage.
 
-The existing private workspace and Runner continue to use their current configuration. Automated publication into this repository requires its own explicit Runner and GitHub App configuration.
+The Runner retains its local hunt history in `Hecate-Workspace` and publishes new planning-hunt bundles here through the `hecate-publisher` GitHub App. A separate public publication queue prevents replay of the former private queue.
+
+The promotion workflow validates content and applies `promotion-policy.yaml`. Restricted TLP material and credentials are blocked before upload. Unmarked source material is allowed; quality issues that require review still need a qualified approval on the current commit.

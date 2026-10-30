@@ -1,0 +1,24 @@
+# Public destination: restricted TLP material and credentials are blocked before upload.
+# Unmarked source material is allowed; other quality issues retain human review.
+version: 1
+target_visibility: public
+auto_merge:
+  enabled: true
+  merge_method: squash
+risk:
+  missing_cti: review
+  missing_research: review
+  missing_sigma: review
+  incomplete_metadata: review
+  low_confidence_source: review
+  unsupported_claims: review
+  tlp_amber: block
+  bas_failed: review
+  unknown_tlp: allow
+review:
+  minimum_approvals: 1
+  allowed_associations:
+  - OWNER
+  - MEMBER
+  - COLLABORATOR
+publisher_login: hecate-publisher[bot]
