@@ -41,3 +41,9 @@ __pycache__/
 .DS_Store
 .vscode/
 .idea/
+
+# Intake cursors, scheduler state, and queued intelligence
+.cursors/
+.*_cursor_state.json
+.orchestrator_state.json
+cti_queue/
