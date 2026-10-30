@@ -523,7 +523,7 @@ def main() -> None:
     review_parser = subparsers.add_parser("review")
     review_parser.add_argument("--decision", required=True)
     review_parser.add_argument("--manual-edits", choices=("true", "false"), required=True)
-    policy_parser = subparsers.add_parser("validate-policy")
+    subparsers.add_parser("validate-policy")
     args = parser.parse_args()
 
     if args.command == "review":
