@@ -1,0 +1,21 @@
+{
+  "auto_merge": true,
+  "files": [
+    "hunts/2026/Q4/H-0002.md",
+    "queries/H-0002/webserver__detection_of_daemon_tools_lite_cve_2026_8398_exploitation_at.cql",
+    "queries/H-0002/webserver__detection_of_daemon_tools_lite_cve_2026_8398_exploitation_at.eql",
+    "queries/H-0002/webserver__detection_of_daemon_tools_lite_cve_2026_8398_exploitation_at.leql",
+    "queries/H-0002/webserver__detection_of_daemon_tools_lite_cve_2026_8398_exploitation_at.spl",
+    "queries/H-0002/webserver__detection_of_daemon_tools_lite_cve_2026_8398_exploitation_at.yml",
+    "research/R-0002.md"
+  ],
+  "hunt_id": "H-0002",
+  "merge_method": "squash",
+  "promotion_reasons": [],
+  "publisher": "hecate-runner",
+  "review_required": false,
+  "schema_version": 1,
+  "sha256": "bc39ee98fd44473de3409c395f1148a8e5865b01936e8a3cbdab74c7adf2b912",
+  "target_repository": "Hecate-Org/Hecate-Public",
+  "target_visibility": "public"
+}
