@@ -1,0 +1,71 @@
+title: Connection to an address or host named in the source intelligence
+id: 10a1d3c8-44a4-4db1-a22a-db177f42e34e
+status: experimental
+description: Deterministic IOC rule built from the indicators the source intelligence published, with
+  no model involvement. Matches an outbound connection to a current address or host the source published,
+  on the ports the source ties to it where it names them. Indicators the source marks historical are excluded.
+references:
+- https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+author: hecate (auto-generated from source indicators - requires analyst review)
+date: '2026-10-30'
+tags: []
+logsource:
+  category: network_connection
+  product: windows
+detection:
+  selection_1_any:
+    DestinationHostname: infect.online
+  selection_2_any:
+    DestinationHostname: caixaentradas1boxshop.site
+  selection_3_any:
+    DestinationHostname: caixaentradas1inboxshop.site
+  selection_4_any:
+    DestinationHostname: installscenter.com
+  selection_5_any:
+    DestinationHostname: c2.installscenter.com
+  condition: 1 of selection_*
+falsepositives:
+- Shared hosting or CDN addresses reused by unrelated sites
+level: high
+hecate_provenance:
+- value: infect.online
+  type: domain
+  role: c2
+  status: active
+  confidence: unknown
+  source: https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+  evidence: el cibercriminal brasileño conocido como “Exilware” ha operado una plataforma comercial a
+    través del dominio infect[.]online
+- value: caixaentradas1boxshop.site
+  type: domain
+  role: download
+  status: active
+  confidence: unknown
+  source: https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+  evidence: Figura 6. Algunos archivos asociados con el dominio caixaentradas1boxshop[.]site.
+- value: caixaentradas1inboxshop.site
+  type: domain
+  role: download
+  status: active
+  confidence: unknown
+  source: https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+  evidence: Group-IB identificó un dominio de distribución, caixaentradas1inboxshop[.]site, mediante el
+    seguimiento de patrones de nombres de archivos como msdege[0-9].exe y wifi_driver.exe.
+- value: installscenter.com
+  type: domain
+  role: c2
+  status: active
+  confidence: unknown
+  source: https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+  evidence: La infraestructura de Comando y Control (C2) de BraZetsu, installscenter[.]com, se conecta
+    directamente con un panel de acceso para clientes que Group-IB atribuye, con un alto nivel de confianza,
+    a “I
+- value: c2.installscenter.com
+  type: hostname
+  role: c2
+  status: active
+  confidence: unknown
+  source: https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+  evidence: Figura 9. Configuración C2 de BraZetsu en c2[.]installscenter[.]com
+hunt_id: H-0001
+x_hecate_purple_team_validated: true

@@ -1,0 +1,64 @@
+title: DNS Query to BraZetsu C2 Infrastructure Domains
+id: 2d1b4e70-a6c7-4b81-a7f4-0d4780a3aa8b
+status: experimental
+description: Detects DNS queries for domains associated with the BraZetsu malware framework's Command
+  and Control infrastructure. These domains are used by the Exilware attribution group for initial access
+  broker operations and system commercialization.
+references:
+- https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-10-30'
+tags:
+- attack.t1071.001
+logsource:
+  category: dns_query
+  product: windows
+detection:
+  selection:
+    QueryName|endswith:
+    - .infect.online
+    - .caixaentradas1boxshop.site
+    - .caixaentradas1inboxshop.site
+    - installscenter.com
+  condition: selection
+falsepositives:
+- Legitimate use of obscure or newly registered domains by internal tools
+- Adware or potentially unwanted programs (PUPs) using similar naming conventions
+level: high
+hecate_provenance:
+- value: infect.online
+  type: domain
+  role: c2
+  status: active
+  confidence: unknown
+  source: https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+  evidence: el cibercriminal brasileño conocido como “Exilware” ha operado una plataforma comercial a
+    través del dominio infect[.]online
+- value: caixaentradas1boxshop.site
+  type: domain
+  role: download
+  status: active
+  confidence: unknown
+  source: https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+  evidence: Figura 6. Algunos archivos asociados con el dominio caixaentradas1boxshop[.]site.
+- value: caixaentradas1inboxshop.site
+  type: domain
+  role: download
+  status: active
+  confidence: unknown
+  source: https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+  evidence: Group-IB identificó un dominio de distribución, caixaentradas1inboxshop[.]site, mediante el
+    seguimiento de patrones de nombres de archivos como msdege[0-9].exe y wifi_driver.exe.
+- value: installscenter.com
+  type: domain
+  role: c2
+  status: active
+  confidence: unknown
+  source: https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+  evidence: La infraestructura de Comando y Control (C2) de BraZetsu, installscenter[.]com, se conecta
+    directamente con un panel de acceso para clientes que Group-IB atribuye, con un alto nivel de confianza,
+    a “I
+hunt_id: H-0001
+hecate_review:
+  verdict: keep
+x_hecate_purple_team_validated: true

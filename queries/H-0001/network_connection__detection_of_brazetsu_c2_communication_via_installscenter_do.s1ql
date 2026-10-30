@@ -1,0 +1,1 @@
+(ObjectType In ("DNS","Url","IP")) AND (EndpointOS = "windows" AND (Url endswithCIS "c2.installscenter.com" OR DnsRequest endswithCIS "c2.installscenter.com"))

@@ -1,0 +1,2 @@
+DeviceRegistryEvents
+| where RegistryKey contains "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall" or RegistryKey contains "SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall"

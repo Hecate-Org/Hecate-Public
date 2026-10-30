@@ -1,0 +1,1 @@
+_Im_Dns | where DnsQuery endswith ".infect.online" or DnsQuery endswith ".caixaentradas1boxshop.site" or DnsQuery endswith ".caixaentradas1inboxshop.site" or DnsQuery endswith "installscenter.com"

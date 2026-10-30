@@ -1,0 +1,1 @@
+where(query=/^.*\.infect\.online$/i OR query=/^.*\.caixaentradas1boxshop\.site$/i OR query=/^.*\.caixaentradas1inboxshop\.site$/i OR query=/^.*installscenter\.com$/i)

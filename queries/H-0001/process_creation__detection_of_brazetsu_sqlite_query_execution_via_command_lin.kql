@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where ProcessCommandLine matches regex ".*SELECT url, title, visit_count FROM urls WHERE url LIKE ..*"

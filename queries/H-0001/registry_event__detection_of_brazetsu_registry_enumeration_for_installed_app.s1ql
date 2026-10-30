@@ -1,0 +1,1 @@
+ObjectType = "Registry" AND (EndpointOS = "windows" AND (RegistryKeyPath containsCIS "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" OR RegistryKeyPath containsCIS "SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall"))
