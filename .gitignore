@@ -1,0 +1,43 @@
+# Local credentials and configuration
+.env
+.env.*
+*.env
+*.env.*
+!.env.example
+credentials/
+secrets/
+*.key
+*.pem
+*.p12
+*.pfx
+
+# Runtime state, evidence, query results, and generated caches
+.hecate/
+.hunt_id_counter
+.hunt_id.lock
+.research_id_counter
+.research_id.lock
+*.sqlite
+*.sqlite3
+*.sqlite-journal
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
+runs/
+evidence/
+results/
+logs/
+*.log
+
+# Local tools and editor state
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.DS_Store
+.vscode/
+.idea/
