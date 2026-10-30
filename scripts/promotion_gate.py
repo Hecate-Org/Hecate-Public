@@ -11,6 +11,7 @@ import re
 import subprocess
 import sys
 import urllib.error
+import urllib.parse
 import urllib.request
 from pathlib import Path
 from typing import Any, NoReturn
@@ -83,7 +84,10 @@ def bundle_digest(files: dict[str, str]) -> str:
 
 def inspect_bundle(base_ref: str, head_ref: str) -> dict[str, Any]:
     changed = git_changed_paths(base_ref, head_ref)
-    control_paths = {"promotion-policy.yaml", ".github/workflows/promotion.yml", "scripts/promotion_gate.py"}
+    control_paths = {
+        "promotion-policy.yaml", ".github/workflows/promotion.yml",
+        "scripts/promotion_gate.py", "tests/test_promotion_gate.py",
+    }
     control_changes = control_paths.intersection(changed)
     if control_changes:
         if set(changed) - control_paths:
@@ -444,6 +448,7 @@ def enforce_review(decision_json: str, manual_edits: bool) -> None:
     reviews = github_api(f"pulls/{pull['number']}/reviews?per_page=100")
     latest: dict[str, dict[str, Any]] = {}
     changes_requested: set[str] = set()
+    collaborator_permissions: dict[str, bool] = {}
     for review in sorted(reviews, key=lambda item: str(item.get("submitted_at", ""))):
         user = review.get("user") or {}
         login = str(user.get("login", "")).lower()
@@ -452,11 +457,26 @@ def enforce_review(decision_json: str, manual_edits: bool) -> None:
             not login
             or login == author
             or login.endswith("[bot]")
-            or association not in associations
             or review.get("commit_id") != head_sha
             or not review.get("submitted_at")
+            or review.get("state") not in {"APPROVED", "CHANGES_REQUESTED", "DISMISSED"}
         ):
             continue
+        if association not in associations:
+            # Public-repository installation tokens may see CONTRIBUTOR/NONE
+            # for an organization member whose membership is private. Verify
+            # repository authority instead of granting contributors approval.
+            if "COLLABORATOR" not in associations:
+                continue
+            if login not in collaborator_permissions:
+                authority = github_api(
+                    f"collaborators/{urllib.parse.quote(login, safe='')}/permission"
+                )
+                collaborator_permissions[login] = authority.get("permission") in {
+                    "admin", "maintain", "write",
+                }
+            if not collaborator_permissions[login]:
+                continue
         if review.get("state") == "CHANGES_REQUESTED":
             changes_requested.add(login)
         elif review.get("state") in {"APPROVED", "DISMISSED"}:

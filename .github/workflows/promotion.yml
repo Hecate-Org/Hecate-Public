@@ -29,6 +29,14 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
 
+      - name: Install uv for promotion-gate tests
+        if: hashFiles('tests/test_promotion_gate.py') != ''
+        uses: astral-sh/setup-uv@v6
+
+      - name: Test promotion gate
+        if: hashFiles('tests/test_promotion_gate.py') != ''
+        run: uv run --no-project --with pyyaml python -m unittest discover -s tests -p test_promotion_gate.py -v
+
       - name: Inspect promotion paths
         id: bundle
         env:
