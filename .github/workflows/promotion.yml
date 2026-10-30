@@ -139,6 +139,7 @@ jobs:
       # contents as well as pull requests. This job runs the base branch gate.
       contents: write
       pull-requests: write
+      actions: write
     steps:
       - name: Checkout promotion PR
         uses: actions/checkout@v5
@@ -190,3 +191,31 @@ jobs:
         run: |
           uv run --project ../Hecate-Runner python "$RUNNER_TEMP/promotion_gate.py" review \
             --decision "$PROMOTION_DECISION" --manual-edits "$MANUAL_EDITS"
+
+      - name: Refresh earlier failed checks after a qualified approval
+        if: github.event_name == 'pull_request_review'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APPROVED_HEAD: ${{ github.event.pull_request.head.sha }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          set -euo pipefail
+          current="$(gh api "repos/$GITHUB_REPOSITORY/pulls/$PR_NUMBER" --jq '[.state, .head.sha] | join(":")')"
+          if [[ "$current" != "open:$APPROVED_HEAD" ]]; then
+            echo "PR closed or head changed; no earlier checks to refresh."
+            exit 0
+          fi
+          failed_runs="$(gh api --paginate "repos/$GITHUB_REPOSITORY/actions/workflows/promotion.yml/runs?head_sha=$APPROVED_HEAD&status=failure&per_page=100" \
+            --jq '.workflow_runs[] | select(.status == "completed" and .conclusion == "failure") | select(.event == "pull_request" or .event == "pull_request_review") | .id')"
+          while IFS= read -r run_id; do
+            [[ -n "$run_id" ]] || continue
+            echo "Refreshing failed promotion run $run_id for the approved commit."
+            if ! gh api --method POST "repos/$GITHUB_REPOSITORY/actions/runs/$run_id/rerun-failed-jobs" --silent; then
+              state="$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$run_id" --jq '[.status, (.conclusion // "")] | join(":")')"
+              case "$state" in
+                queued:*|in_progress:*|waiting:*|pending:*|requested:*|completed:success)
+                  echo "Run $run_id is already being refreshed or has passed." ;;
+                *) echo "Could not refresh run $run_id ($state)." >&2; exit 1 ;;
+              esac
+            fi
+          done <<< "$failed_runs"
