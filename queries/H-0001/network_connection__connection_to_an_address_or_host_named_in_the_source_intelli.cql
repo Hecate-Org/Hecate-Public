@@ -1,0 +1,1 @@
+DestinationHostname=/^infect\.online$/i or DestinationHostname=/^caixaentradas1boxshop\.site$/i or DestinationHostname=/^caixaentradas1inboxshop\.site$/i or DestinationHostname=/^installscenter\.com$/i or DestinationHostname=/^c2\.installscenter\.com$/i

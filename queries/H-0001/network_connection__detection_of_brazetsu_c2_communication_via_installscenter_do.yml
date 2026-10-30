@@ -1,0 +1,46 @@
+title: Detection of BraZetsu C2 Communication via Installscenter Domain
+id: dccec9a4-4179-4c4d-8170-e80a9bd1b7d7
+status: experimental
+description: Detects network connections to the Command and Control infrastructure associated with the
+  BraZetsu malware framework. The source intelligence identifies 'c2.installscenter.com' as a key domain
+  used for C2 communications by the Exilware threat actor. This rule targets the initial establishment
+  of the WebSocket C2 channel.
+references:
+- https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-10-30'
+tags:
+- attack.t1071.001
+logsource:
+  category: network_connection
+  product: windows
+detection:
+  selection:
+    DestinationHostname|endswith: c2.installscenter.com
+  condition: selection
+falsepositives:
+- Legitimate software updates or telemetry if the organization uses installscenter.com for authorized
+  services
+- CDN traffic routed through domains owned by the same entity
+level: high
+hecate_provenance:
+- value: installscenter.com
+  type: domain
+  role: c2
+  status: active
+  confidence: unknown
+  source: https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+  evidence: La infraestructura de Comando y Control (C2) de BraZetsu, installscenter[.]com, se conecta
+    directamente con un panel de acceso para clientes que Group-IB atribuye, con un alto nivel de confianza,
+    a “I
+- value: c2.installscenter.com
+  type: hostname
+  role: c2
+  status: active
+  confidence: unknown
+  source: https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+  evidence: Figura 9. Configuración C2 de BraZetsu en c2[.]installscenter[.]com
+hunt_id: H-0001
+hecate_review:
+  verdict: keep
+x_hecate_purple_team_validated: true

@@ -1,0 +1,29 @@
+title: Detection of BraZetsu SQLite Query Execution via Command Line
+id: 15f23b46-8c42-464f-95cd-a3bbe898c975
+status: experimental
+description: Detects the execution of a command line containing specific SQL queries used by the BraZetsu
+  malware framework to harvest browsing history from SQLite databases. This behavior aligns with T1005
+  (Data from Local System) and indicates active reconnaissance for sensitive user data.
+references:
+- https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-10-30'
+tags:
+- attack.t1005
+- attack.t1059.003
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_sql:
+    CommandLine|contains: SELECT url, title, visit_count FROM urls WHERE url LIKE ?
+  condition: selection_sql
+falsepositives:
+- Legitimate database administration tools (e.g., sqlite3 CLI) executing standard queries
+- Security research or forensics tools querying browser history for analysis
+- Automated scripts used by developers to inspect local SQLite databases
+level: high
+hunt_id: H-0001
+hecate_review:
+  verdict: keep
+x_hecate_purple_team_validated: true

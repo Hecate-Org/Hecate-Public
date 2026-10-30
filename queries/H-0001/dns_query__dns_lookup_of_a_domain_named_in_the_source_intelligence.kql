@@ -1,0 +1,1 @@
+_Im_Dns | where (DnsQuery in~ ("infect.online", "caixaentradas1boxshop.site", "caixaentradas1inboxshop.site", "installscenter.com", "c2.installscenter.com")) or (DnsQuery endswith ".infect.online" or DnsQuery endswith ".caixaentradas1boxshop.site" or DnsQuery endswith ".caixaentradas1inboxshop.site" or DnsQuery endswith ".installscenter.com")

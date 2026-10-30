@@ -1,0 +1,29 @@
+title: Detection of BraZetsu Registry Enumeration for Installed Applications
+id: 61e6799e-5f6e-4c3f-971e-188b29a87eb1
+status: experimental
+description: Detects enumeration of installed applications via the Windows Registry Uninstall keys, a
+  behavior attributed to the BraZetsu malware framework (Exilware) for reconnaissance and asset identification.
+references:
+- https://www.group-ib.com/blog/brazetsu-ai-enhanced-iab-marketplace-es/
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-10-30'
+tags:
+- attack.t1005
+logsource:
+  category: registry_event
+  product: windows
+detection:
+  selection_uninstall_64:
+    TargetObject|contains: SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall
+  selection_uninstall_32:
+    TargetObject|contains: SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall
+  condition: selection_uninstall_64 or selection_uninstall_32
+falsepositives:
+- Legitimate software inventory tools
+- System administration scripts
+- Antivirus or EDR agent scanning for installed applications
+level: medium
+hunt_id: H-0001
+hecate_review:
+  verdict: keep
+x_hecate_purple_team_validated: true

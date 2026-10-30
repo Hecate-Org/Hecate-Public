@@ -1,0 +1,1 @@
+EventType = "Process Creation" AND (EndpointOS = "windows" AND TgtProcCmdLine = "*SELECT url, title, visit_count FROM urls WHERE url LIKE **")

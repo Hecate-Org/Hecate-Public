@@ -1,0 +1,1 @@
+TargetObject IN ("*SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall*", "*SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall*")

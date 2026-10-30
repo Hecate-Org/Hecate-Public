@@ -1,0 +1,1 @@
+where(cs-host=/^pastebin\.com$/i AND c-uri=/^.*\/raw\/aF0WCxia.*$/i)

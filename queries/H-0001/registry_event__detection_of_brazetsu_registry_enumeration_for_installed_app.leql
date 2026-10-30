@@ -1,0 +1,1 @@
+where(registry.key=/^.*SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall.*$/i OR registry.key=/^.*SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall.*$/i)

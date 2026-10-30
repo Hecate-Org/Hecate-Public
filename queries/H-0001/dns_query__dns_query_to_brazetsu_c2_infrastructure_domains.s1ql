@@ -1,0 +1,1 @@
+ObjectType = "DNS" AND (EndpointOS = "windows" AND (DnsRequest endswithCIS ".infect.online" OR DnsRequest endswithCIS ".caixaentradas1boxshop.site" OR DnsRequest endswithCIS ".caixaentradas1inboxshop.site" OR DnsRequest endswithCIS "installscenter.com"))
