@@ -92,7 +92,7 @@ def inspect_bundle(base_ref: str, head_ref: str) -> dict[str, Any]:
     community_prefixes = ("catalog/", "detections/linux/", "validation/")
     cleanup_path = "research/R-0100.md"
     cleanup = False
-    if cleanup_path in changed and not Path(cleanup_path).exists():
+    if cleanup_path in changed and not Path(cleanup_path).exists() and not Path(cleanup_path).is_symlink():
         previous = subprocess.run(
             ["git", "show", f"{base_ref}:{cleanup_path}"], check=True, stdout=subprocess.PIPE
         ).stdout
