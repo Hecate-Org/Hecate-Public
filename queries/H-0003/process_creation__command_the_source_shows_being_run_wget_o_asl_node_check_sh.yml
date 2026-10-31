@@ -1,0 +1,24 @@
+title: 'Command the source shows being run: wget -O asl-node-check.sh'
+id: 72ec9f4c-c811-4624-9bda-c8f10b128e17
+status: experimental
+description: 'Deterministic rule built from a command quoted in the primary source, with no model involvement.
+  The source shows this command being run: "wget -O asl-node-check.sh https://raw.githubusercontent.com/EtherHamRadio/asl-node-check/main/asl-node-check.sh
+  The".'
+references:
+- https://github.com/EtherHamRadio/asl-node-check
+author: hecate (auto-generated from commands quoted in the source - requires analyst review)
+date: '2026-10-31'
+tags:
+- attack.t1105
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith: /wget
+    CommandLine|contains: -O asl-node-check.sh
+  condition: selection
+falsepositives:
+- Administrators or software running the same command or creating the task for legitimate reasons
+level: medium
+hunt_id: H-0003

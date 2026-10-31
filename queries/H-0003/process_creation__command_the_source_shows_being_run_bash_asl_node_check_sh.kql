@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where FolderPath endswith "/bash" and ProcessCommandLine contains "asl-node-check.sh"

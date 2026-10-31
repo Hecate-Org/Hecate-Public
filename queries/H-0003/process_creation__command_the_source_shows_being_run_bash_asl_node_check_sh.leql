@@ -1,0 +1,1 @@
+where(process.exe_path=/^.*\/bash$/i AND process.cmd_line=/^.*asl-node-check\.sh.*$/i)

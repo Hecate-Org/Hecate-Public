@@ -1,0 +1,29 @@
+title: Detection of CVE-2026-109618 PoC Script Artifact Creation
+id: 962bff9a-b2ef-4d30-beec-f4621ead8fe1
+status: experimental
+description: Detects the creation of files associated with the public Proof-of-Concept exploit for CVE-2026-109618
+  targeting AllStarLink 3 nodes. This rule looks for the specific script file 'asl-node-check.sh' and
+  its numbered variants, which are used to check for PHP2Shell flaws and execute remote code.
+references:
+- https://github.com/EtherHamRadio/asl-node-check
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-10-31'
+tags:
+- attack.t1027.015
+- attack.t1105
+logsource:
+  category: file_event
+detection:
+  selection:
+    TargetFilename|endswith: .sh
+  selection_poc:
+    TargetFilename|contains: asl-node-check
+  condition: selection and selection_poc
+falsepositives:
+- Legitimate ham radio administration scripts
+- System backup or configuration management tools creating shell scripts
+level: high
+hunt_id: H-0003
+hecate_review:
+  verdict: keep
+x_hecate_purple_team_validated: true

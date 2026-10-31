@@ -1,0 +1,23 @@
+title: 'Command the source shows being run: bash asl-node-check.sh'
+id: 870c8f1b-6a2b-406c-b768-ad829155134f
+status: experimental
+description: 'Deterministic rule built from a command quoted in the primary source, with no model involvement.
+  The source shows this command being run: "bash asl-node-check.sh Type your password if asked".'
+references:
+- https://github.com/EtherHamRadio/asl-node-check
+author: hecate (auto-generated from commands quoted in the source - requires analyst review)
+date: '2026-10-31'
+tags:
+- attack.t1059.004
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith: /bash
+    CommandLine|contains: asl-node-check.sh
+  condition: selection
+falsepositives:
+- Administrators or software running the same command or creating the task for legitimate reasons
+level: medium
+hunt_id: H-0003
