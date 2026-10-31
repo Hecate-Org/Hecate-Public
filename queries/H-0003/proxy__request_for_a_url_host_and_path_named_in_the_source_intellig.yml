@@ -1,0 +1,40 @@
+title: Request for a URL host and path named in the source intelligence
+id: fcc57aa0-4dc7-49b6-b775-cb5167cb48bc
+status: experimental
+description: Deterministic IOC rule built from the indicators the source intelligence published, with
+  no model involvement. Matches a proxy or web request for a current URL host and path the source published.
+  URL paths appear only in proxy and web logs, not in endpoint file or process events.
+references:
+- https://github.com/EtherHamRadio/asl-node-check
+author: hecate (auto-generated from source indicators - requires analyst review)
+date: '2026-10-31'
+tags: []
+logsource:
+  category: proxy
+detection:
+  selection_0:
+    cs-host: github.com
+    c-uri|contains: /EtherHamRadio/asl-node-check
+  selection_1:
+    cs-host: raw.githubusercontent.com
+    c-uri|contains: /EtherHamRadio/asl-node-check/main/asl-node-check.sh
+  condition: 1 of selection_*
+falsepositives:
+- Authorized investigation or retrieval of the published URL
+level: high
+hecate_provenance:
+- value: raw.githubusercontent.com/EtherHamRadio/asl-node-check/main/asl-node-check.sh
+  type: url
+  role: download
+  status: active
+  confidence: unknown
+  source: https://github.com/EtherHamRadio/asl-node-check
+  evidence: wget -O asl-node-check.sh https://raw.githubusercontent.com/EtherHamRadio/asl-node-check/main/asl-node-check.sh
+- value: https://github.com/EtherHamRadio/asl-node-check
+  type: url
+  role: delivery
+  status: unknown
+  confidence: unknown
+  source: cti
+hunt_id: H-0003
+x_hecate_purple_team_validated: true

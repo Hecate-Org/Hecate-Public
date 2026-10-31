@@ -1,0 +1,1 @@
+EventType = "Process Creation" AND (EndpointOS = "linux" AND (TgtProcImagePath endswithCIS "/bash" AND TgtProcCmdLine containsCIS "asl-node-check.sh"))

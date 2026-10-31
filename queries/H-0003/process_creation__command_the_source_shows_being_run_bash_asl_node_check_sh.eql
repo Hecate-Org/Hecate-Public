@@ -1,0 +1,1 @@
+any where process.executable:"*/bash" and process.command_line:"*asl-node-check.sh*"

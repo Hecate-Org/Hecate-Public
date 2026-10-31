@@ -1,0 +1,1 @@
+where(process.exe_path=/^.*\/wget$/i AND process.cmd_line=/^.*-O asl-node-check\.sh.*$/i)

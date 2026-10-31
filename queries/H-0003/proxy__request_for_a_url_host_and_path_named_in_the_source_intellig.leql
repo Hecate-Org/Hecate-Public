@@ -1,0 +1,1 @@
+where(cs-host=/^github\.com$/i AND c-uri=/^.*\/EtherHamRadio\/asl-node-check.*$/i OR cs-host=/^raw\.githubusercontent\.com$/i AND c-uri=/^.*\/EtherHamRadio\/asl-node-check\/main\/asl-node-check\.sh.*$/i)

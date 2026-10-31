@@ -1,0 +1,1 @@
+("cs-host"="github.com" "c-uri"="*/EtherHamRadio/asl-node-check*") OR ("cs-host"="raw.githubusercontent.com" "c-uri"="*/EtherHamRadio/asl-node-check/main/asl-node-check.sh*")

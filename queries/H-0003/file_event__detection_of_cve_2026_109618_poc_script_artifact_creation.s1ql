@@ -1,0 +1,1 @@
+ObjectType = "File" AND (EndpointOS = "windows" AND (TgtFilePath endswithCIS ".sh" AND TgtFilePath containsCIS "asl-node-check"))
