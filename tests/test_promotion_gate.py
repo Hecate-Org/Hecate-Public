@@ -206,3 +206,10 @@ class CommunityCatalogGateTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class FixtureCleanupPathTests(unittest.TestCase):
+    def test_cleanup_exception_does_not_accept_a_dangling_symlink(self):
+        with patch.object(gate, "git_changed_paths", return_value=["research/R-0100.md"]), patch.object(Path, "exists", return_value=False), patch.object(Path, "is_symlink", return_value=True):
+            with self.assertRaises(SystemExit):
+                gate.inspect_bundle("base", "head")
