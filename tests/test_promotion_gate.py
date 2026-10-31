@@ -173,5 +173,36 @@ class ReviewGateTests(unittest.TestCase):
                 gate.inspect_bundle("base", "head")
 
 
+
+class CommunityCatalogGateTests(unittest.TestCase):
+    def test_catalog_changes_require_current_human_review(self):
+        paths = ["catalog/catalog.yaml", "detections/linux/user-identity.yml", "validation/user-identity.json"]
+        with patch.object(gate, "git_changed_paths", return_value=paths):
+            result = gate.inspect_bundle("base", "head")
+        self.assertTrue(result["promotion"])
+        self.assertTrue(result["control_change"])
+        self.assertTrue(result["manual_edits"])
+        self.assertEqual(result["hunt_id"], "")
+
+    def test_catalog_cannot_smuggle_a_hunt_or_unrelated_file(self):
+        for extra in ["hunts/2026/Q4/H-9999.md", "research/R-9999.md", ".env", "unexpected.py"]:
+            with self.subTest(extra=extra), patch.object(gate, "git_changed_paths", return_value=["catalog/catalog.yaml", extra]):
+                with self.assertRaises(SystemExit):
+                    gate.inspect_bundle("base", "head")
+
+    def test_license_and_release_workflow_changes_require_review(self):
+        with patch.object(gate, "git_changed_paths", return_value=["LICENSE", "LICENSES.md", ".github/workflows/community-release.yml"]):
+            self.assertTrue(gate.inspect_bundle("base", "head")["manual_edits"])
+
+    def test_only_the_exact_known_fixture_can_be_removed_without_a_hunt_bundle(self):
+        original = '---\nresearch_id: R-0100\ntopic: Lumma Stealer\nmitre_techniques:\n  - T1059.001\nstatus: completed\ndepth: basic\nlinked_hunts:\n  - H-0010\ngrounding: web_and_local\ncreated_date: 2026-10-25T12:00:00+00:00\n---\n\n# R-0100: Lumma Stealer Analysis\nDetailed analysis of Lumma Stealer loader and C2.\n'
+        for contents, expected in [(original, True), (original + "changed", False)]:
+            with patch.object(gate, "git_changed_paths", return_value=["research/R-0100.md"]), patch.object(Path, "exists", return_value=False), patch.object(gate.subprocess, "run", return_value=SimpleNamespace(stdout=contents.encode())):
+                if expected:
+                    self.assertTrue(gate.inspect_bundle("base", "head")["manual_edits"])
+                else:
+                    with self.assertRaises(SystemExit):
+                        gate.inspect_bundle("base", "head")
+
 if __name__ == "__main__":
     unittest.main()

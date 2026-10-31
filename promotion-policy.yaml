@@ -1,5 +1,5 @@
 # Public destination: restricted TLP material and credentials are blocked before upload.
-# Unmarked source material is allowed; other quality issues retain human review.
+# Unmarked source material and quality issues require human review.
 version: 1
 target_visibility: public
 auto_merge:
@@ -14,7 +14,7 @@ risk:
   unsupported_claims: review
   tlp_amber: block
   bas_failed: review
-  unknown_tlp: allow
+  unknown_tlp: review
 review:
   minimum_approvals: 1
   allowed_associations:
