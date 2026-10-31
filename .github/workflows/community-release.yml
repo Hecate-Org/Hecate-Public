@@ -1,0 +1,148 @@
+name: Community catalog
+
+on:
+  pull_request:
+    paths: ['catalog/**', 'detections/**', 'validation/**', 'LICENSE*', '.github/workflows/community-release.yml']
+  push:
+    branches: [main]
+    paths: ['catalog/**', 'detections/**', 'validation/**', 'LICENSE*', '.github/workflows/community-release.yml']
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish after reviewing the built artifact and approving the environment
+        type: boolean
+        default: false
+      expected_source_digest:
+        description: Exact source_digest from the reviewed local release build (required to publish)
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: community-catalog-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      source_digest: ${{ steps.summary.outputs.source_digest }}
+      version: ${{ steps.summary.outputs.version }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - name: Checkout the reviewed builder
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Runner
+          ref: ${{ vars.HECATE_RUNNER_REF || 'main' }}
+          path: .runner-checkout
+          persist-credentials: false
+      - name: Checkout Core
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Core
+          ref: ${{ vars.HECATE_CORE_REF || 'main' }}
+          path: .core-checkout
+          persist-credentials: false
+      - name: Place sibling dependencies
+        run: |
+          mv .runner-checkout ../Hecate-Runner
+          mv .core-checkout ../Hecate-Core
+      - uses: astral-sh/setup-uv@v6
+      - name: Install locked build dependencies
+        run: |
+          uv python install 3.12
+          uv sync --project ../Hecate-Runner --dev --frozen --python 3.12
+      - name: Run release safety tests
+        run: uv run --project ../Hecate-Runner pytest ../Hecate-Runner/tests/test_community_release.py ../Hecate-Runner/tests/test_public_review.py -q --no-cov
+      - name: Build only the explicit catalog
+        env:
+          BUILD_DIRECTORY: ${{ runner.temp }}/community-catalog
+        run: |
+          if test -f catalog/evidence.json; then
+            uv run --project ../Hecate-Runner hecate-runner release build --catalog "$PWD" --output "$BUILD_DIRECTORY" --evidence "$PWD/catalog/evidence.json"
+          else
+            uv run --project ../Hecate-Runner hecate-runner release build --catalog "$PWD" --output "$BUILD_DIRECTORY"
+          fi
+      - name: Record the exact artifact for review
+        id: summary
+        env:
+          BUILD_DIRECTORY: ${{ runner.temp }}/community-catalog
+          EXPECTED_DIGEST: ${{ inputs.expected_source_digest }}
+          REQUEST_PUBLICATION: ${{ inputs.publish }}
+        run: |
+          python - <<'PY'
+          import json, os, pathlib, re
+          root = pathlib.Path(os.environ['BUILD_DIRECTORY'])
+          index = json.loads((root / 'index.json').read_text())
+          digest = index['source_digest']
+          if os.environ.get('REQUEST_PUBLICATION') == 'true':
+              expected = os.environ.get('EXPECTED_DIGEST', '')
+              if not re.fullmatch('[a-f0-9]{64}', expected) or expected != digest:
+                  raise SystemExit('Publication refused: inspect this build and provide its exact source_digest')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f"source_digest={digest}\nversion={index['version']}\n")
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+              summary.write(f"## Community catalog {index['version']}\n\nSource digest: `{digest}`\n\n")
+              summary.write((root / 'SHA256SUMS').read_text() + '\n\n')
+              summary.write('Download and inspect the artifact before environment approval. Native queries are templates; local lab results do not establish SIEM alerts.\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: community-catalog
+          path: ${{ runner.temp }}/community-catalog/
+          retention-days: 14
+
+  publish:
+    needs: build
+    if: github.event_name == 'workflow_dispatch' && inputs.publish && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment: community-release
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Require a real environment approval policy
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          gh api "repos/$REPOSITORY/environments/community-release" --jq '.protection_rules | map(select(.type == "required_reviewers")) | any(.reviewers | length > 0)' > /tmp/review-policy.json
+          test "$(cat /tmp/review-policy.json)" = true || { echo 'Configure required human reviewers on community-release before publishing'; exit 1; }
+      - uses: actions/download-artifact@v4
+        with:
+          name: community-catalog
+          path: release
+      - name: Publish the already-reviewed artifact
+        working-directory: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPOSITORY: ${{ github.repository }}
+          SOURCE_COMMIT: ${{ github.sha }}
+          VERSION: ${{ needs.build.outputs.version }}
+          SOURCE_DIGEST: ${{ needs.build.outputs.source_digest }}
+        run: |
+          sha256sum --check SHA256SUMS
+          python - <<'PY'
+          import hashlib, json, os, pathlib
+          manifest = json.loads(pathlib.Path('manifest.json').read_text())
+          if manifest['source_digest'] != os.environ['SOURCE_DIGEST']:
+              raise SystemExit('Artifact manifest digest changed')
+          for name, expected in manifest['files'].items():
+              path = pathlib.Path(name)
+              if path.is_absolute() or '..' in path.parts or hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+                  raise SystemExit('Artifact file checksum mismatch')
+          pathlib.Path('release-notes.md').write_text(
+              f"Experimental Linux hunting catalog {os.environ['VERSION']}.\n\n"
+              f"Reviewed source digest: {os.environ['SOURCE_DIGEST']}\n\n"
+              "Includes Sigma, native query templates, positive/negative fixtures, and scope-specific validation. "
+              "Routine administrative behavior can match these rules. Local sensor matching does not establish SIEM ingestion or alert delivery.\n"
+          )
+          PY
+          gh release create "catalog-v$VERSION" "hecate-linux-$VERSION.zip" SHA256SUMS index.json manifest.json --repo "$REPOSITORY" --target "$SOURCE_COMMIT" --title "Experimental Linux hunting catalog $VERSION" --notes-file release-notes.md

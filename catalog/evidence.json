@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "catalog_digest": "a5c46eea4f46742b908f2a5ab7aaa84fd5ce75b9144015c5eafd987b4077b263",
+  "cases": {
+    "64db563d-024c-5a8a-817c-fff5de405d79": {
+      "status": "observed_local_match",
+      "scope": "local_sensor_sigma",
+      "purpose": "catalog_sensor_control",
+      "procedure_id": "bd527b63-9f9e-46e0-9816-b8434d2b8989",
+      "technique": "T1033",
+      "rule_sha256": "a6b5d9c6da92f5b24856817f916251f8dda99acf53a79e6537f172ec4532d8f4",
+      "observed_events": 1,
+      "cleanup_confirmed": true,
+      "verified_at": "2026-10-31T21:37:31.091037+00:00",
+      "evidence_run_id": "7c60d9eaad434efbb454ee40cda157bf",
+      "agent_image": "sha256:63dbe5e24c5b8b852ddf0680032488291363c23b5b4fa975445ea0f41a909fbd",
+      "controller_image": "sha256:325249d44a93a2e0c9fa09200e1467760d4a2b548c4e74ea1e0593c9fcb1ccd3",
+      "siem_ingestion": "not_tested",
+      "alert_delivery": "not_tested"
+    },
+    "3c3122c7-3cdf-5dee-a76b-fab92b90f9e1": {
+      "status": "observed_local_match",
+      "scope": "local_sensor_sigma",
+      "purpose": "catalog_sensor_control",
+      "procedure_id": "4a0cdae7-1cf1-5990-8284-1b00a1a0a821",
+      "technique": "T1082",
+      "rule_sha256": "f575d9589be838d975655e07083569272d675f3f8548e08595d7a899eb84cb74",
+      "observed_events": 1,
+      "cleanup_confirmed": true,
+      "verified_at": "2026-10-31T21:37:37.678974+00:00",
+      "evidence_run_id": "6903f9ab28e44da681faf24d6b53f7e7",
+      "agent_image": "sha256:63dbe5e24c5b8b852ddf0680032488291363c23b5b4fa975445ea0f41a909fbd",
+      "controller_image": "sha256:325249d44a93a2e0c9fa09200e1467760d4a2b548c4e74ea1e0593c9fcb1ccd3",
+      "siem_ingestion": "not_tested",
+      "alert_delivery": "not_tested"
+    },
+    "dc298f7e-466a-5af4-ab0b-c56f220685e6": {
+      "status": "observed_local_match",
+      "scope": "local_sensor_sigma",
+      "purpose": "catalog_sensor_control",
+      "procedure_id": "335cea7b-bec0-48c6-adfb-6066070f5f68",
+      "technique": "T1057",
+      "rule_sha256": "de7450bc0ab8f7d3384a3d2d4a4b045146356423828d01e175d423f8aa99e2d3",
+      "observed_events": 1,
+      "cleanup_confirmed": true,
+      "verified_at": "2026-10-31T21:37:48.369681+00:00",
+      "evidence_run_id": "49c19f3555b04eb58d608dde46fcd0aa",
+      "agent_image": "sha256:63dbe5e24c5b8b852ddf0680032488291363c23b5b4fa975445ea0f41a909fbd",
+      "controller_image": "sha256:325249d44a93a2e0c9fa09200e1467760d4a2b548c4e74ea1e0593c9fcb1ccd3",
+      "siem_ingestion": "not_tested",
+      "alert_delivery": "not_tested"
+    },
+    "4b098cf4-c2b4-524d-aeb8-69d85f160c02": {
+      "status": "observed_local_match",
+      "scope": "local_sensor_sigma",
+      "purpose": "catalog_sensor_control",
+      "procedure_id": "9045dd95-f083-57a5-bc56-089537db8480",
+      "technique": "T1140",
+      "rule_sha256": "67cde329b7df0851d585f9e8e6b937d490427aceedae88db699a73d382250365",
+      "observed_events": 1,
+      "cleanup_confirmed": true,
+      "verified_at": "2026-10-31T21:37:58.936968+00:00",
+      "evidence_run_id": "85010655fdf644e4a8332a00be438077",
+      "agent_image": "sha256:63dbe5e24c5b8b852ddf0680032488291363c23b5b4fa975445ea0f41a909fbd",
+      "controller_image": "sha256:325249d44a93a2e0c9fa09200e1467760d4a2b548c4e74ea1e0593c9fcb1ccd3",
+      "siem_ingestion": "not_tested",
+      "alert_delivery": "not_tested"
+    }
+  }
+}
