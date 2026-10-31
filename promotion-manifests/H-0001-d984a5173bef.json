@@ -1,0 +1,18 @@
+{
+  "auto_merge": false,
+  "files": [
+    "hunts/2026/Q4/H-0001.md",
+    "research/R-0100.md"
+  ],
+  "hunt_id": "H-0001",
+  "merge_method": "squash",
+  "promotion_reasons": [
+    "no Sigma rule was generated for this hunt"
+  ],
+  "publisher": "hecate-runner",
+  "review_required": true,
+  "schema_version": 1,
+  "sha256": "d984a5173befaf175e5a8e77f5353bbe21755ed661fce606a60fabaa6eef885f",
+  "target_repository": "Hecate-Org/Hecate-Public",
+  "target_visibility": "public"
+}
