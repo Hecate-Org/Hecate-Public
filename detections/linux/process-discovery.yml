@@ -1,0 +1,24 @@
+title: Linux Process Discovery With Ps
+id: dc298f7e-466a-5af4-ab0b-c56f220685e6
+status: experimental
+description: A low-specificity Linux hunting building block. This behavior is also
+  routine administration; a match alone does not establish malicious activity. Validate
+  local telemetry and combine with context before alerting.
+references:
+- https://github.com/Hecate-Org/Hecate-Runner/blob/main/src/hecate_runner/bas/approved.py
+author: Hecate contributors
+date: '2026-10-31'
+tags:
+- attack.discovery
+- attack.t1057
+logsource:
+  product: linux
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: /ps
+  condition: selection
+falsepositives:
+- Process monitoring and troubleshooting
+- Service health and administration scripts
+level: low

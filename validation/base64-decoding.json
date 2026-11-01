@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "synthetic": true,
+  "positive": [
+    {
+      "data_source": "process_creation",
+      "product": "linux",
+      "Image": "/usr/bin/base64",
+      "CommandLine": "base64 -d"
+    },
+    {
+      "data_source": "process_creation",
+      "product": "linux",
+      "Image": "/bin/base64",
+      "CommandLine": "base64 --decode"
+    }
+  ],
+  "negative": [
+    {
+      "data_source": "process_creation",
+      "product": "linux",
+      "Image": "/usr/bin/printf",
+      "CommandLine": "printf hecate-negative-control"
+    },
+    {
+      "data_source": "process_creation",
+      "product": "linux",
+      "Image": "/usr/bin/base64",
+      "CommandLine": "base64 hecate-marker.txt"
+    }
+  ]
+}
