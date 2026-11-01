@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where FolderPath endswith "/chmod" and ProcessCommandLine contains "/data/local/tmp/ghostlock_static"

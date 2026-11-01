@@ -1,0 +1,1 @@
+any where process.executable:"*/chmod" and process.command_line:"*/data/local/tmp/ghostlock_static*"
