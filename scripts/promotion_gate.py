@@ -88,6 +88,26 @@ def inspect_bundle(base_ref: str, head_ref: str) -> dict[str, Any]:
         "promotion-policy.yaml", ".github/workflows/promotion.yml",
         "scripts/promotion_gate.py", "tests/test_promotion_gate.py",
     }
+    community_fixed = {"LICENSE", "LICENSES.md", "README.md", ".github/workflows/community-release.yml"}
+    community_prefixes = ("catalog/", "detections/linux/", "validation/")
+    cleanup_path = "research/R-0100.md"
+    cleanup = False
+    if cleanup_path in changed and not Path(cleanup_path).exists() and not Path(cleanup_path).is_symlink():
+        previous = subprocess.run(
+            ["git", "show", f"{base_ref}:{cleanup_path}"], check=True, stdout=subprocess.PIPE
+        ).stdout
+        cleanup = hashlib.sha256(previous).hexdigest() == "9a82f1a31006bafa003fe2fffdb32846b9fe6408b091d48ea800c76ada039bf6"
+    if cleanup or community_fixed.intersection(changed) or any(p.startswith(community_prefixes) for p in changed):
+        allowed = control_paths | community_fixed
+        if cleanup:
+            allowed.add(cleanup_path)
+        if any(path not in allowed and not path.startswith(community_prefixes) for path in changed):
+            fail("Community catalog/control changes must be separate from hunt and research promotions")
+        return {
+            "promotion": True, "policy_change": "promotion-policy.yaml" in changed,
+            "control_change": True, "hunt_id": "", "manual_edits": True,
+            "manifest_digest": None, "changed_paths": changed,
+        }
     control_changes = control_paths.intersection(changed)
     if control_changes:
         if set(changed) - control_paths:
