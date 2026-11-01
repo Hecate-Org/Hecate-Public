@@ -1,0 +1,23 @@
+title: 'Command the source shows being run: cp target/aarch64-linux-android/release/t98260'
+id: ac81b166-05ff-4809-adf1-fcd339b883c1
+status: experimental
+description: 'Deterministic rule built from a command quoted in the primary source, with no model involvement.
+  The source shows this command being run: "cp target/aarch64-linux-android/release/t98260 ../../app/app/src/main/assets/pyb110/t98260
+  t98260 run / run612.sh 从 /data/local/tmp/pyb110-<boot_id>-<epoch>/ 运行，读取 PYB110_MANAGER （ kernelsu".'
+references:
+- https://github.com/Yunnijian/OnePlus16-Jailbreak
+author: hecate (auto-generated from commands quoted in the source - requires analyst review)
+date: '2026-11-01'
+tags: []
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith: /cp
+    CommandLine|contains: target/aarch64-linux-android/release/t98260
+  condition: selection
+falsepositives:
+- Administrators or software running the same command or creating the task for legitimate reasons
+level: low
+hunt_id: H-0004

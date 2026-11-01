@@ -1,0 +1,1 @@
+ObjectType = "File" AND (EndpointOS = "linux" AND TgtFilePath containsCIS "/proc/susfs_path")

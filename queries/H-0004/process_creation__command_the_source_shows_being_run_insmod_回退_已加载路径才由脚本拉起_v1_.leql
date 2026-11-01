@@ -1,0 +1,1 @@
+where(process.exe_path=/^.*\/insmod$/i AND process.cmd_line=/^.*回退\/已加载路径才由脚本拉起）；v1\.24.*$/i)

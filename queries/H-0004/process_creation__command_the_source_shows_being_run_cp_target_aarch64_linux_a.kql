@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where FolderPath endswith "/cp" and ProcessCommandLine contains "target/aarch64-linux-android/release/t98260"

@@ -1,0 +1,29 @@
+title: 'File event for uncovered artifact path: /proc/susfs_path'
+id: 0873a3a5-64cf-4bc0-8539-fb58f8a731e5
+status: experimental
+description: 'Pass 2 rule auto-generated for uncovered behavior: Detects file creation, modification,
+  or artifact staging at ''/proc/susfs_path''.'
+references:
+- https://github.com/Yunnijian/OnePlus16-Jailbreak
+author: hecate (auto-generated pass 2 from uncovered review behaviors - requires analyst review)
+date: '2026-11-01'
+tags:
+- attack.t1059.004
+- attack.t1113
+- attack.t1190
+- attack.t1027.015
+- attack.t1567.001
+- attack.t1203
+- attack.t1082
+logsource:
+  category: file_event
+  product: linux
+detection:
+  selection:
+    TargetFilename|contains: /proc/susfs_path
+  condition: selection
+falsepositives:
+- Legitimate system administration or authorized tool activity matching the path
+level: high
+hunt_id: H-0004
+x_hecate_purple_team_validated: true

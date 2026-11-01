@@ -1,0 +1,2 @@
+DeviceFileEvents
+| where FolderPath contains "KernelSU_v3.3.1-27-gdb6263d3_32707-release.apk"

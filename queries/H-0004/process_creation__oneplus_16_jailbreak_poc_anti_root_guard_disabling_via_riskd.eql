@@ -1,0 +1,1 @@
+any where (process.command_line like~ ("*stop riskdetect*", "*rmmod oplus_secure_guard_new*")) or (process.command_line like~ ("*su -c 'stop riskdetect'*", "*su -c stop riskdetect*"))

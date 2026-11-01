@@ -1,0 +1,23 @@
+title: 'Command the source shows being run: bash lkm/build-next.sh'
+id: d37fa34b-630b-44eb-8c0c-6abb11112505
+status: experimental
+description: 'Deterministic rule built from a command quoted in the primary source, with no model involvement.
+  The source shows this command being run: "bash lkm/build-next.sh".'
+references:
+- https://github.com/Yunnijian/OnePlus16-Jailbreak
+author: hecate (auto-generated from commands quoted in the source - requires analyst review)
+date: '2026-11-01'
+tags:
+- attack.t1059.004
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith: /bash
+    CommandLine|contains: lkm/build-next.sh
+  condition: selection
+falsepositives:
+- Administrators or software running the same command or creating the task for legitimate reasons
+level: medium
+hunt_id: H-0004

@@ -1,0 +1,1 @@
+EventType = "Process Creation" AND (EndpointOS = "linux" AND ((TgtProcCmdLine containsCIS "stop riskdetect" OR TgtProcCmdLine containsCIS "rmmod oplus_secure_guard_new") OR (TgtProcCmdLine containsCIS "su -c 'stop riskdetect'" OR TgtProcCmdLine containsCIS "su -c stop riskdetect")))

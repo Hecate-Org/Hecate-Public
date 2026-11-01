@@ -1,0 +1,23 @@
+title: 'Command the source shows being run: insmod / /data/adb/ksud'
+id: dd8a9a8f-b2f1-41ec-bf4f-f342b4544add
+status: experimental
+description: 'Deterministic rule built from a command quoted in the primary source, with no model involvement.
+  The source shows this command being run: "insmod / /data/adb/ksud /裸 insmod （ expose_proc=1 ），用 /sys/module/susfs_guard_lkm
+  或 /proc/susfs_kstat / /proc/susfs_path".'
+references:
+- https://github.com/Yunnijian/OnePlus16-Jailbreak
+author: hecate (auto-generated from commands quoted in the source - requires analyst review)
+date: '2026-11-01'
+tags: []
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith: /insmod
+    CommandLine|contains: / /data/adb/ksud
+  condition: selection
+falsepositives:
+- Administrators or software running the same command or creating the task for legitimate reasons
+level: high
+hunt_id: H-0004

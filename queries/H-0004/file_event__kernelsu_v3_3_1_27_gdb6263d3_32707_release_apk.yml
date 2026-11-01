@@ -1,0 +1,29 @@
+title: 'File event for uncovered artifact path: KernelSU_v3.3.1-27-gdb6263d3_32707-release.apk'
+id: 12e4a2ab-a048-4d54-a69e-7c7a7d45d0f8
+status: experimental
+description: 'Pass 2 rule auto-generated for uncovered behavior: Detects file creation, modification,
+  or artifact staging at ''KernelSU_v3.3.1-27-gdb6263d3_32707-release.apk''.'
+references:
+- https://github.com/Yunnijian/OnePlus16-Jailbreak
+author: hecate (auto-generated pass 2 from uncovered review behaviors - requires analyst review)
+date: '2026-11-01'
+tags:
+- attack.t1059.004
+- attack.t1113
+- attack.t1190
+- attack.t1027.015
+- attack.t1567.001
+- attack.t1203
+- attack.t1082
+logsource:
+  category: file_event
+  product: linux
+detection:
+  selection:
+    TargetFilename|contains: KernelSU_v3.3.1-27-gdb6263d3_32707-release.apk
+  condition: selection
+falsepositives:
+- Legitimate system administration or authorized tool activity matching the path
+level: high
+hunt_id: H-0004
+x_hecate_purple_team_validated: true

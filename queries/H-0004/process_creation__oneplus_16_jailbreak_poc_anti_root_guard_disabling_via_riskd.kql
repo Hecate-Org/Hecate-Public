@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where (ProcessCommandLine contains "stop riskdetect" or ProcessCommandLine contains "rmmod oplus_secure_guard_new") or (ProcessCommandLine contains "su -c 'stop riskdetect'" or ProcessCommandLine contains "su -c stop riskdetect")
