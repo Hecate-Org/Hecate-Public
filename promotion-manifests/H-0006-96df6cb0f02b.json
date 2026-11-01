@@ -1,0 +1,40 @@
+{
+  "auto_merge": false,
+  "files": [
+    "hunts/2026/Q4/H-0006.md",
+    "queries/H-0006/process_creation__command_the_source_shows_being_run_python3_m_unittest.cql",
+    "queries/H-0006/process_creation__command_the_source_shows_being_run_python3_m_unittest.eql",
+    "queries/H-0006/process_creation__command_the_source_shows_being_run_python3_m_unittest.kql",
+    "queries/H-0006/process_creation__command_the_source_shows_being_run_python3_m_unittest.leql",
+    "queries/H-0006/process_creation__command_the_source_shows_being_run_python3_m_unittest.s1ql",
+    "queries/H-0006/process_creation__command_the_source_shows_being_run_python3_m_unittest.spl",
+    "queries/H-0006/process_creation__command_the_source_shows_being_run_python3_m_unittest.yml",
+    "queries/H-0006/process_creation__execution_of_cve_2025_29927_next_js_auth_bypass_poc_via_pyth.cql",
+    "queries/H-0006/process_creation__execution_of_cve_2025_29927_next_js_auth_bypass_poc_via_pyth.eql",
+    "queries/H-0006/process_creation__execution_of_cve_2025_29927_next_js_auth_bypass_poc_via_pyth.kql",
+    "queries/H-0006/process_creation__execution_of_cve_2025_29927_next_js_auth_bypass_poc_via_pyth.leql",
+    "queries/H-0006/process_creation__execution_of_cve_2025_29927_next_js_auth_bypass_poc_via_pyth.s1ql",
+    "queries/H-0006/process_creation__execution_of_cve_2025_29927_next_js_auth_bypass_poc_via_pyth.spl",
+    "queries/H-0006/process_creation__execution_of_cve_2025_29927_next_js_auth_bypass_poc_via_pyth.yml",
+    "queries/H-0006/webserver__detection_of_cve_2025_29927_nextjs_middleware_auth_bypass_header.cql",
+    "queries/H-0006/webserver__detection_of_cve_2025_29927_nextjs_middleware_auth_bypass_header.eql",
+    "queries/H-0006/webserver__detection_of_cve_2025_29927_nextjs_middleware_auth_bypass_header.kql",
+    "queries/H-0006/webserver__detection_of_cve_2025_29927_nextjs_middleware_auth_bypass_header.leql",
+    "queries/H-0006/webserver__detection_of_cve_2025_29927_nextjs_middleware_auth_bypass_header.spl",
+    "queries/H-0006/webserver__detection_of_cve_2025_29927_nextjs_middleware_auth_bypass_header.yml",
+    "research/R-0105.md"
+  ],
+  "hunt_id": "H-0006",
+  "merge_method": "squash",
+  "promotion_reasons": [
+    "source CTI is missing from the hunt",
+    "grounding audit found 1 unsupported claim(s)",
+    "source has no explicit TLP marking"
+  ],
+  "publisher": "hecate-runner",
+  "review_required": true,
+  "schema_version": 1,
+  "sha256": "96df6cb0f02bc48495801fb3470e496b6a2a364c879542710da06f63cd448b38",
+  "target_repository": "Hecate-Org/Hecate-Public",
+  "target_visibility": "public"
+}
