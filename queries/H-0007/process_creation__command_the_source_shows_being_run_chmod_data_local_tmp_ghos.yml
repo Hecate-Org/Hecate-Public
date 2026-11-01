@@ -1,0 +1,23 @@
+title: 'Command the source shows being run: chmod /data/local/tmp/ghostlock_static'
+id: 81a37c97-b4a3-48d1-9241-6330d7f15cdc
+status: experimental
+description: 'Deterministic rule built from a command quoted in the primary source, with no model involvement.
+  The source shows this command being run: "chmod 755 /data/local/tmp/ghostlock_static " adb shell " /data/local/tmp/ghostlock_static
+  " Success looks like: [+]".'
+references:
+- https://github.com/RetributionByRevenue/motogstylus2023-root
+author: hecate (auto-generated from commands quoted in the source - requires analyst review)
+date: '2026-11-01'
+tags: []
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith: /chmod
+    CommandLine|contains: /data/local/tmp/ghostlock_static
+  condition: selection
+falsepositives:
+- Administrators or software running the same command or creating the task for legitimate reasons
+level: low
+hunt_id: H-0007
