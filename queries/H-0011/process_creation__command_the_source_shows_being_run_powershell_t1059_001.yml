@@ -1,0 +1,22 @@
+title: 'Command the source shows being run: powershell (T1059.001'
+id: ba072b6a-a18e-4023-ae61-c4b16d1a1a50
+status: experimental
+description: 'Deterministic rule built from a command quoted in the primary source, with no model involvement.
+  The source shows this command being run: "powershell (T1059.001) on compromised Windows hosts".'
+references: []
+author: hecate (auto-generated from commands quoted in the source - requires analyst review)
+date: '2026-11-02'
+tags:
+- attack.t1059.001
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    Image|endswith: \powershell.exe
+    CommandLine|contains: (T1059.001
+  condition: selection
+falsepositives:
+- Administrators or software running the same command or creating the task for legitimate reasons
+level: medium
+hunt_id: H-0011

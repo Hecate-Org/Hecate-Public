@@ -1,0 +1,1 @@
+EventType = "Process Creation" AND (EndpointOS = "windows" AND (TgtProcImagePath endswithCIS "\powershell.exe" AND TgtProcCmdLine containsCIS "(T1059.001"))

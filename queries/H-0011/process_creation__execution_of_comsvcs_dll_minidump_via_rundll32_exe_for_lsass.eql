@@ -1,0 +1,1 @@
+any where process.executable.caseless:"*\\rundll32.exe" and process.command_line:"*comsvcs.dll*" and process.command_line:"*MiniDump*"

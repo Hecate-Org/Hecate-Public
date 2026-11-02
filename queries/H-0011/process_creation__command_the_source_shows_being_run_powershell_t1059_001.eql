@@ -1,0 +1,1 @@
+any where process.executable.caseless:"*\\powershell.exe" and process.command_line:"*(T1059.001*"

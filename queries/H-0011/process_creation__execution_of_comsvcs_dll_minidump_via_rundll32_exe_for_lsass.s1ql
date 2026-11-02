@@ -1,0 +1,1 @@
+EventType = "Process Creation" AND (EndpointOS = "windows" AND (TgtProcImagePath endswithCIS "\rundll32.exe" AND TgtProcCmdLine containsCIS "comsvcs.dll" AND TgtProcCmdLine containsCIS "MiniDump"))
