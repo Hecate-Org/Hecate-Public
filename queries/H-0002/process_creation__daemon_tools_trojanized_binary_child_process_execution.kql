@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where (InitiatingProcessFolderPath endswith "\\DiscSoftBusServiceLite.exe" or InitiatingProcessFolderPath endswith "\\DTHelper.exe" or InitiatingProcessFolderPath endswith "\\DTShellHlp.exe") and ((FolderPath endswith "\\cmd.exe" or FolderPath endswith "\\powershell.exe" or FolderPath endswith "\\pwsh.exe" or FolderPath endswith "\\envchk.exe" or FolderPath endswith "\\cdg.exe") and (ProcessCommandLine contains "envchk" or ProcessCommandLine contains "env_check_script" or ProcessCommandLine contains "cdg.exe"))

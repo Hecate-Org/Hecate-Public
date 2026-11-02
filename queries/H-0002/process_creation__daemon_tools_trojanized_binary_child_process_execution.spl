@@ -1,0 +1,1 @@
+ParentImage IN ("*\\DiscSoftBusServiceLite.exe", "*\\DTHelper.exe", "*\\DTShellHlp.exe") Image IN ("*\\cmd.exe", "*\\powershell.exe", "*\\pwsh.exe", "*\\envchk.exe", "*\\cdg.exe") CommandLine IN ("*envchk*", "*env_check_script*", "*cdg.exe*")

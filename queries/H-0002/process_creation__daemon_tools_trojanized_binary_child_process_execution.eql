@@ -1,0 +1,1 @@
+any where (process.parent.executable.caseless like~ ("*\\DiscSoftBusServiceLite.exe", "*\\DTHelper.exe", "*\\DTShellHlp.exe")) and ((process.executable.caseless like~ ("*\\cmd.exe", "*\\powershell.exe", "*\\pwsh.exe", "*\\envchk.exe", "*\\cdg.exe")) and (process.command_line like~ ("*envchk*", "*env_check_script*", "*cdg.exe*")))

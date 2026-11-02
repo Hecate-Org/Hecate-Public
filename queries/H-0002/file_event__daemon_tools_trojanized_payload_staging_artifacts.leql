@@ -1,0 +1,1 @@
+where(file.path=/^.*\\envchk\.exe$/i OR file.path=/^.*\\cdg\.exe$/i OR file.path=/^.*\\cdg\.tmp$/i OR file.path=/^.*\\mcrypto\.chiper$/i OR file.path=/^.*\\mcrypto\.dat$/i OR Hashes=/^.*a916e56121212613d17932e124b68752c9312e73bde8f2351054bd64394257df.*$/i OR Hashes=/^.*12edcaafab7703d0819b1395f45c35e3083dd83fb8b128292cb11033453fb6e8.*$/i)

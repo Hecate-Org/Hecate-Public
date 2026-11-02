@@ -1,0 +1,41 @@
+title: Trojanized DAEMON Tools Core Executable Spawning Secondary Processes
+id: 7c5d3198-4421-4f11-89d2-b010d9f48512
+status: experimental
+description: Detects core DAEMON Tools Lite executables (DiscSoftBusServiceLite.exe, DTHelper.exe, DTShellHlp.exe) spawning interactive shells or known secondary payload executables (envchk.exe, cdg.exe) as observed in CVE-2026-8398 supply chain attacks.
+references:
+- https://vulncheck.com/cve/CVE-2026-8398
+- https://nvd.nist.gov/vuln/detail/CVE-2026-8398
+author: hecate (grounded rerun)
+date: '2026-11-02'
+tags:
+- attack.t1195.002
+- attack.t1059.001
+- attack.t1059.003
+- attack.t1082
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_parent:
+    ParentImage|endswith:
+    - \DiscSoftBusServiceLite.exe
+    - \DTHelper.exe
+    - \DTShellHlp.exe
+  selection_child:
+    Image|endswith:
+    - \cmd.exe
+    - \powershell.exe
+    - \pwsh.exe
+    - \envchk.exe
+    - \cdg.exe
+    CommandLine|contains:
+    - envchk
+    - env_check_script
+    - cdg.exe
+  condition: selection_parent and selection_child
+falsepositives:
+- Legitimate vendor updater or diagnostic scripts invoked during installation or upgrades.
+level: high
+hunt_id: H-0002
+hecate_review:
+  verdict: keep

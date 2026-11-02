@@ -1,0 +1,1 @@
+ObjectType = "DNS" AND (EndpointOS = "windows" AND DnsRequest = "env-check.daemontools.cc")
