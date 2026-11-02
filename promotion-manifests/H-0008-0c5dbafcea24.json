@@ -1,0 +1,43 @@
+{
+  "auto_merge": false,
+  "files": [
+    "hunts/2026/Q4/H-0008.md",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_analyze_pca.cql",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_analyze_pca.eql",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_analyze_pca.kql",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_analyze_pca.leql",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_analyze_pca.s1ql",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_analyze_pca.spl",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_analyze_pca.yml",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_kaslr_resol.cql",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_kaslr_resol.eql",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_kaslr_resol.kql",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_kaslr_resol.leql",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_kaslr_resol.s1ql",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_kaslr_resol.spl",
+    "queries/H-0008/process_creation__command_the_source_shows_being_run_python3_tools_kaslr_resol.yml",
+    "queries/H-0008/process_creation__execution_of_cve_2026_98432_linux_kernel_exploit_poc.cql",
+    "queries/H-0008/process_creation__execution_of_cve_2026_98432_linux_kernel_exploit_poc.eql",
+    "queries/H-0008/process_creation__execution_of_cve_2026_98432_linux_kernel_exploit_poc.kql",
+    "queries/H-0008/process_creation__execution_of_cve_2026_98432_linux_kernel_exploit_poc.leql",
+    "queries/H-0008/process_creation__execution_of_cve_2026_98432_linux_kernel_exploit_poc.s1ql",
+    "queries/H-0008/process_creation__execution_of_cve_2026_98432_linux_kernel_exploit_poc.spl",
+    "queries/H-0008/process_creation__execution_of_cve_2026_98432_linux_kernel_exploit_poc.yml",
+    "queries/H-0008/proxy__request_for_a_url_host_and_path_named_in_the_source_intellig.cql",
+    "queries/H-0008/proxy__request_for_a_url_host_and_path_named_in_the_source_intellig.leql",
+    "queries/H-0008/proxy__request_for_a_url_host_and_path_named_in_the_source_intellig.spl",
+    "queries/H-0008/proxy__request_for_a_url_host_and_path_named_in_the_source_intellig.yml",
+    "research/R-0110.md"
+  ],
+  "hunt_id": "H-0008",
+  "merge_method": "squash",
+  "promotion_reasons": [
+    "source has no explicit TLP marking"
+  ],
+  "publisher": "hecate-runner",
+  "review_required": true,
+  "schema_version": 1,
+  "sha256": "0c5dbafcea2470f6c25923eb3c496db4f77186dcd607484b6529137862108abc",
+  "target_repository": "Hecate-Org/Hecate-Public",
+  "target_visibility": "public"
+}

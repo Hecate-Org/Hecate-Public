@@ -1,0 +1,40 @@
+{
+  "auto_merge": false,
+  "files": [
+    "hunts/2026/Q4/H-0005.md",
+    "queries/H-0005/network_connection__powershell_direct_outbound_web_session.cql",
+    "queries/H-0005/network_connection__powershell_direct_outbound_web_session.eql",
+    "queries/H-0005/network_connection__powershell_direct_outbound_web_session.kql",
+    "queries/H-0005/network_connection__powershell_direct_outbound_web_session.leql",
+    "queries/H-0005/network_connection__powershell_direct_outbound_web_session.s1ql",
+    "queries/H-0005/network_connection__powershell_direct_outbound_web_session.spl",
+    "queries/H-0005/network_connection__powershell_direct_outbound_web_session.yml",
+    "queries/H-0005/process_creation__powershell_hidden_encoded_command_line_cradle.cql",
+    "queries/H-0005/process_creation__powershell_hidden_encoded_command_line_cradle.eql",
+    "queries/H-0005/process_creation__powershell_hidden_encoded_command_line_cradle.kql",
+    "queries/H-0005/process_creation__powershell_hidden_encoded_command_line_cradle.leql",
+    "queries/H-0005/process_creation__powershell_hidden_encoded_command_line_cradle.s1ql",
+    "queries/H-0005/process_creation__powershell_hidden_encoded_command_line_cradle.spl",
+    "queries/H-0005/process_creation__powershell_hidden_encoded_command_line_cradle.yml",
+    "queries/H-0005/process_creation__powershell_web_download_cradle_in_memory_execution.cql",
+    "queries/H-0005/process_creation__powershell_web_download_cradle_in_memory_execution.eql",
+    "queries/H-0005/process_creation__powershell_web_download_cradle_in_memory_execution.kql",
+    "queries/H-0005/process_creation__powershell_web_download_cradle_in_memory_execution.leql",
+    "queries/H-0005/process_creation__powershell_web_download_cradle_in_memory_execution.s1ql",
+    "queries/H-0005/process_creation__powershell_web_download_cradle_in_memory_execution.spl",
+    "queries/H-0005/process_creation__powershell_web_download_cradle_in_memory_execution.yml",
+    "research/R-0005.md"
+  ],
+  "hunt_id": "H-0005",
+  "merge_method": "squash",
+  "promotion_reasons": [
+    "live adversary emulation verification failed (detection_miss)",
+    "source has no explicit TLP marking"
+  ],
+  "publisher": "hecate-runner",
+  "review_required": true,
+  "schema_version": 1,
+  "sha256": "ac5226d5c1b7be150b15338d0ec28ea3f65f4407cb2d47c821ff838f189b5ce6",
+  "target_repository": "Hecate-Org/Hecate-Public",
+  "target_visibility": "public"
+}
