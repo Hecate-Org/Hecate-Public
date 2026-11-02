@@ -1,0 +1,33 @@
+title: PowerShell Process Direct Outbound Web Connection
+id: 9a8c14f0-4102-4d51-99ee-7d12a688b190
+status: experimental
+description: Detects powershell.exe or pwsh.exe establishing outbound network connections on standard web ports, indicative of live C2 beaconing or file retrieval via download cradle.
+references:
+- https://attack.mitre.org/techniques/T1059/001/
+- https://attack.mitre.org/techniques/T1071/001/
+author: hecate (grounded rerun)
+date: '2026-11-02'
+tags:
+- attack.t1059.001
+- attack.t1071.001
+logsource:
+  category: network_connection
+  product: windows
+detection:
+  selection_proc:
+    Image|endswith:
+    - \powershell.exe
+    - \pwsh.exe
+  selection_port:
+    DestinationPort:
+    - 80
+    - 443
+    - 8080
+    - 8443
+  condition: selection_proc and selection_port
+falsepositives:
+- Legitimate administrative scripts retrieving package dependencies (e.g. Install-Module from PSGallery).
+level: medium
+hunt_id: H-0005
+hecate_review:
+  verdict: keep

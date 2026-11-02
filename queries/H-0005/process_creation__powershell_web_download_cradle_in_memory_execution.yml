@@ -1,0 +1,41 @@
+title: PowerShell Web Download Cradle with In-Memory Execution
+id: c19e782a-3381-42e9-8255-7096d24f0141
+status: experimental
+description: Detects PowerShell command line invocations combining web download methods (Net.WebClient, DownloadString, Invoke-WebRequest, Invoke-RestMethod) with in-memory execution evaluation (IEX, Invoke-Expression).
+references:
+- https://attack.mitre.org/techniques/T1059/001/
+- https://attack.mitre.org/techniques/T1105/
+author: hecate (grounded rerun)
+date: '2026-11-02'
+tags:
+- attack.t1059.001
+- attack.t1105
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection_proc:
+    Image|endswith:
+    - \powershell.exe
+    - \pwsh.exe
+  selection_download:
+    CommandLine|contains:
+    - DownloadString
+    - DownloadFile
+    - DownloadData
+    - Invoke-WebRequest
+    - Invoke-RestMethod
+    - Net.WebClient
+    - Start-BitsTransfer
+  selection_exec:
+    CommandLine|contains:
+    - IEX
+    - Invoke-Expression
+    - .Invoke(
+  condition: selection_proc and selection_download and selection_exec
+falsepositives:
+- Legitimate administrative provisioning or software installation scripts deployed via system management platforms (SCCM, Intune, Ansible).
+level: high
+hunt_id: H-0005
+hecate_review:
+  verdict: keep

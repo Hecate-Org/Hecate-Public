@@ -1,0 +1,1 @@
+Image IN ("*\\powershell.exe", "*\\pwsh.exe") DestinationPort IN (80, 443, 8080, 8443)
