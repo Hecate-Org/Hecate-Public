@@ -1,0 +1,23 @@
+title: 'Command the source shows being run: python3 tools/kaslr_resolve.py'
+id: a8eab739-3974-4696-8576-ddfc64069ec8
+status: experimental
+description: 'Deterministic rule built from a command quoted in the primary source, with no model involvement.
+  The source shows this command being run: "python3 tools/kaslr_resolve.py System.map 0xffffffff9a2b3c4d
+  undefined Suricata rules are in `tools/suricata.rules`".'
+references:
+- https://github.com/H1z3-br0/CVE-2026-98432
+author: hecate (auto-generated from commands quoted in the source - requires analyst review)
+date: '2026-11-02'
+tags: []
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith: /python3
+    CommandLine|contains: tools/kaslr_resolve.py
+  condition: selection
+falsepositives:
+- Administrators or software running the same command or creating the task for legitimate reasons
+level: low
+hunt_id: H-0009

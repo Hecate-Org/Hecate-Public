@@ -1,0 +1,1 @@
+ObjectType = "File" AND (EndpointOS = "linux" AND TgtFilePath endswithCIS "/bin/cve_2026_98432")
