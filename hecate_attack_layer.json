@@ -111,13 +111,13 @@
     {
       "techniqueID": "T1053.005",
       "tactic": "execution",
-      "comment": "Hunts: H-0909 | 1 queries",
+      "comment": "Hunts: H-0010 | 1 queries",
       "enabled": true,
       "score": 1,
       "metadata": [
         {
           "name": "hunts",
-          "value": "H-0909"
+          "value": "H-0010"
         },
         {
           "name": "hunt_count",
@@ -279,13 +279,13 @@
     {
       "techniqueID": "T1059.007",
       "tactic": "execution",
-      "comment": "Hunts: H-0006, H-0909 | 2 queries",
+      "comment": "Hunts: H-0006, H-0010 | 2 queries",
       "enabled": true,
       "score": 2,
       "metadata": [
         {
           "name": "hunts",
-          "value": "H-0006, H-0909"
+          "value": "H-0006, H-0010"
         },
         {
           "name": "hunt_count",
@@ -335,13 +335,13 @@
     {
       "techniqueID": "T1204.002",
       "tactic": "execution",
-      "comment": "Hunts: H-0001, H-0909",
+      "comment": "Hunts: H-0001, H-0010",
       "enabled": true,
       "score": 2,
       "metadata": [
         {
           "name": "hunts",
-          "value": "H-0001, H-0909"
+          "value": "H-0001, H-0010"
         },
         {
           "name": "hunt_count",
@@ -363,13 +363,13 @@
     {
       "techniqueID": "T1053.005",
       "tactic": "persistence",
-      "comment": "Hunts: H-0909 | 1 queries",
+      "comment": "Hunts: H-0010 | 1 queries",
       "enabled": true,
       "score": 1,
       "metadata": [
         {
           "name": "hunts",
-          "value": "H-0909"
+          "value": "H-0010"
         },
         {
           "name": "hunt_count",
@@ -727,13 +727,13 @@
     {
       "techniqueID": "T1003.002",
       "tactic": "credential-access",
-      "comment": "Hunts: H-0909 | 1 queries",
+      "comment": "Hunts: H-0010 | 1 queries",
       "enabled": true,
       "score": 1,
       "metadata": [
         {
           "name": "hunts",
-          "value": "H-0909"
+          "value": "H-0010"
         },
         {
           "name": "hunt_count",
@@ -811,13 +811,13 @@
     {
       "techniqueID": "T1187",
       "tactic": "credential-access",
-      "comment": "Hunts: H-0909 | 2 queries",
+      "comment": "Hunts: H-0010 | 2 queries",
       "enabled": true,
       "score": 1,
       "metadata": [
         {
           "name": "hunts",
-          "value": "H-0909"
+          "value": "H-0010"
         },
         {
           "name": "hunt_count",
@@ -839,13 +839,13 @@
     {
       "techniqueID": "T1555.003",
       "tactic": "credential-access",
-      "comment": "Hunts: H-0909 | 1 queries",
+      "comment": "Hunts: H-0010 | 1 queries",
       "enabled": true,
       "score": 1,
       "metadata": [
         {
           "name": "hunts",
-          "value": "H-0909"
+          "value": "H-0010"
         },
         {
           "name": "hunt_count",
@@ -951,13 +951,13 @@
     {
       "techniqueID": "T1033",
       "tactic": "discovery",
-      "comment": "Hunts: H-0001, H-0909",
+      "comment": "Hunts: H-0001, H-0010",
       "enabled": true,
       "score": 2,
       "metadata": [
         {
           "name": "hunts",
-          "value": "H-0001, H-0909"
+          "value": "H-0001, H-0010"
         },
         {
           "name": "hunt_count",
@@ -1119,13 +1119,13 @@
     {
       "techniqueID": "T1482",
       "tactic": "discovery",
-      "comment": "Hunts: H-0909 | 1 queries",
+      "comment": "Hunts: H-0010 | 1 queries",
       "enabled": true,
       "score": 1,
       "metadata": [
         {
           "name": "hunts",
-          "value": "H-0909"
+          "value": "H-0010"
         },
         {
           "name": "hunt_count",
@@ -1259,13 +1259,13 @@
     {
       "techniqueID": "T1071.001",
       "tactic": "command-and-control",
-      "comment": "Hunts: H-0001, H-0002, H-0005, H-0909 | 5 queries",
+      "comment": "Hunts: H-0001, H-0002, H-0005, H-0010 | 5 queries",
       "enabled": true,
       "score": 4,
       "metadata": [
         {
           "name": "hunts",
-          "value": "H-0001, H-0002, H-0005, H-0909"
+          "value": "H-0001, H-0002, H-0005, H-0010"
         },
         {
           "name": "hunt_count",
@@ -1371,13 +1371,13 @@
     {
       "techniqueID": "T1572",
       "tactic": "command-and-control",
-      "comment": "Hunts: H-0909 | 1 queries",
+      "comment": "Hunts: H-0010 | 1 queries",
       "enabled": true,
       "score": 1,
       "metadata": [
         {
           "name": "hunts",
-          "value": "H-0909"
+          "value": "H-0010"
         },
         {
           "name": "hunt_count",
@@ -1465,6 +1465,18 @@
       ]
     },
     {
+      "techniqueID": "T1564",
+      "tactic": "stealth",
+      "enabled": true,
+      "showSubtechniques": true,
+      "links": [
+        {
+          "label": "MITRE ATT&CK",
+          "url": "https://attack.mitre.org/techniques/T1564"
+        }
+      ]
+    },
+    {
       "techniqueID": "T1090",
       "tactic": "command-and-control",
       "enabled": true,
@@ -1477,26 +1489,134 @@
       ]
     },
     {
-      "techniqueID": "T1059",
+      "techniqueID": "T1543",
+      "tactic": "persistence",
+      "enabled": true,
+      "showSubtechniques": true,
+      "links": [
+        {
+          "label": "MITRE ATT&CK",
+          "url": "https://attack.mitre.org/techniques/T1543"
+        }
+      ]
+    },
+    {
+      "techniqueID": "T1204",
       "tactic": "execution",
       "enabled": true,
       "showSubtechniques": true,
       "links": [
         {
           "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1059"
+          "url": "https://attack.mitre.org/techniques/T1204"
         }
       ]
     },
     {
-      "techniqueID": "T1564",
+      "techniqueID": "T1518",
+      "tactic": "discovery",
+      "enabled": true,
+      "showSubtechniques": true,
+      "links": [
+        {
+          "label": "MITRE ATT&CK",
+          "url": "https://attack.mitre.org/techniques/T1518"
+        }
+      ]
+    },
+    {
+      "techniqueID": "T1546",
+      "tactic": "privilege-escalation",
+      "enabled": true,
+      "showSubtechniques": true,
+      "links": [
+        {
+          "label": "MITRE ATT&CK",
+          "url": "https://attack.mitre.org/techniques/T1546"
+        }
+      ]
+    },
+    {
+      "techniqueID": "T1547",
+      "tactic": "privilege-escalation",
+      "enabled": true,
+      "showSubtechniques": true,
+      "links": [
+        {
+          "label": "MITRE ATT&CK",
+          "url": "https://attack.mitre.org/techniques/T1547"
+        }
+      ]
+    },
+    {
+      "techniqueID": "T1027",
       "tactic": "stealth",
       "enabled": true,
       "showSubtechniques": true,
       "links": [
         {
           "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1564"
+          "url": "https://attack.mitre.org/techniques/T1027"
+        }
+      ]
+    },
+    {
+      "techniqueID": "T1555",
+      "tactic": "credential-access",
+      "enabled": true,
+      "showSubtechniques": true,
+      "links": [
+        {
+          "label": "MITRE ATT&CK",
+          "url": "https://attack.mitre.org/techniques/T1555"
+        }
+      ]
+    },
+    {
+      "techniqueID": "T1553",
+      "tactic": "defense-impairment",
+      "enabled": true,
+      "showSubtechniques": true,
+      "links": [
+        {
+          "label": "MITRE ATT&CK",
+          "url": "https://attack.mitre.org/techniques/T1553"
+        }
+      ]
+    },
+    {
+      "techniqueID": "T1546",
+      "tactic": "persistence",
+      "enabled": true,
+      "showSubtechniques": true,
+      "links": [
+        {
+          "label": "MITRE ATT&CK",
+          "url": "https://attack.mitre.org/techniques/T1546"
+        }
+      ]
+    },
+    {
+      "techniqueID": "T1547",
+      "tactic": "persistence",
+      "enabled": true,
+      "showSubtechniques": true,
+      "links": [
+        {
+          "label": "MITRE ATT&CK",
+          "url": "https://attack.mitre.org/techniques/T1547"
+        }
+      ]
+    },
+    {
+      "techniqueID": "T1102",
+      "tactic": "command-and-control",
+      "enabled": true,
+      "showSubtechniques": true,
+      "links": [
+        {
+          "label": "MITRE ATT&CK",
+          "url": "https://attack.mitre.org/techniques/T1102"
         }
       ]
     },
@@ -1537,14 +1657,14 @@
       ]
     },
     {
-      "techniqueID": "T1547",
-      "tactic": "privilege-escalation",
+      "techniqueID": "T1110",
+      "tactic": "credential-access",
       "enabled": true,
       "showSubtechniques": true,
       "links": [
         {
           "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1547"
+          "url": "https://attack.mitre.org/techniques/T1110"
         }
       ]
     },
@@ -1561,42 +1681,6 @@
       ]
     },
     {
-      "techniqueID": "T1204",
-      "tactic": "execution",
-      "enabled": true,
-      "showSubtechniques": true,
-      "links": [
-        {
-          "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1204"
-        }
-      ]
-    },
-    {
-      "techniqueID": "T1546",
-      "tactic": "privilege-escalation",
-      "enabled": true,
-      "showSubtechniques": true,
-      "links": [
-        {
-          "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1546"
-        }
-      ]
-    },
-    {
-      "techniqueID": "T1027",
-      "tactic": "stealth",
-      "enabled": true,
-      "showSubtechniques": true,
-      "links": [
-        {
-          "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1027"
-        }
-      ]
-    },
-    {
       "techniqueID": "T1003",
       "tactic": "credential-access",
       "enabled": true,
@@ -1609,102 +1693,6 @@
       ]
     },
     {
-      "techniqueID": "T1102",
-      "tactic": "command-and-control",
-      "enabled": true,
-      "showSubtechniques": true,
-      "links": [
-        {
-          "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1102"
-        }
-      ]
-    },
-    {
-      "techniqueID": "T1553",
-      "tactic": "defense-impairment",
-      "enabled": true,
-      "showSubtechniques": true,
-      "links": [
-        {
-          "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1553"
-        }
-      ]
-    },
-    {
-      "techniqueID": "T1543",
-      "tactic": "persistence",
-      "enabled": true,
-      "showSubtechniques": true,
-      "links": [
-        {
-          "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1543"
-        }
-      ]
-    },
-    {
-      "techniqueID": "T1547",
-      "tactic": "persistence",
-      "enabled": true,
-      "showSubtechniques": true,
-      "links": [
-        {
-          "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1547"
-        }
-      ]
-    },
-    {
-      "techniqueID": "T1546",
-      "tactic": "persistence",
-      "enabled": true,
-      "showSubtechniques": true,
-      "links": [
-        {
-          "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1546"
-        }
-      ]
-    },
-    {
-      "techniqueID": "T1518",
-      "tactic": "discovery",
-      "enabled": true,
-      "showSubtechniques": true,
-      "links": [
-        {
-          "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1518"
-        }
-      ]
-    },
-    {
-      "techniqueID": "T1110",
-      "tactic": "credential-access",
-      "enabled": true,
-      "showSubtechniques": true,
-      "links": [
-        {
-          "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1110"
-        }
-      ]
-    },
-    {
-      "techniqueID": "T1555",
-      "tactic": "credential-access",
-      "enabled": true,
-      "showSubtechniques": true,
-      "links": [
-        {
-          "label": "MITRE ATT&CK",
-          "url": "https://attack.mitre.org/techniques/T1555"
-        }
-      ]
-    },
-    {
       "techniqueID": "T1053",
       "tactic": "execution",
       "enabled": true,
@@ -1713,6 +1701,18 @@
         {
           "label": "MITRE ATT&CK",
           "url": "https://attack.mitre.org/techniques/T1053"
+        }
+      ]
+    },
+    {
+      "techniqueID": "T1059",
+      "tactic": "execution",
+      "enabled": true,
+      "showSubtechniques": true,
+      "links": [
+        {
+          "label": "MITRE ATT&CK",
+          "url": "https://attack.mitre.org/techniques/T1059"
         }
       ]
     }

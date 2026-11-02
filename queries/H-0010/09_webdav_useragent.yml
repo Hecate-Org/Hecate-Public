@@ -21,4 +21,4 @@ falsepositives:
 - Authorized administration, software deployment or user activity; evaluate device/user/process
   context and baseline.
 level: medium
-hunt_id: H-0909
+hunt_id: H-0010
