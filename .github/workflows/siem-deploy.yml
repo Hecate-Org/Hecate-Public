@@ -1,0 +1,134 @@
+name: SIEM Detection-as-Code Deploy
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'queries/**'
+      - 'hunts/**'
+  workflow_dispatch:
+    inputs:
+      hunt_id:
+        description: 'Hunt ID to deploy (or "all" for all hunts)'
+        required: true
+        default: 'all'
+      target:
+        description: 'Specific target platform (e.g. splunk_spl, sentinel_kql)'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Simulate deployment only (dry-run)'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  siem-deploy:
+    name: Deploy Transpiled SIEM Queries
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Checkout Hecate-Core
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Core
+          ref: ${{ vars.HECATE_CORE_REF || 'main' }}
+          path: .hecate-core-checkout
+
+      - name: Checkout Hecate-Runner
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Runner
+          ref: ${{ vars.HECATE_RUNNER_REF || 'main' }}
+          path: .hecate-runner-checkout
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: .hecate-runner-checkout/uv.lock
+
+      - name: Place shared dependencies beside Runner
+        run: |
+          mv .hecate-core-checkout ../Hecate-Core
+          mv .hecate-runner-checkout ../Hecate-Runner
+
+      - name: Install Hecate dependencies
+        run: |
+          uv python install 3.12
+          uv sync --project ../Hecate-Runner --dev
+
+      - name: Execute Detection Query Deployment
+        id: deploy
+        env:
+          HECATE_WORKSPACE: ${{ github.workspace }}
+          SPLUNK_HOST: ${{ secrets.SPLUNK_HOST }}
+          SPLUNK_TOKEN: ${{ secrets.SPLUNK_TOKEN }}
+          SPLUNK_VERIFY_SSL: ${{ secrets.SPLUNK_VERIFY_SSL || 'false' }}
+          HUNT_INPUT: ${{ inputs.hunt_id || 'all' }}
+          TARGET_INPUT: ${{ inputs.target }}
+          DRY_RUN_INPUT: ${{ inputs.dry_run }}
+        run: |
+          # Determine deployment mode
+          if [ "$DRY_RUN_INPUT" = "true" ] || [ -z "$SPLUNK_TOKEN" ] || [ -z "$SPLUNK_HOST" ]; then
+            DEPLOY_MODE="--dry-run"
+          else
+            DEPLOY_MODE="--live"
+          fi
+
+          TARGET_OPT=""
+          if [ -n "$TARGET_INPUT" ]; then
+            TARGET_OPT="--target $TARGET_INPUT"
+          fi
+
+          echo "Deploying hunt queries ($HUNT_INPUT) in $DEPLOY_MODE mode..."
+          uv run --project ../Hecate-Runner hecate-runner deploy-queries "$HUNT_INPUT" \
+            $DEPLOY_MODE $TARGET_OPT --github-step-summary
+
+      - name: Audit & Record Deployment Sweeps
+        id: audit_record
+        env:
+          HECATE_WORKSPACE: ${{ github.workspace }}
+          SPLUNK_HOST: ${{ secrets.SPLUNK_HOST }}
+          SPLUNK_TOKEN: ${{ secrets.SPLUNK_TOKEN }}
+          SPLUNK_VERIFY_SSL: ${{ secrets.SPLUNK_VERIFY_SSL || 'false' }}
+          DRY_RUN_INPUT: ${{ inputs.dry_run }}
+        run: |
+          if [ "$DRY_RUN_INPUT" = "true" ] || [ -z "$SPLUNK_TOKEN" ] || [ -z "$SPLUNK_HOST" ]; then
+            AUDIT_MODE="--dry-run"
+          else
+            AUDIT_MODE="--live"
+          fi
+
+          echo "Recording audit sweep and query versions..."
+          uv run --project ../Hecate-Runner hecate-runner audit-siem \
+            $AUDIT_MODE \
+            --format markdown \
+            --output-markdown deployment_audit.md \
+            --github-step-summary
+
+      - name: Commit & Push Updated Detection-as-Code State
+        run: |
+          git config --global user.name "hecate-gitops[bot]"
+          git config --global user.email "hecate-gitops[bot]@users.noreply.github.com"
+
+          if [ -d ".hecate/siem" ]; then
+            git add .hecate/siem/
+            if git diff --staged --quiet; then
+              echo "No state or database changes to commit."
+            else
+              git commit -m "chore(siem): record automated detection query deployment and audit sweep [skip ci]"
+              git push origin main
+              echo "Successfully pushed updated Detection-as-Code drift state to main."
+            fi
+          fi

@@ -1,0 +1,175 @@
+name: SIEM Detection-as-Code Drift Sweep
+
+on:
+  schedule:
+    # Run daily at 04:00 UTC
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Target SIEM platform to audit (or empty for all)'
+        required: false
+        default: ''
+      reconcile:
+        description: 'Automatically reconcile drifted queries to match Git repository'
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  drift-sweep:
+    name: Scheduled SIEM Drift Audit
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Checkout Hecate-Core
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Core
+          ref: ${{ vars.HECATE_CORE_REF || 'main' }}
+          path: .hecate-core-checkout
+
+      - name: Checkout Hecate-Runner
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Runner
+          ref: ${{ vars.HECATE_RUNNER_REF || 'main' }}
+          path: .hecate-runner-checkout
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: .hecate-runner-checkout/uv.lock
+
+      - name: Place shared dependencies beside Runner
+        run: |
+          mv .hecate-core-checkout ../Hecate-Core
+          mv .hecate-runner-checkout ../Hecate-Runner
+
+      - name: Install Hecate dependencies
+        run: |
+          uv python install 3.12
+          uv sync --project ../Hecate-Runner --dev
+
+      - name: Execute Detection Drift Sweep
+        id: sweep
+        env:
+          HECATE_WORKSPACE: ${{ github.workspace }}
+          SPLUNK_HOST: ${{ secrets.SPLUNK_HOST }}
+          SPLUNK_TOKEN: ${{ secrets.SPLUNK_TOKEN }}
+          SPLUNK_VERIFY_SSL: ${{ secrets.SPLUNK_VERIFY_SSL || 'false' }}
+          TARGET_INPUT: ${{ inputs.target }}
+          RECONCILE_INPUT: ${{ inputs.reconcile }}
+        run: |
+          if [ -n "$SPLUNK_TOKEN" ] && [ -n "$SPLUNK_HOST" ]; then
+            MODE="--live"
+          else
+            MODE="--dry-run"
+          fi
+
+          TARGET_OPT=""
+          if [ -n "$TARGET_INPUT" ]; then
+            TARGET_OPT="--target $TARGET_INPUT"
+          fi
+
+          RECONCILE_OPT=""
+          if [ "$RECONCILE_INPUT" = "true" ]; then
+            RECONCILE_OPT="--reconcile"
+          fi
+
+          echo "Running scheduled SIEM drift sweep ($MODE $TARGET_OPT $RECONCILE_OPT)..."
+          uv run --project ../Hecate-Runner hecate-runner audit-siem \
+            $MODE $TARGET_OPT $RECONCILE_OPT \
+            --format markdown \
+            --output-markdown sweep_report.md \
+            --github-step-summary
+
+      - name: Alert via GitHub Issue if Drift Detected
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            if (!fs.existsSync('sweep_report.md')) {
+              console.log('No sweep report generated.');
+              return;
+            }
+
+            const report = fs.readFileSync('sweep_report.md', 'utf8');
+            const hasDrift = report.includes('DRIFT DETECTED') || report.includes('MISSING ON REMOTE');
+
+            if (!hasDrift) {
+              console.log('No drift detected. System is 100% in sync.');
+              return;
+            }
+
+            console.log('Drift detected! Checking for existing tracking issue...');
+            const issueTitle = '🚨 SIEM Detection Drift Detected';
+            const labelName = 'siem-drift';
+
+            const { data: issues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: labelName,
+              state: 'open',
+            });
+
+            const issueBody = [
+              '### ⚠️ Out-of-Band SIEM Console Drift Detected',
+              '',
+              'The automated Detection-as-Code sweep detected differences between git repository detection rules and live SIEM saved searches.',
+              '',
+              report,
+              '',
+              '### 🛠️ Remediation Options',
+              '1. **Auto-Reconcile**: Trigger the `SIEM Detection-as-Code Drift Sweep` workflow with `reconcile: true`.',
+              '2. **Slack Bot**: Run `/hecate reconcile <hunt_id>` directly in Slack.',
+              '3. **CLI**: Run `hecate-runner reconcile-queries <hunt_id> --live` locally.',
+            ].join('\n');
+
+            if (issues.length > 0) {
+              const existingIssue = issues[0];
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existingIssue.number,
+                body: issueBody,
+              });
+              console.log(`Updated existing drift issue #${existingIssue.number}.`);
+            } else {
+              const newIssue = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: issueTitle,
+                body: issueBody,
+                labels: [labelName],
+              });
+              console.log(`Created new drift issue #${newIssue.data.number}.`);
+            }
+
+      - name: Commit & Push Reconciled State (if auto-reconciled)
+        if: inputs.reconcile == true
+        run: |
+          git config --global user.name "hecate-gitops[bot]"
+          git config --global user.email "hecate-gitops[bot]@users.noreply.github.com"
+
+          if [ -d ".hecate/siem" ]; then
+            git add .hecate/siem/
+            if git diff --staged --quiet; then
+              echo "No reconciliation state changes to commit."
+            else
+              git commit -m "chore(siem): record automated reconciliation sweep [skip ci]"
+              git push origin main
+              echo "Successfully pushed reconciled state to main."
+            fi
+          fi

@@ -1,0 +1,120 @@
+name: SIEM Detection-as-Code PR Check
+
+on:
+  pull_request:
+    paths:
+      - 'queries/**'
+      - 'hunts/**'
+      - '.hecate/siem/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  siem-drift-check:
+    name: SIEM Drift Audit & Query Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout pull request
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Checkout Hecate-Core
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Core
+          ref: ${{ vars.HECATE_CORE_REF || 'main' }}
+          path: .hecate-core-checkout
+
+      - name: Checkout Hecate-Runner
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Runner
+          ref: ${{ vars.HECATE_RUNNER_REF || 'main' }}
+          path: .hecate-runner-checkout
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: .hecate-runner-checkout/uv.lock
+
+      - name: Place shared dependencies beside Runner
+        run: |
+          mv .hecate-core-checkout ../Hecate-Core
+          mv .hecate-runner-checkout ../Hecate-Runner
+
+      - name: Install Hecate dependencies
+        run: |
+          uv python install 3.12
+          uv sync --project ../Hecate-Runner --dev
+
+      - name: Run Detection-as-Code Drift Audit
+        id: audit
+        env:
+          HECATE_WORKSPACE: ${{ github.workspace }}
+          SPLUNK_HOST: ${{ secrets.SPLUNK_HOST }}
+          SPLUNK_TOKEN: ${{ secrets.SPLUNK_TOKEN }}
+          SPLUNK_VERIFY_SSL: ${{ secrets.SPLUNK_VERIFY_SSL || 'false' }}
+        run: |
+          # Use live mode if live secrets are provided, otherwise simulated dry-run
+          if [ -n "$SPLUNK_TOKEN" ] && [ -n "$SPLUNK_HOST" ]; then
+            MODE="--live"
+          else
+            MODE="--dry-run"
+          fi
+
+          echo "Running SIEM audit in $MODE mode..."
+          uv run --project ../Hecate-Runner hecate-runner audit-siem \
+            $MODE \
+            --format markdown \
+            --output-markdown pr_drift_report.md \
+            --github-step-summary
+
+      - name: Post or Update Sticky PR Comment
+        if: github.event_name == 'pull_request' && always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            if (!fs.existsSync('pr_drift_report.md')) {
+              console.log('No drift report generated; skipping comment.');
+              return;
+            }
+
+            const report = fs.readFileSync('pr_drift_report.md', 'utf8');
+            const marker = '<!-- hecate-siem-drift-report -->';
+            const body = `${marker}\n${report}`;
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+            });
+
+            const existingComment = comments.find(c => c.body && c.body.includes(marker));
+
+            if (existingComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: body,
+              });
+              console.log(`Updated existing PR comment ID: ${existingComment.id}`);
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.payload.pull_request.number,
+                body: body,
+              });
+              console.log('Created new sticky PR comment.');
+            }
