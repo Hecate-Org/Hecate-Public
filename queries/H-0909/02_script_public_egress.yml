@@ -1,0 +1,44 @@
+title: Windows Script Host Initiates Connection Beyond Local Address Ranges
+id: c4079ddb-b8cf-5290-910e-325968bec287
+status: experimental
+description: Join with rule 01 by device/process GUID. Address-range exclusion approximates
+  external destinations; add organization-owned ranges. Fixture addresses are documentation
+  ranges, not IOCs. Proxy egress can obscure origin.
+author: Hecate analyst curation
+date: '2026-10-29'
+references:
+- https://redcanary.com/threat-detection-report/threats/socgholish/
+tags:
+- attack.t1071.001
+logsource:
+  product: windows
+  category: network_connection
+detection:
+  host:
+    Image|endswith:
+    - \wscript.exe
+    - \cscript.exe
+    Initiated: true
+  address:
+    DestinationIp|cidr:
+    - 0.0.0.0/0
+    - ::/0
+  local:
+    DestinationIp|cidr:
+    - 0.0.0.0/8
+    - 10.0.0.0/8
+    - 127.0.0.0/8
+    - 169.254.0.0/16
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+    - 224.0.0.0/4
+    - ::1/128
+    - fc00::/7
+    - fe80::/10
+    - ff00::/8
+  condition: host and address and not local
+falsepositives:
+- Authorized administration, software deployment or user activity; evaluate device/user/process
+  context and baseline.
+level: medium
+hunt_id: H-0909

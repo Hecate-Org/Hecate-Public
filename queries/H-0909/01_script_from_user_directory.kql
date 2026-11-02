@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where (FolderPath endswith "\\wscript.exe" or FolderPath endswith "\\cscript.exe") and ProcessCommandLine contains ".js" and (ProcessCommandLine contains "\\Downloads\\" or ProcessCommandLine contains "\\AppData\\" or ProcessCommandLine contains "\\Temp\\")

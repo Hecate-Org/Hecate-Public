@@ -1,0 +1,1 @@
+where((process.exe_path=/^.*\\wscript\.exe$/i OR process.exe_path=/^.*\\cscript\.exe$/i) AND process.cmd_line=/^.*\.js.*$/i AND (process.cmd_line=/^.*\\Downloads\\.*$/i OR process.cmd_line=/^.*\\AppData\\.*$/i OR process.cmd_line=/^.*\\Temp\\.*$/i))

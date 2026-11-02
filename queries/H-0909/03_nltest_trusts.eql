@@ -1,0 +1,1 @@
+any where process.executable.caseless:"*\\nltest.exe" and (process.command_line like~ ("*/domain_trusts*", "*/all_trusts*"))

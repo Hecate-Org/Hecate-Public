@@ -1,0 +1,31 @@
+title: Certutil References Shadow Copy Registry Hives
+id: 45ca11af-a5dc-5b39-900a-41a80a72d6f0
+status: experimental
+description: Identifies command intent, not successful hive access or exfiltration.
+  Backup/forensic operations require baselining. Does not detect other tools or direct
+  API reads.
+author: Hecate analyst curation
+date: '2026-10-29'
+references:
+- https://www.trendaisecurity.com/en-us/resources-insights/trendai-security-blog/socgholishs-intrusion-techniques-facilitate-distribution-of-rans
+tags:
+- attack.t1003.002
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  process:
+    Image|endswith: \certutil.exe
+  shadow:
+    CommandLine|contains: HarddiskVolumeShadowCopy
+  hive:
+    CommandLine|contains:
+    - \config\SAM
+    - \config\SECURITY
+    - \config\SYSTEM
+  condition: process and shadow and hive
+falsepositives:
+- Authorized administration, software deployment or user activity; evaluate device/user/process
+  context and baseline.
+level: medium
+hunt_id: H-0909

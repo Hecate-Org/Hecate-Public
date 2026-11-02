@@ -1,0 +1,8 @@
+// Requires WindowsEvent ingestion of Security 4698/4702 and parsed TaskContent.
+WindowsEvent
+| where TimeGenerated >= ago(7d)
+| where Provider == "Microsoft-Windows-Security-Auditing" and EventID in (4698, 4702)
+| extend TaskXml = tostring(EventData.TaskContent)
+| where TaskXml contains "wscript" or TaskXml contains "cscript" or TaskXml contains "python" or TaskXml contains ".js"
+| where TaskXml contains "\\AppData\\" or TaskXml contains "\\Downloads\\" or TaskXml contains "\\Temp\\"
+| project TimeGenerated, Computer, EventID, TaskXml

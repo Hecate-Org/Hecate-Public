@@ -1,0 +1,1 @@
+where((EventID=4698 OR EventID=4702) AND (TaskContent=/^.*wscript.*$/i OR TaskContent=/^.*cscript.*$/i OR TaskContent=/^.*python.*$/i OR TaskContent=/^.*\.js.*$/i) AND (TaskContent=/^.*\\AppData\\.*$/i OR TaskContent=/^.*\\Downloads\\.*$/i OR TaskContent=/^.*\\Temp\\.*$/i))

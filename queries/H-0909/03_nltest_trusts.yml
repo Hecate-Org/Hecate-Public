@@ -1,0 +1,26 @@
+title: Domain Trust Enumeration With Nltest
+id: 03b2cd5c-9dfe-5908-9526-da0451d34dfb
+status: experimental
+description: Common administration can match. Escalate with script ancestry, rare
+  user/host context or rule 01/02 sequence, not enumeration alone.
+author: Hecate analyst curation
+date: '2026-10-29'
+references:
+- https://redcanary.com/threat-detection-report/threats/socgholish/
+tags:
+- attack.t1482
+logsource:
+  product: windows
+  category: process_creation
+detection:
+  selection:
+    Image|endswith: \nltest.exe
+    CommandLine|contains:
+    - /domain_trusts
+    - /all_trusts
+  condition: selection
+falsepositives:
+- Authorized administration, software deployment or user activity; evaluate device/user/process
+  context and baseline.
+level: medium
+hunt_id: H-0909

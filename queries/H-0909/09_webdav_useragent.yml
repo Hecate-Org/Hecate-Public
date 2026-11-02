@@ -1,0 +1,24 @@
+title: Windows WebDAV Redirector Traffic Candidate
+id: 21f584a0-bbf9-518a-9b00-0d6c8d1a0eab
+status: experimental
+description: Requires proxy user-agent visibility, commonly unavailable inside undecrypted
+  HTTPS. Candidate includes benign internal WebDAV. Scope destination to external/unapproved
+  servers after field mapping, then inspect authentication attempts; no claim of credential
+  theft.
+author: Hecate analyst curation
+date: '2026-10-29'
+references:
+- https://www.darktrace.com/blog/socgholish-from-loader-and-c2-activity-to-ransomhub-deployment
+tags:
+- attack.t1187
+logsource:
+  category: proxy
+detection:
+  selection:
+    c-useragent|startswith: Microsoft-WebDAV-MiniRedir/
+  condition: selection
+falsepositives:
+- Authorized administration, software deployment or user activity; evaluate device/user/process
+  context and baseline.
+level: medium
+hunt_id: H-0909

@@ -1,0 +1,1 @@
+EventType = "Process Creation" AND (EndpointOS = "windows" AND (TgtProcImagePath endswithCIS "\ssh.exe" AND TgtProcCmdLine containsCIS " -R"))

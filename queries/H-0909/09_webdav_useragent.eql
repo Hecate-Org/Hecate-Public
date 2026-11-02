@@ -1,0 +1,1 @@
+any where user_agent.original like~ "Microsoft-WebDAV-MiniRedir/*"

@@ -1,0 +1,1 @@
+event_platform=/^Win$/i event_simpleName=/^ProcessRollup2$/i or event_simpleName=/^SyntheticProcessRollup2$/i ImageFileName=/\\certutil\.exe$/i CommandLine=/HarddiskVolumeShadowCopy/i CommandLine=/\\config\\SAM/i or CommandLine=/\\config\\SECURITY/i or CommandLine=/\\config\\SYSTEM/i

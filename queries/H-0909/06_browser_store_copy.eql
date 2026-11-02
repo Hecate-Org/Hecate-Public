@@ -1,0 +1,1 @@
+any where (process.executable.caseless like~ ("*\\cmd.exe", "*\\powershell.exe", "*\\pwsh.exe")) and (process.command_line like~ ("*copy *", "*Copy-Item*", "*cp *")) and (process.command_line like~ ("*\\Google\\Chrome\\User Data\\*", "*\\Microsoft\\Edge\\User Data\\*")) and process.command_line:"*Login Data*"

@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where FolderPath endswith "\\ssh.exe" and ProcessCommandLine contains " -R"
