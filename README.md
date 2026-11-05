@@ -76,15 +76,4 @@ uv run --directory ../Hecate-Core hecate-agent research new --topic "CVE-2026-44
 - **Sanitization:** Credentials, local runtime caches (`.cursors/`, `.*_cursor_state.json`), and private logs are strictly excluded via `.gitignore`.
 - **Policy Enforcement:** CI runs `promotion-policy.yaml` to validate syntax, verify Sigma rules, audit technique grounding, and confirm review approvals before merging.
 
-## Experimental community catalog
-
-The first catalog contains four original Linux hunting building blocks with
-positive/negative fixtures and existing read-only BAS control mappings. Rules
-are under `detections/linux/`; `catalog/catalog.yaml` is the explicit release
-allowlist. The hunt/research archive is not part of community release builds.
-
-See [catalog documentation](catalog/README.md) and [license scope](LICENSES.md).
-The Community catalog workflow builds reviewable artifacts. Publication is a
-separate manual action requiring an exact source digest and a protected
-`community-release` environment with human reviewers. Native queries are
-templates; lab control matches do not establish SIEM ingestion or alerts.
+See [license scope](LICENSES.md) for what the MIT license covers.
