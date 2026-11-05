@@ -1,1 +1,0 @@
-EventID=4698 or EventID=4702 TaskContent=/wscript/i or TaskContent=/cscript/i or TaskContent=/python/i or TaskContent=/\.js/i TaskContent=/\\AppData\\/i or TaskContent=/\\Downloads\\/i or TaskContent=/\\Temp\\/i

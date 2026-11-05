@@ -1,2 +1,0 @@
-W3CIISLog
-| where csHeaders contains "x-middleware-subrequest" or csUriQuery contains "x-middleware-subrequest"

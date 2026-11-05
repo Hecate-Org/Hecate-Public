@@ -1,1 +1,0 @@
-where(process.exe_path=/^.*\\ssh\.exe$/i AND process.cmd_line=/^.* -R.*$/i)

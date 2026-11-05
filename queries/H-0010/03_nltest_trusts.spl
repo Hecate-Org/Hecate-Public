@@ -1,1 +1,0 @@
-Image="*\\nltest.exe" CommandLine IN ("*/domain_trusts*", "*/all_trusts*")

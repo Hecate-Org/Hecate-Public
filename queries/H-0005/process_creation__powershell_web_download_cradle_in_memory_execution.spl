@@ -1,1 +1,0 @@
-Image IN ("*\\powershell.exe", "*\\pwsh.exe") CommandLine IN ("*DownloadString*", "*DownloadFile*", "*DownloadData*", "*Invoke-WebRequest*", "*Invoke-RestMethod*", "*Net.WebClient*", "*Start-BitsTransfer*") CommandLine IN ("*IEX*", "*Invoke-Expression*", "*.Invoke(*")

@@ -1,1 +1,0 @@
-TargetFilename=/\\envchk\.exe$/i or TargetFilename=/\\cdg\.exe$/i or TargetFilename=/\\cdg\.tmp$/i or TargetFilename=/\\mcrypto\.chiper$/i or TargetFilename=/\\mcrypto\.dat$/i or Hashes=/a916e56121212613d17932e124b68752c9312e73bde8f2351054bd64394257df/i or Hashes=/12edcaafab7703d0819b1395f45c35e3083dd83fb8b128292cb11033453fb6e8/i

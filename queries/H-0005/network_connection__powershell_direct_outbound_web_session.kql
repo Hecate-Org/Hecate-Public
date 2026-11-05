@@ -1,2 +1,0 @@
-DeviceNetworkEvents
-| where (InitiatingProcessFolderPath endswith "\\powershell.exe" or InitiatingProcessFolderPath endswith "\\pwsh.exe") and (RemotePort in~ ("80", "443", "8080", "8443"))

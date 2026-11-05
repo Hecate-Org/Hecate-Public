@@ -1,1 +1,0 @@
-where((process.exe_path=/^.*\\powershell\.exe$/i OR process.exe_path=/^.*\\pwsh\.exe$/i) AND (destination_port=80 OR destination_port=443 OR destination_port=8080 OR destination_port=8443))

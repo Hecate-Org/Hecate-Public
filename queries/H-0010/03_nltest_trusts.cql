@@ -1,1 +1,0 @@
-event_platform=/^Win$/i event_simpleName=/^ProcessRollup2$/i or event_simpleName=/^SyntheticProcessRollup2$/i ImageFileName=/\\nltest\.exe$/i CommandLine=/\/domain_trusts/i or CommandLine=/\/all_trusts/i

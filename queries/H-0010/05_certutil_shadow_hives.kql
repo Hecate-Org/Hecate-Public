@@ -1,2 +1,0 @@
-DeviceProcessEvents
-| where FolderPath endswith "\\certutil.exe" and ProcessCommandLine contains "HarddiskVolumeShadowCopy" and (ProcessCommandLine contains "\\config\\SAM" or ProcessCommandLine contains "\\config\\SECURITY" or ProcessCommandLine contains "\\config\\SYSTEM")

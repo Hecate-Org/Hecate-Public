@@ -1,1 +1,0 @@
-event_platform=/^Win$/i event_simpleName=/^ProcessRollup2$/i or event_simpleName=/^SyntheticProcessRollup2$/i ImageFileName=/\\wscript\.exe$/i or ImageFileName=/\\cscript\.exe$/i CommandLine=/\.js/i CommandLine=/\\Downloads\\/i or CommandLine=/\\AppData\\/i or CommandLine=/\\Temp\\/i

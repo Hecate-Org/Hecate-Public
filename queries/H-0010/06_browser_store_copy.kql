@@ -1,2 +1,0 @@
-DeviceProcessEvents
-| where (FolderPath endswith "\\cmd.exe" or FolderPath endswith "\\powershell.exe" or FolderPath endswith "\\pwsh.exe") and (ProcessCommandLine contains "copy " or ProcessCommandLine contains "Copy-Item" or ProcessCommandLine contains "cp ") and (ProcessCommandLine contains "\\Google\\Chrome\\User Data\\" or ProcessCommandLine contains "\\Microsoft\\Edge\\User Data\\") and ProcessCommandLine contains "Login Data"

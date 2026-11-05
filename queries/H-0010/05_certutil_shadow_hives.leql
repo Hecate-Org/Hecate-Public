@@ -1,1 +1,0 @@
-where(process.exe_path=/^.*\\certutil\.exe$/i AND process.cmd_line=/^.*HarddiskVolumeShadowCopy.*$/i AND (process.cmd_line=/^.*\\config\\SAM.*$/i OR process.cmd_line=/^.*\\config\\SECURITY.*$/i OR process.cmd_line=/^.*\\config\\SYSTEM.*$/i))

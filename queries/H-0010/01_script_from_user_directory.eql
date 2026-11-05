@@ -1,1 +1,0 @@
-any where (process.executable.caseless like~ ("*\\wscript.exe", "*\\cscript.exe")) and process.command_line:"*.js*" and (process.command_line like~ ("*\\Downloads\\*", "*\\AppData\\*", "*\\Temp\\*"))

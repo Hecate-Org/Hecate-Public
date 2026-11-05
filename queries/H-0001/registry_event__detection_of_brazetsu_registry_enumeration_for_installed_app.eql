@@ -1,1 +1,0 @@
-any where registry.path like~ ("*SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall*", "*SOFTWARE\\WOW6432Node\\Microsoft\\Windows\\CurrentVersion\\Uninstall*")

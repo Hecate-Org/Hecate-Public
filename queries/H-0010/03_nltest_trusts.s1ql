@@ -1,1 +1,0 @@
-EventType = "Process Creation" AND (EndpointOS = "windows" AND (TgtProcImagePath endswithCIS "\nltest.exe" AND (TgtProcCmdLine containsCIS "/domain_trusts" OR TgtProcCmdLine containsCIS "/all_trusts")))

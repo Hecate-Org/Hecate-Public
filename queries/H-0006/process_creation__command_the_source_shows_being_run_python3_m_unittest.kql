@@ -1,2 +1,0 @@
-DeviceProcessEvents
-| where FolderPath endswith "/python3" and ProcessCommandLine contains "-m unittest"

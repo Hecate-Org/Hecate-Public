@@ -1,1 +1,0 @@
-where(process.exe_path=/^.*\\nltest\.exe$/i AND (process.cmd_line=/^.*\/domain_trusts.*$/i OR process.cmd_line=/^.*\/all_trusts.*$/i))

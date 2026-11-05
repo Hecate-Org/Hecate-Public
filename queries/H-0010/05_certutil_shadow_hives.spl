@@ -1,1 +1,0 @@
-Image="*\\certutil.exe" CommandLine="*HarddiskVolumeShadowCopy*" CommandLine IN ("*\\config\\SAM*", "*\\config\\SECURITY*", "*\\config\\SYSTEM*")

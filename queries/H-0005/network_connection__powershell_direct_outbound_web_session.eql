@@ -1,1 +1,0 @@
-any where (process.executable.caseless like~ ("*\\powershell.exe", "*\\pwsh.exe")) and (destination.port like~ (80, 443, 8080, 8443))

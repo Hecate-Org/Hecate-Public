@@ -1,1 +1,0 @@
-any where winlog.channel:"Security" and ((event.code like~ ("4698", "4702")) and (winlog.event_data.TaskContent like~ ("*wscript*", "*cscript*", "*python*", "*.js*")) and (winlog.event_data.TaskContent like~ ("*\\AppData\\*", "*\\Downloads\\*", "*\\Temp\\*")))

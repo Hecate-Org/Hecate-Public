@@ -1,1 +1,0 @@
-any where process.command_line:"*python3 -m unittest discover -s tests -v*"
