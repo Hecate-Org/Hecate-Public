@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where InitiatingProcessFolderPath endswith "/node" and InitiatingProcessCommandLine contains "node-red" and FolderPath endswith "/sh" and ProcessCommandLine contains " -c "
