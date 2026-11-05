@@ -1,2 +1,0 @@
-DeviceProcessEvents
-| where (FolderPath endswith "\\powershell.exe" or FolderPath endswith "\\pwsh.exe") and (ProcessCommandLine contains "DownloadString" or ProcessCommandLine contains "DownloadFile" or ProcessCommandLine contains "DownloadData" or ProcessCommandLine contains "Invoke-WebRequest" or ProcessCommandLine contains "Invoke-RestMethod" or ProcessCommandLine contains "Net.WebClient" or ProcessCommandLine contains "Start-BitsTransfer") and (ProcessCommandLine contains "IEX" or ProcessCommandLine contains "Invoke-Expression" or ProcessCommandLine contains ".Invoke(")

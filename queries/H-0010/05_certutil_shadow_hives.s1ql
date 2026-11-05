@@ -1,1 +1,0 @@
-EventType = "Process Creation" AND (EndpointOS = "windows" AND (TgtProcImagePath endswithCIS "\certutil.exe" AND TgtProcCmdLine containsCIS "HarddiskVolumeShadowCopy" AND (TgtProcCmdLine containsCIS "\config\SAM" OR TgtProcCmdLine containsCIS "\config\SECURITY" OR TgtProcCmdLine containsCIS "\config\SYSTEM")))

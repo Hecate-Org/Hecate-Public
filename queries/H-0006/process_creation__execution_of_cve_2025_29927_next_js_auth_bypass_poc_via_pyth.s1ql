@@ -1,1 +1,0 @@
-EventType = "Process Creation" AND (EndpointOS = "windows" AND TgtProcCmdLine containsCIS "python3 -m unittest discover -s tests -v")

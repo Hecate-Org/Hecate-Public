@@ -1,1 +1,0 @@
-any where (process.executable.caseless like~ ("*\\powershell.exe", "*\\pwsh.exe")) and (process.command_line like~ ("*-w hidden*", "*-windowstyle hidden*", "*-window hidden*", "*-enc *", "*-encodedcommand *")) and (process.command_line like~ ("*http://*", "*https://*", "*WebClient*", "*Download*", "*irm *", "*iwr *"))

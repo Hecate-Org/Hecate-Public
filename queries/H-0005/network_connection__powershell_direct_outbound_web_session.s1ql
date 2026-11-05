@@ -1,1 +1,0 @@
-(ObjectType In ("DNS","Url","IP")) AND (EndpointOS = "windows" AND ((SrcProcImagePath endswithCIS "\powershell.exe" OR SrcProcImagePath endswithCIS "\pwsh.exe") AND (DstPort In Contains AnyCase (80,443,8080,8443))))

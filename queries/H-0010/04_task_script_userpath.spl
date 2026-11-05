@@ -1,1 +1,0 @@
-source="WinEventLog:Security" EventCode IN (4698, 4702) TaskContent IN ("*wscript*", "*cscript*", "*python*", "*.js*") TaskContent IN ("*\\AppData\\*", "*\\Downloads\\*", "*\\Temp\\*")

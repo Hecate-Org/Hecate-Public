@@ -1,1 +1,0 @@
-any where (process.executable.caseless like~ ("*\\powershell.exe", "*\\pwsh.exe")) and (process.command_line like~ ("*DownloadString*", "*DownloadFile*", "*DownloadData*", "*Invoke-WebRequest*", "*Invoke-RestMethod*", "*Net.WebClient*", "*Start-BitsTransfer*")) and (process.command_line like~ ("*IEX*", "*Invoke-Expression*", "*.Invoke(*"))

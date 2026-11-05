@@ -1,2 +1,0 @@
-DeviceNetworkEvents
-| where RemoteUrl endswith "c2.installscenter.com"

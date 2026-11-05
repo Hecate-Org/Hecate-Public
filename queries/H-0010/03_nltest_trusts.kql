@@ -1,2 +1,0 @@
-DeviceProcessEvents
-| where FolderPath endswith "\\nltest.exe" and (ProcessCommandLine contains "/domain_trusts" or ProcessCommandLine contains "/all_trusts")
