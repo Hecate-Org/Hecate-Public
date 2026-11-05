@@ -1,0 +1,1 @@
+where(parent_process.exe_path=/^.*\/node$/i AND parent_process.cmd_line=/^.*node-red.*$/i AND process.exe_path=/^.*\/sh$/i AND process.cmd_line=/^.* -c .*$/i)

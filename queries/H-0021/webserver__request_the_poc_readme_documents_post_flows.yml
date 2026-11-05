@@ -1,0 +1,22 @@
+title: 'Request the PoC README documents: POST /flows'
+id: 0131dcf2-509b-4c42-bcad-e02ea5271995
+status: experimental
+description: 'Deterministic candidate from a documented reference procedure; not evidence of an observed
+  intrusion or successful exploitation. The source documents this procedure: "POST /flows".'
+references:
+- https://github.com/al4n4n/CVE-2026-58115
+author: hecate (auto-generated from commands quoted in the source - requires analyst review)
+date: '2026-11-05'
+tags: []
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-method: POST
+    cs-uri-stem: /flows
+  condition: selection
+falsepositives:
+- Administrators or software running the same command or creating the task for legitimate reasons
+level: medium
+hunt_id: H-0021
+x_hecate_purple_team_validated: true
