@@ -1,1 +1,0 @@
-where(process.exe_path=/^.*\\powershell\.exe$/i AND process.cmd_line=/^.*\(T1059\.001.*$/i)

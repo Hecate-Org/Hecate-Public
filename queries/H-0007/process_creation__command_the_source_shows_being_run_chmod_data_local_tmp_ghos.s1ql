@@ -1,1 +1,0 @@
-EventType = "Process Creation" AND (EndpointOS = "linux" AND (TgtProcImagePath endswithCIS "/chmod" AND TgtProcCmdLine containsCIS "/data/local/tmp/ghostlock_static"))

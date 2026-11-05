@@ -1,2 +1,0 @@
-DeviceProcessEvents
-| where FolderPath endswith "/insmod" and ProcessCommandLine contains "/ /data/adb/ksud"

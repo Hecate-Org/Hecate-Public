@@ -1,1 +1,0 @@
-event_platform=/^Win$/i event_simpleName=/^ProcessRollup2$/i or event_simpleName=/^SyntheticProcessRollup2$/i ImageFileName=/\\powershell\.exe$/i CommandLine=/\(T1059\.001/i

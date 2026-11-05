@@ -1,2 +1,0 @@
-DeviceProcessEvents
-| where FolderPath endswith "/bash" and ProcessCommandLine contains "lkm/build-sukisu.sh"

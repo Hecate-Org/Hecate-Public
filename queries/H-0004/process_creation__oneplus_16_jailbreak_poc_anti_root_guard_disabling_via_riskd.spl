@@ -1,1 +1,0 @@
-CommandLine IN ("*stop riskdetect*", "*rmmod oplus_secure_guard_new*") OR CommandLine IN ("*su -c 'stop riskdetect'*", "*su -c stop riskdetect*")

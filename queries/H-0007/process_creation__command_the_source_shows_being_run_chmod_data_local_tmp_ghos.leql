@@ -1,1 +1,0 @@
-where(process.exe_path=/^.*\/chmod$/i AND process.cmd_line=/^.*\/data\/local\/tmp\/ghostlock_static.*$/i)

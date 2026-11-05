@@ -1,1 +1,0 @@
-EventType = "Process Creation" AND (EndpointOS = "linux" AND (TgtProcImagePath endswithCIS "/wget" AND TgtProcCmdLine containsCIS "-O asl-node-check.sh"))
