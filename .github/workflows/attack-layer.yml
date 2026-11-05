@@ -1,0 +1,85 @@
+name: ATT&CK layer
+
+# The layer is derived from the hunts on main, so it is rebuilt here after each
+# merge and attached to the rolling `attack-layer` release instead of being
+# committed. Promotion PRs therefore never carry it.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "hunts/**"
+      - "queries/**"
+      - ".github/workflows/attack-layer.yml"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: attack-layer
+  cancel-in-progress: false
+
+jobs:
+  publish-layer:
+    name: Rebuild and publish the ATT&CK layer
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - name: Checkout Hecate-Core
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Core
+          ref: ${{ vars.HECATE_CORE_REF || 'main' }}
+          path: .hecate-core-checkout
+
+      - name: Checkout Hecate-Runner
+        uses: actions/checkout@v5
+        with:
+          repository: Hecate-Org/Hecate-Runner
+          ref: ${{ vars.HECATE_RUNNER_REF || 'main' }}
+          path: .hecate-runner-checkout
+
+      - name: Install uv and Python
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: .hecate-runner-checkout/uv.lock
+
+      - name: Place shared dependencies beside Runner
+        run: |
+          mv .hecate-core-checkout ../Hecate-Core
+          mv .hecate-runner-checkout ../Hecate-Runner
+
+      - name: Install Hecate dependencies
+        run: |
+          uv python install 3.12
+          uv sync --project ../Hecate-Runner
+
+      # Without the STIX bundle the exporter cannot map techniques to tactics.
+      - name: Download ATT&CK data
+        run: uv run --project ../Hecate-Runner hecate-agent attack update
+
+      - name: Build the layer
+        run: |
+          uv run --project ../Hecate-Runner hecate-agent attack export-layer \
+            --hunts-dir hunts --queries-dir queries \
+            -o "$RUNNER_TEMP/hecate_attack_layer.json"
+
+      - name: Attach the layer to the attack-layer release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          notes="ATT&CK Navigator layer of the hunts on main, rebuilt automatically after each merge. Built from ${GITHUB_SHA::7}."
+          if ! gh release view attack-layer >/dev/null 2>&1; then
+            gh release create attack-layer --target "$GITHUB_SHA" --latest=false \
+              --title "ATT&CK coverage layer" --notes "$notes"
+          else
+            gh release edit attack-layer --notes "$notes"
+          fi
+          gh release upload attack-layer "$RUNNER_TEMP/hecate_attack_layer.json" --clobber
