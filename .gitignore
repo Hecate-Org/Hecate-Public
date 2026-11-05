@@ -47,3 +47,7 @@ __pycache__/
 .*_cursor_state.json
 .orchestrator_state.json
 cti_queue/
+
+# Built by .github/workflows/attack-layer.yml and attached to the attack-layer release
+hecate_attack_layer.json
+layers/
