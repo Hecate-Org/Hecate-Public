@@ -1,2 +1,0 @@
-DeviceFileEvents
-| where FolderPath contains "susfs_guard_lkm-android16-6.12.ko"

@@ -1,1 +1,0 @@
-where(process.cmd_line=/^.*stop riskdetect.*$/i OR process.cmd_line=/^.*rmmod oplus_secure_guard_new.*$/i OR process.cmd_line=/^.*su -c 'stop riskdetect'.*$/i OR process.cmd_line=/^.*su -c stop riskdetect.*$/i)

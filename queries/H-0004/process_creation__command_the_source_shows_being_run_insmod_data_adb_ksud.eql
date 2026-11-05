@@ -1,1 +1,0 @@
-any where process.executable:"*/insmod" and process.command_line:"*/ /data/adb/ksud*"

@@ -1,1 +1,0 @@
-where(file.path=/^.*\.sh$/i AND file.path=/^.*asl-node-check.*$/i)

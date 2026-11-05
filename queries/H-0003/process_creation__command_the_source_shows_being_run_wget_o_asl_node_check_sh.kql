@@ -1,2 +1,0 @@
-DeviceProcessEvents
-| where FolderPath endswith "/wget" and ProcessCommandLine contains "-O asl-node-check.sh"

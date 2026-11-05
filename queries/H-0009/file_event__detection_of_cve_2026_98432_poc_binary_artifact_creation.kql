@@ -1,2 +1,0 @@
-DeviceFileEvents
-| where FolderPath endswith "/bin/cve_2026_98432"

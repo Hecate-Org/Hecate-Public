@@ -1,2 +1,0 @@
-DeviceFileEvents
-| where FolderPath endswith ".sh" and FolderPath contains "asl-node-check"

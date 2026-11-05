@@ -1,1 +1,0 @@
-any where process.executable:"*/wget" and process.command_line:"*-O asl-node-check.sh*"

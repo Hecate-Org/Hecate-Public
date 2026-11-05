@@ -1,2 +1,0 @@
-DeviceProcessEvents
-| where (MD5 startswith "1610e6483e1ae99aa69214c89c904671" or MD5 startswith "77aff6105fce3b5f9e1296132be406ac") or (SHA256 startswith "f510ebde38778bd614c163a58eb13bb3509a3b39cecd12b3a13a10dd3e752b72" or SHA256 startswith "4c944d3f84b386bb03c0aadb4527c4ec74c12fe511c5511884073160c3a88304")

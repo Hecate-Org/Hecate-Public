@@ -1,2 +1,0 @@
-DeviceProcessEvents
-| where FolderPath endswith "\\powershell.exe" and ProcessCommandLine contains "(T1059.001"
