@@ -35,14 +35,14 @@ jobs:
         uses: actions/checkout@v5
         with:
           repository: Hecate-Org/Hecate-Core
-          ref: ${{ vars.HECATE_CORE_REF || 'main' }}
+          ref: ${{ vars.HECATE_LAYER_CORE_REF || 'main' }}
           path: .hecate-core-checkout
 
       - name: Checkout Hecate-Runner
         uses: actions/checkout@v5
         with:
           repository: Hecate-Org/Hecate-Runner
-          ref: ${{ vars.HECATE_RUNNER_REF || 'main' }}
+          ref: ${{ vars.HECATE_LAYER_RUNNER_REF || 'main' }}
           path: .hecate-runner-checkout
 
       - name: Install uv and Python
