@@ -1,0 +1,28 @@
+{
+  "auto_merge": true,
+  "files": [
+    "hunts/2026/Q4/H-0028.md",
+    "queries/H-0028/file_event__detection_of_malicious_cron_persistence_via_cve_2024_3400_ex.cql",
+    "queries/H-0028/file_event__detection_of_malicious_cron_persistence_via_cve_2024_3400_ex.eql",
+    "queries/H-0028/file_event__detection_of_malicious_cron_persistence_via_cve_2024_3400_ex.kql",
+    "queries/H-0028/file_event__detection_of_malicious_cron_persistence_via_cve_2024_3400_ex.leql",
+    "queries/H-0028/file_event__detection_of_malicious_cron_persistence_via_cve_2024_3400_ex.s1ql",
+    "queries/H-0028/file_event__detection_of_malicious_cron_persistence_via_cve_2024_3400_ex.spl",
+    "queries/H-0028/file_event__detection_of_malicious_cron_persistence_via_cve_2024_3400_ex.yml",
+    "queries/H-0028/webserver__detection_of_cve_2024_3400_exploitation_via_cookie_injection.cql",
+    "queries/H-0028/webserver__detection_of_cve_2024_3400_exploitation_via_cookie_injection.eql",
+    "queries/H-0028/webserver__detection_of_cve_2024_3400_exploitation_via_cookie_injection.leql",
+    "queries/H-0028/webserver__detection_of_cve_2024_3400_exploitation_via_cookie_injection.spl",
+    "queries/H-0028/webserver__detection_of_cve_2024_3400_exploitation_via_cookie_injection.yml",
+    "research/R-1005.md"
+  ],
+  "hunt_id": "H-0028",
+  "merge_method": "squash",
+  "promotion_reasons": [],
+  "publisher": "hecate-runner",
+  "review_required": false,
+  "schema_version": 1,
+  "sha256": "1a3d4956ab16c51bd7b0643cab966aadb3e4f62791ff650aa24966107851df44",
+  "target_repository": "Hecate-Org/Hecate-Public",
+  "target_visibility": "public"
+}
