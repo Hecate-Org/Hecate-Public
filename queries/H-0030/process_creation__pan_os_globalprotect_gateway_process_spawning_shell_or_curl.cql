@@ -1,0 +1,1 @@
+event_platform=/^Lin$/i ParentBaseFileName=/\/pan_comm$/i or ParentBaseFileName=/\/nginx$/i or ParentBaseFileName=/\/httpd$/i ImageFileName=/\/bin\/sh$/i or ImageFileName=/\/bin\/bash$/i or ImageFileName=/\/curl$/i

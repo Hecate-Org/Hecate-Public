@@ -1,0 +1,36 @@
+title: PAN-OS GlobalProtect Gateway Process Spawning Shell or Curl
+id: 853fe915-5dd7-4540-bc83-12e24224ba54
+status: experimental
+description: Detects PAN-OS GlobalProtect gateway processes (pan_comm, nginx, httpd) spawning shell interpreters
+  (/bin/sh, /bin/bash) or curl, indicating potential exploitation of CVE-2024-3400 command injection vulnerability.
+  The gateway process executing arbitrary commands with root privileges is consistent with successful
+  remote code execution.
+references:
+- https://security.paloaltonetworks.com/CVE-2024-3400
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-11-09'
+tags:
+- attack.t1059.004
+- attack.t1190
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection_parent:
+    ParentImage|endswith:
+    - /pan_comm
+    - /nginx
+    - /httpd
+  selection_child:
+    Image|endswith:
+    - /bin/sh
+    - /bin/bash
+    - /curl
+  condition: selection_parent and selection_child
+falsepositives:
+- Legitimate administrative scripts executed by PAN-OS gateway processes during maintenance or updates
+- Vendor-authorized diagnostic or troubleshooting commands spawned by gateway services
+level: high
+hunt_id: H-0030
+hecate_review:
+  verdict: keep

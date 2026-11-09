@@ -1,0 +1,1 @@
+"cs-uri-stem"=/\/ssl-vpn\/hipreport\.esp$/i "cs-cookie"=/`/i or "cs-cookie"=/\$\(/i or "cs-cookie"=/;wget/i or "cs-cookie"=/;curl/i or "cs-cookie"=/\|sh/i or "cs-cookie"=/\|bash/i or "cs-cookie"=/&&/i or "cs-cookie"=/;echo/i
