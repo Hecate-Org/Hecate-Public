@@ -1,1 +1,0 @@
-where(file.path=/^\/etc\/cron\.d\/.*$/i)

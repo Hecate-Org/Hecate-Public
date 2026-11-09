@@ -1,2 +1,0 @@
-DeviceFileEvents
-| where FolderPath startswith "/etc/cron.d/"
