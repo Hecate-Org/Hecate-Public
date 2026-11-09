@@ -1,0 +1,36 @@
+title: PAN-OS GlobalProtect Gateway Process Outbound HTTPS Connection
+id: 1bc76660-558f-4d4f-a381-0176af73dab0
+status: experimental
+description: Detects outbound HTTPS connections initiated by PAN-OS GlobalProtect gateway processes (pan_comm,
+  nginx, httpd), which may indicate data exfiltration following CVE-2024-3400 exploitation. After successful
+  command injection, adversaries deploy the UPSTYLE backdoor to harvest credentials and session tokens,
+  then exfiltrate data via outbound HTTPS connections from the compromised gateway.
+references:
+- https://security.paloaltonetworks.com/CVE-2024-3400
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-11-09'
+tags:
+- attack.t1071.001
+- attack.t1190
+logsource:
+  category: network_connection
+  product: linux
+detection:
+  selection_process:
+    Image|endswith:
+    - /pan_comm
+    - /nginx
+    - /httpd
+  selection_network:
+    DestinationPort: 443
+    Initiated: true
+  condition: selection_process and selection_network
+falsepositives:
+- Legitimate software updates or telemetry from PAN-OS gateway processes
+- Certificate validation or CRL checks initiated by gateway services
+- Integration with external authentication providers (LDAP over TLS, SAML endpoints)
+- Threat intelligence feed updates or license validation
+level: medium
+hunt_id: H-0030
+hecate_review:
+  verdict: keep

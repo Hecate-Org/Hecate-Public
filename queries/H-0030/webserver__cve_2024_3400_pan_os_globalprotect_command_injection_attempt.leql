@@ -1,0 +1,1 @@
+where(uri_path=/^.*\/ssl-vpn\/hipreport\.esp$/i AND (cookie=/^.*`.*$/i OR cookie=/^.*\$\(.*$/i OR cookie=/^.*;wget.*$/i OR cookie=/^.*;curl.*$/i OR cookie=/^.*\|sh.*$/i OR cookie=/^.*\|bash.*$/i OR cookie=/^.*&&.*$/i OR cookie=/^.*;echo.*$/i))

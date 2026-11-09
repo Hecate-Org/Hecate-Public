@@ -1,0 +1,1 @@
+Image IN ("*/pan_comm", "*/nginx", "*/httpd") DestinationPort=443 Initiated=true

@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where (InitiatingProcessFolderPath endswith "/pan_comm" or InitiatingProcessFolderPath endswith "/nginx" or InitiatingProcessFolderPath endswith "/httpd") and (FolderPath endswith "/bin/sh" or FolderPath endswith "/bin/bash" or FolderPath endswith "/curl")

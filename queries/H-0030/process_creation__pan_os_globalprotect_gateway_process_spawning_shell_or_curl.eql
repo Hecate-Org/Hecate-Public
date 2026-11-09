@@ -1,0 +1,1 @@
+any where (process.parent.executable like~ ("*/pan_comm", "*/nginx", "*/httpd")) and (process.executable like~ ("*/bin/sh", "*/bin/bash", "*/curl"))

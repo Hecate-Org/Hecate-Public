@@ -1,0 +1,36 @@
+title: CVE-2024-3400 PAN-OS GlobalProtect Command Injection Attempt
+id: 30c63af1-73d6-4206-ab64-2fc33f261a86
+status: experimental
+description: Detects HTTP requests to the GlobalProtect /ssl-vpn/hipreport.esp endpoint containing shell
+  metacharacters in cookie headers, consistent with CVE-2024-3400 exploitation attempts. Attackers inject
+  shell commands via session cookies to achieve unauthenticated remote code execution on PAN-OS GlobalProtect
+  gateways.
+references:
+- https://security.paloaltonetworks.com/CVE-2024-3400
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-11-09'
+tags:
+- attack.t1190
+logsource:
+  category: webserver
+detection:
+  selection_uri:
+    cs-uri-stem|endswith: /ssl-vpn/hipreport.esp
+  selection_cookie:
+    cs-cookie|contains:
+    - '`'
+    - $(
+    - ;wget
+    - ;curl
+    - '|sh'
+    - '|bash'
+    - '&&'
+    - ;echo
+  condition: selection_uri and selection_cookie
+falsepositives:
+- Legitimate GlobalProtect health check requests with unusual cookie values (rare)
+- Security scanning or vulnerability assessment tools testing for CVE-2024-3400
+level: critical
+hunt_id: H-0030
+hecate_review:
+  verdict: keep

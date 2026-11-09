@@ -1,0 +1,27 @@
+title: CVE-2024-3400 PAN-OS Cron Persistence File Creation
+id: 49e72e3a-1552-4930-90b3-f68bd6d0ac73
+status: experimental
+description: Detects file creation or modification in /etc/cron.d/ directory on PAN-OS appliances, consistent
+  with CVE-2024-3400 exploitation establishing cron-based persistence after command injection via GlobalProtect
+  gateway. Attackers write malicious cron schedules to regularly download secondary payloads or maintain
+  backdoor access.
+references:
+- https://security.paloaltonetworks.com/CVE-2024-3400
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-11-09'
+tags:
+- attack.t1105
+logsource:
+  category: file_event
+detection:
+  selection:
+    TargetFilename|startswith: /etc/cron.d/
+  condition: selection
+falsepositives:
+- Legitimate PAN-OS system updates or administrative cron job configuration
+- Authorized maintenance scripts deployed by network administrators
+- Vendor-supplied patches or configuration management tools
+level: high
+hunt_id: H-0030
+hecate_review:
+  verdict: keep

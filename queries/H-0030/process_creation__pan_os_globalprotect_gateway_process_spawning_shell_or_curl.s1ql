@@ -1,0 +1,1 @@
+EventType = "Process Creation" AND (EndpointOS = "linux" AND ((SrcProcImagePath endswithCIS "/pan_comm" OR SrcProcImagePath endswithCIS "/nginx" OR SrcProcImagePath endswithCIS "/httpd") AND (TgtProcImagePath endswithCIS "/bin/sh" OR TgtProcImagePath endswithCIS "/bin/bash" OR TgtProcImagePath endswithCIS "/curl")))
