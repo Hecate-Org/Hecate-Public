@@ -27,8 +27,6 @@ It enforces strict content hygiene:
 | **`hunts/`** | Threat hunt records in LOCK markdown format (`H-XXXX.md`). |
 | **`queries/`** | Synthesized Sigma rules and transpiled native SIEM queries (`Splunk .spl`, `Elastic .eql`, `CrowdStrike .cql`, `Logscale .leql`). |
 | **`research/`** | Model-assisted deep research dossiers grounding hunts (`R-XXXX.md`). |
-| **`detections/`** | Production-ready standalone detection rules. |
-| **`investigations/`** | Forensic runbooks and incident triage investigation notes. |
 | **`knowledge/`** | Organization telemetry mapping, logsource definitions, and ATT&CK matrix references. |
 
 ---
@@ -54,6 +52,23 @@ cd ~/betas/Hecate-Workspace
 cp .env.example .env
 export HECATE_WORKSPACE="$PWD"
 ```
+
+The selected workspace supplies `knowledge/hunting-knowledge.md` and
+`knowledge/environment.md`. Core contains the readers; Runner uses the workspace
+configured for its execution. Keeping the repositories beside one another does
+not make Core's knowledge directory the source of truth for Public.
+
+The public environment profile is an **unverified adopter template**. Fill its
+telemetry contract with your actual sources, fields, coverage, retention and
+verification evidence before relying on hunt results. Credentials belong in `.env`;
+private environment details and findings belong in your controlled workspace.
+
+Agents load bounded, stage-specific guidance blocks, rather than the whole
+reference. Compact guidance is enabled by default and can be disabled with
+`HECATE_HUNTING_KNOWLEDGE=false`; essential evidence rules and execution approvals
+still apply. An unchanged template or missing profile never establishes telemetry
+availability. Existing hunts can be reviewed and run through Runner's `sweep`
+commands without enabling new-hunt generation.
 
 ### 3. Inspect & Navigate the Hunt Catalog
 
