@@ -1,0 +1,1 @@
+EventType = "Process Creation" AND (EndpointOS = "linux" AND ((SrcProcImagePath containsCIS "/php-fpm" OR SrcProcImagePath containsCIS "/php-cgi") AND (TgtProcImagePath endswithCIS "/bin/sh" OR TgtProcImagePath endswithCIS "/bin/bash" OR TgtProcImagePath endswithCIS "/bin/dash" OR TgtProcImagePath endswithCIS "/bin/zsh" OR TgtProcImagePath endswithCIS "/bin/ksh")))

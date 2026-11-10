@@ -1,0 +1,34 @@
+title: HTTP Request to PHP2Shell Vulnerable Endpoint
+id: 58d9bdcf-e967-4164-a089-9fb32daf8fb4
+status: experimental
+description: Detects HTTP requests targeting the /ping.php endpoint associated with CVE-2026-109618 (php2shell)
+  Remote Code Execution vulnerability. Public PoC tooling demonstrates reconnaissance activity against
+  this endpoint to verify vulnerability presence. This activity may indicate adversary probing for exploitable
+  PHP installations.
+references:
+- https://github.com/JoshRob297/php2shell-research
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-11-10'
+tags:
+- attack.t1190
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-uri-stem|endswith: /ping.php
+  condition: selection
+falsepositives:
+- Legitimate application health checks or monitoring systems using ping.php endpoints
+- Internal vulnerability scanning and security assessment activities
+- Authorized penetration testing
+level: medium
+hecate_provenance:
+- value: https://example.com/ping.php
+  type: url
+  role: placeholder
+  status: unknown
+  confidence: unknown
+  source: cti
+hunt_id: H-0032
+hecate_review:
+  verdict: keep

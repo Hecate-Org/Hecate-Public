@@ -1,0 +1,23 @@
+title: 'Command the source shows being run: python3 tooling/checker/checker.py'
+id: 63f6388b-6138-4da7-9fe1-ad7cefd70aed
+status: experimental
+description: 'Deterministic rule built from a command quoted in the primary source, with no model involvement.
+  The source shows this command being run: "python3 tooling/checker/checker.py --url https://example.com/ping.php
+  --authorized --json report.json --md report.md".'
+references:
+- https://github.com/JoshRob297/php2shell-research
+author: hecate (auto-generated from commands quoted in the source - requires analyst review)
+date: '2026-11-10'
+tags: []
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|endswith: /python3
+    CommandLine|contains: tooling/checker/checker.py
+  condition: selection
+falsepositives:
+- Administrators or software running the same command or creating the task for legitimate reasons
+level: low
+hunt_id: H-0032

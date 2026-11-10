@@ -1,0 +1,1 @@
+where((parent_process.exe_path=/^.*\/php-fpm.*$/i OR parent_process.exe_path=/^.*\/php-cgi.*$/i) AND (process.exe_path=/^.*\/bin\/sh$/i OR process.exe_path=/^.*\/bin\/bash$/i OR process.exe_path=/^.*\/bin\/dash$/i OR process.exe_path=/^.*\/bin\/zsh$/i OR process.exe_path=/^.*\/bin\/ksh$/i))

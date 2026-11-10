@@ -1,0 +1,1 @@
+event_platform=/^Lin$/i ParentBaseFileName=/\/php-fpm/i or ParentBaseFileName=/\/php-cgi/i ImageFileName=/\/bin\/sh$/i or ImageFileName=/\/bin\/bash$/i or ImageFileName=/\/bin\/dash$/i or ImageFileName=/\/bin\/zsh$/i or ImageFileName=/\/bin\/ksh$/i
