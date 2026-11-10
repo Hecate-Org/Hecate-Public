@@ -1,0 +1,1 @@
+"cs-uri-stem" IN ("*/wp-admin/update-core.php*", "*/wp-content/upgrade/*")

@@ -1,0 +1,31 @@
+{
+  "auto_merge": true,
+  "files": [
+    "hunts/2026/Q4/H-0031.md",
+    "queries/H-0031/network_connection__outbound_connection_from_web_server_process_in_wordpress_upg.cql",
+    "queries/H-0031/network_connection__outbound_connection_from_web_server_process_in_wordpress_upg.spl",
+    "queries/H-0031/network_connection__outbound_connection_from_web_server_process_in_wordpress_upg.yml",
+    "queries/H-0031/process_creation__suspicious_child_process_spawned_from_wordpress_upgrade_stag.cql",
+    "queries/H-0031/process_creation__suspicious_child_process_spawned_from_wordpress_upgrade_stag.eql",
+    "queries/H-0031/process_creation__suspicious_child_process_spawned_from_wordpress_upgrade_stag.kql",
+    "queries/H-0031/process_creation__suspicious_child_process_spawned_from_wordpress_upgrade_stag.leql",
+    "queries/H-0031/process_creation__suspicious_child_process_spawned_from_wordpress_upgrade_stag.s1ql",
+    "queries/H-0031/process_creation__suspicious_child_process_spawned_from_wordpress_upgrade_stag.spl",
+    "queries/H-0031/process_creation__suspicious_child_process_spawned_from_wordpress_upgrade_stag.yml",
+    "queries/H-0031/webserver__wordpress_core_upgrade_endpoint_concurrent_access_pattern.cql",
+    "queries/H-0031/webserver__wordpress_core_upgrade_endpoint_concurrent_access_pattern.eql",
+    "queries/H-0031/webserver__wordpress_core_upgrade_endpoint_concurrent_access_pattern.leql",
+    "queries/H-0031/webserver__wordpress_core_upgrade_endpoint_concurrent_access_pattern.spl",
+    "queries/H-0031/webserver__wordpress_core_upgrade_endpoint_concurrent_access_pattern.yml",
+    "research/R-1008.md"
+  ],
+  "hunt_id": "H-0031",
+  "merge_method": "squash",
+  "promotion_reasons": [],
+  "publisher": "hecate-runner",
+  "review_required": false,
+  "schema_version": 1,
+  "sha256": "7cf3a71a948f9a62385e9f43c8f7d3d852ab5fa59f7bc232abf0cb73239efa10",
+  "target_repository": "Hecate-Org/Hecate-Public",
+  "target_visibility": "public"
+}

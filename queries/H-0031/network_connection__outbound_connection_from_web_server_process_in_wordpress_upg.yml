@@ -1,0 +1,30 @@
+title: Outbound Connection From Web Server Process in WordPress Upgrade Staging Directory
+id: 00977c6b-217e-43d2-aa31-17cad72220f4
+status: experimental
+description: Detects outbound network connections initiated by processes running from WordPress upgrade
+  staging directories (/wp-content/upgrade/). This behavior may indicate exploitation of CVE-2026-119977,
+  where attackers exploit TOCTOU race conditions during WordPress upgrades to execute code from predictable
+  staging paths. Legitimate WordPress upgrades should not spawn processes from staging directories that
+  initiate external connections.
+references:
+- https://nvd.nist.gov/vuln/detail/CVE-2026-119977
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-11-09'
+tags:
+- attack.t1190
+logsource:
+  category: network_connection
+  product: linux
+detection:
+  selection:
+    Image|contains: /wp-content/upgrade/
+    Initiated: true
+  condition: selection
+falsepositives:
+- Legitimate WordPress plugins or themes that execute update scripts from staging directories and require
+  external connectivity (rare)
+- Custom WordPress deployment automation that uses staging paths as temporary execution contexts
+level: high
+hunt_id: H-0031
+hecate_review:
+  verdict: keep
