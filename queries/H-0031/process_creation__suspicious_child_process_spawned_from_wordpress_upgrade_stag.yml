@@ -1,0 +1,25 @@
+title: Process Execution From WordPress Upgrade Staging Directory
+id: c7c306d0-59a6-4e6c-9ab2-26742b629c87
+status: experimental
+description: Detects process execution originating from WordPress upgrade staging directories (/wp-content/upgrade/*), which indicates exploitation of CVE-2026-119977 TOCTOU race condition during WordPress core upgrades. Attackers exploit predictable staging paths to execute arbitrary code during the upgrade window.
+references:
+- https://nvd.nist.gov/vuln/detail/CVE-2026-119977
+author: hecate (reviewed)
+date: '2026-11-09'
+tags:
+- attack.t1190
+- attack.t1059.006
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection:
+    Image|contains: /wp-content/upgrade/
+  condition: selection
+falsepositives:
+- Legitimate WordPress upgrade processes that spawn helper utilities (rare)
+- Custom WordPress maintenance scripts executed from staging directories
+level: high
+hunt_id: H-0031
+hecate_review:
+  verdict: keep

@@ -1,0 +1,1 @@
+EventType = "Process Creation" AND (EndpointOS = "linux" AND TgtProcImagePath containsCIS "/wp-content/upgrade/")

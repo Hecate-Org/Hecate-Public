@@ -1,0 +1,1 @@
+where(process.exe_path=/^.*\/wp-content\/upgrade\/.*$/i)

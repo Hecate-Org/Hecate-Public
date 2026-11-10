@@ -1,0 +1,1 @@
+where(uri_path=/^.*\/wp-admin\/update-core\.php.*$/i OR uri_path=/^.*\/wp-content\/upgrade\/.*$/i)
