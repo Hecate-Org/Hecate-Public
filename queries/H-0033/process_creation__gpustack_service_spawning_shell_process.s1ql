@@ -1,0 +1,1 @@
+EventType = "Process Creation" AND (EndpointOS = "linux" AND ((SrcProcImagePath containsCIS "gpustack" OR SrcProcImagePath containsCIS "/gpustack") AND (TgtProcImagePath endswithCIS "/bin/sh" OR TgtProcImagePath endswithCIS "/bin/bash" OR TgtProcImagePath endswithCIS "/bin/dash")))

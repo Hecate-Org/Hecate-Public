@@ -1,0 +1,1 @@
+any where (process.parent.executable like~ ("*gpustack*", "*/gpustack*")) and (process.executable like~ ("*/bin/sh", "*/bin/bash", "*/bin/dash"))
