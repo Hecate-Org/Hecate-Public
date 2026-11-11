@@ -1,0 +1,1302 @@
+{
+  "total_hunts": 5,
+  "total_queries": 65,
+  "in_sync_count": 65,
+  "decommissioned_count": 0,
+  "pending_decommission_count": 0,
+  "drifted_count": 0,
+  "missing_count": 0,
+  "error_count": 0,
+  "hunts": {
+    "H-0021": [
+      {
+        "file": "process_creation__source_guidance_g4_node_launching_sh.eql",
+        "target": "elastic_eql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate-h-0021-process-creation---source-guid",
+        "detail": "Validated Elastic sync check contract (dry_run mode)",
+        "local_query": "any where process.parent.executable.caseless:\"*/node\" and process.parent.command_line:\"*node-red*\" and process.executable.caseless:\"*/sh\" and process.command_line:\"* -c *\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:5601/api/detection_engine/rules?rule_id=hecate-h-0021-process-creation---source-guid",
+          "headers": {
+            "Authorization": "ApiKey ***",
+            "kbn-xsrf": "true"
+          }
+        }
+      },
+      {
+        "file": "process_creation__source_guidance_g4_node_launching_sh.kql",
+        "target": "sentinel_kql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate_h_0021_process_creation___source_guidance_g4_no",
+        "detail": "Validated Sentinel sync check contract (dry_run mode)",
+        "local_query": "DeviceProcessEvents\n| where InitiatingProcessFolderPath endswith \"/node\" and InitiatingProcessCommandLine contains \"node-red\" and FolderPath endswith \"/sh\" and ProcessCommandLine contains \" -c \"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://management.azure.com/subscriptions/SUB_ID/resourceGroups/RG/providers/Microsoft.OperationalInsights/workspaces/WORKSPACE_ID/savedSearches/hecate_h_0021_process_creation___source_guidance_g4_no?api-version=2020-08-01",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__source_guidance_g4_node_launching_sh.leql",
+        "target": "rapid7_leql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "r7_h-0021",
+        "detail": "Validated Rapid7 sync check contract (dry_run mode)",
+        "local_query": "where(parent_process.exe_path=/^.*\\/node$/i AND parent_process.cmd_line=/^.*node-red.*$/i AND process.exe_path=/^.*\\/sh$/i AND process.cmd_line=/^.* -c .*$/i)",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://us.rest.logs.insight.rapid7.com/management/saved_queries/r7_h-0021",
+          "headers": {
+            "x-api-key": "***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__source_guidance_g4_node_launching_sh.s1ql",
+        "target": "sentinelone_s1ql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "s1_h-0021",
+        "detail": "Validated SentinelOne sync check contract (dry_run mode)",
+        "local_query": "EventType = \"Process Creation\" AND (EndpointOS = \"windows\" AND (SrcProcImagePath endswithCIS \"/node\" AND SrcProcCmdLine containsCIS \"node-red\" AND TgtProcImagePath endswithCIS \"/sh\" AND TgtProcCmdLine containsCIS \" -c \"))",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://usea1.sentinelone.net/web/api/v2.1/dv/saved-queries/s1_h-0021",
+          "headers": {
+            "Authorization": "ApiToken ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__source_guidance_g4_node_launching_sh.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0021_Process_Creation_-_Source_Guid_a6dc2b",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "ParentImage=\"*/node\" ParentCommandLine=\"*node-red*\" Image=\"*/sh\" CommandLine=\"* -c *\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0021_Process_Creation_-_Source_Guid_a6dc2b?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "webserver__request_the_poc_readme_documents_post_flows.cql",
+        "target": "crowdstrike_cql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "cql_h-0021",
+        "detail": "Validated Falcon LogScale sync check contract (dry_run mode)",
+        "local_query": "\"cs-method\"=/^POST$/i \"cs-uri-stem\"=/^\\/flows$/i",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://api.crowdstrike.com/api/v1/repositories/default/queries/cql_h-0021",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "webserver__request_the_poc_readme_documents_post_flows.eql",
+        "target": "elastic_eql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate-h-0021-webserver---request-the-poc-re",
+        "detail": "Validated Elastic sync check contract (dry_run mode)",
+        "local_query": "any where http.request.method:\"POST\" and url.path:\"/flows\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:5601/api/detection_engine/rules?rule_id=hecate-h-0021-webserver---request-the-poc-re",
+          "headers": {
+            "Authorization": "ApiKey ***",
+            "kbn-xsrf": "true"
+          }
+        }
+      },
+      {
+        "file": "webserver__request_the_poc_readme_documents_post_flows.leql",
+        "target": "rapid7_leql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "r7_h-0021",
+        "detail": "Validated Rapid7 sync check contract (dry_run mode)",
+        "local_query": "where(http_method=/^POST$/i AND uri_path=/^\\/flows$/i)",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://us.rest.logs.insight.rapid7.com/management/saved_queries/r7_h-0021",
+          "headers": {
+            "x-api-key": "***"
+          }
+        }
+      },
+      {
+        "file": "webserver__request_the_poc_readme_documents_post_flows.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0021_Webserver_-_Request_The_Poc_Re_fa9c46",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "\"cs-method\"=\"POST\" \"cs-uri-stem\"=\"/flows\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0021_Webserver_-_Request_The_Poc_Re_fa9c46?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      }
+    ],
+    "H-0030": [
+      {
+        "file": "file_event__cve_2024_3400_pan_os_cron_persistence_file_creation.cql",
+        "target": "crowdstrike_cql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "cql_h-0030",
+        "detail": "Validated Falcon LogScale sync check contract (dry_run mode)",
+        "local_query": "TargetFilename=/^\\/etc\\/cron\\.d\\//i",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://api.crowdstrike.com/api/v1/repositories/default/queries/cql_h-0030",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "file_event__cve_2024_3400_pan_os_cron_persistence_file_creation.eql",
+        "target": "elastic_eql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate-h-0030-file-event---cve-2024-3400-pan",
+        "detail": "Validated Elastic sync check contract (dry_run mode)",
+        "local_query": "any where file.path:\"/etc/cron.d/*\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:5601/api/detection_engine/rules?rule_id=hecate-h-0030-file-event---cve-2024-3400-pan",
+          "headers": {
+            "Authorization": "ApiKey ***",
+            "kbn-xsrf": "true"
+          }
+        }
+      },
+      {
+        "file": "file_event__cve_2024_3400_pan_os_cron_persistence_file_creation.kql",
+        "target": "sentinel_kql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate_h_0030_file_event___cve_2024_3400_pan_os_cron_p",
+        "detail": "Validated Sentinel sync check contract (dry_run mode)",
+        "local_query": "DeviceFileEvents\n| where FolderPath startswith \"/etc/cron.d/\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://management.azure.com/subscriptions/SUB_ID/resourceGroups/RG/providers/Microsoft.OperationalInsights/workspaces/WORKSPACE_ID/savedSearches/hecate_h_0030_file_event___cve_2024_3400_pan_os_cron_p?api-version=2020-08-01",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "file_event__cve_2024_3400_pan_os_cron_persistence_file_creation.leql",
+        "target": "rapid7_leql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "r7_h-0030",
+        "detail": "Validated Rapid7 sync check contract (dry_run mode)",
+        "local_query": "where(file.path=/^\\/etc\\/cron\\.d\\/.*$/i)",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://us.rest.logs.insight.rapid7.com/management/saved_queries/r7_h-0030",
+          "headers": {
+            "x-api-key": "***"
+          }
+        }
+      },
+      {
+        "file": "file_event__cve_2024_3400_pan_os_cron_persistence_file_creation.s1ql",
+        "target": "sentinelone_s1ql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "s1_h-0030",
+        "detail": "Validated SentinelOne sync check contract (dry_run mode)",
+        "local_query": "ObjectType = \"File\" AND (EndpointOS = \"linux\" AND TgtFilePath startswithCIS \"/etc/cron.d/\")",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://usea1.sentinelone.net/web/api/v2.1/dv/saved-queries/s1_h-0030",
+          "headers": {
+            "Authorization": "ApiToken ***"
+          }
+        }
+      },
+      {
+        "file": "file_event__cve_2024_3400_pan_os_cron_persistence_file_creation.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0030_File_Event_-_Cve_2024_3400_Pan_c48f6b",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "TargetFilename=\"/etc/cron.d/*\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0030_File_Event_-_Cve_2024_3400_Pan_c48f6b?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "network_connection__pan_os_globalprotect_gateway_process_outbound_https_connecti.cql",
+        "target": "crowdstrike_cql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "cql_h-0030",
+        "detail": "Validated Falcon LogScale sync check contract (dry_run mode)",
+        "local_query": "Image=/\\/pan_comm$/i or Image=/\\/nginx$/i or Image=/\\/httpd$/i DestinationPort=443 Initiated=true",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://api.crowdstrike.com/api/v1/repositories/default/queries/cql_h-0030",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "network_connection__pan_os_globalprotect_gateway_process_outbound_https_connecti.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0030_Network_Connection_-_Pan_Os_Gl_cd8a08",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "Image IN (\"*/pan_comm\", \"*/nginx\", \"*/httpd\") DestinationPort=443 Initiated=true",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0030_Network_Connection_-_Pan_Os_Gl_cd8a08?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__pan_os_globalprotect_gateway_process_spawning_shell_or_curl.cql",
+        "target": "crowdstrike_cql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "cql_h-0030",
+        "detail": "Validated Falcon LogScale sync check contract (dry_run mode)",
+        "local_query": "event_platform=/^Lin$/i ParentBaseFileName=/\\/pan_comm$/i or ParentBaseFileName=/\\/nginx$/i or ParentBaseFileName=/\\/httpd$/i ImageFileName=/\\/bin\\/sh$/i or ImageFileName=/\\/bin\\/bash$/i or ImageFileName=/\\/curl$/i",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://api.crowdstrike.com/api/v1/repositories/default/queries/cql_h-0030",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__pan_os_globalprotect_gateway_process_spawning_shell_or_curl.eql",
+        "target": "elastic_eql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate-h-0030-process-creation---pan-os-glob",
+        "detail": "Validated Elastic sync check contract (dry_run mode)",
+        "local_query": "any where (process.parent.executable like~ (\"*/pan_comm\", \"*/nginx\", \"*/httpd\")) and (process.executable like~ (\"*/bin/sh\", \"*/bin/bash\", \"*/curl\"))",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:5601/api/detection_engine/rules?rule_id=hecate-h-0030-process-creation---pan-os-glob",
+          "headers": {
+            "Authorization": "ApiKey ***",
+            "kbn-xsrf": "true"
+          }
+        }
+      },
+      {
+        "file": "process_creation__pan_os_globalprotect_gateway_process_spawning_shell_or_curl.kql",
+        "target": "sentinel_kql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate_h_0030_process_creation___pan_os_globalprotect",
+        "detail": "Validated Sentinel sync check contract (dry_run mode)",
+        "local_query": "DeviceProcessEvents\n| where (InitiatingProcessFolderPath endswith \"/pan_comm\" or InitiatingProcessFolderPath endswith \"/nginx\" or InitiatingProcessFolderPath endswith \"/httpd\") and (FolderPath endswith \"/bin/sh\" or FolderPath endswith \"/bin/bash\" or FolderPath endswith \"/curl\")",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://management.azure.com/subscriptions/SUB_ID/resourceGroups/RG/providers/Microsoft.OperationalInsights/workspaces/WORKSPACE_ID/savedSearches/hecate_h_0030_process_creation___pan_os_globalprotect?api-version=2020-08-01",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__pan_os_globalprotect_gateway_process_spawning_shell_or_curl.leql",
+        "target": "rapid7_leql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "r7_h-0030",
+        "detail": "Validated Rapid7 sync check contract (dry_run mode)",
+        "local_query": "where((parent_process.exe_path=/^.*\\/pan_comm$/i OR parent_process.exe_path=/^.*\\/nginx$/i OR parent_process.exe_path=/^.*\\/httpd$/i) AND (process.exe_path=/^.*\\/bin\\/sh$/i OR process.exe_path=/^.*\\/bin\\/bash$/i OR process.exe_path=/^.*\\/curl$/i))",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://us.rest.logs.insight.rapid7.com/management/saved_queries/r7_h-0030",
+          "headers": {
+            "x-api-key": "***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__pan_os_globalprotect_gateway_process_spawning_shell_or_curl.s1ql",
+        "target": "sentinelone_s1ql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "s1_h-0030",
+        "detail": "Validated SentinelOne sync check contract (dry_run mode)",
+        "local_query": "EventType = \"Process Creation\" AND (EndpointOS = \"linux\" AND ((SrcProcImagePath endswithCIS \"/pan_comm\" OR SrcProcImagePath endswithCIS \"/nginx\" OR SrcProcImagePath endswithCIS \"/httpd\") AND (TgtProcImagePath endswithCIS \"/bin/sh\" OR TgtProcImagePath endswithCIS \"/bin/bash\" OR TgtProcImagePath endswithCIS \"/curl\")))",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://usea1.sentinelone.net/web/api/v2.1/dv/saved-queries/s1_h-0030",
+          "headers": {
+            "Authorization": "ApiToken ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__pan_os_globalprotect_gateway_process_spawning_shell_or_curl.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0030_Process_Creation_-_Pan_Os_Glob_94baea",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "ParentImage IN (\"*/pan_comm\", \"*/nginx\", \"*/httpd\") Image IN (\"*/bin/sh\", \"*/bin/bash\", \"*/curl\")",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0030_Process_Creation_-_Pan_Os_Glob_94baea?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "webserver__cve_2024_3400_pan_os_globalprotect_command_injection_attempt.cql",
+        "target": "crowdstrike_cql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "cql_h-0030",
+        "detail": "Validated Falcon LogScale sync check contract (dry_run mode)",
+        "local_query": "\"cs-uri-stem\"=/\\/ssl-vpn\\/hipreport\\.esp$/i \"cs-cookie\"=/`/i or \"cs-cookie\"=/\\$\\(/i or \"cs-cookie\"=/;wget/i or \"cs-cookie\"=/;curl/i or \"cs-cookie\"=/\\|sh/i or \"cs-cookie\"=/\\|bash/i or \"cs-cookie\"=/&&/i or \"cs-cookie\"=/;echo/i",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://api.crowdstrike.com/api/v1/repositories/default/queries/cql_h-0030",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "webserver__cve_2024_3400_pan_os_globalprotect_command_injection_attempt.eql",
+        "target": "elastic_eql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate-h-0030-webserver---cve-2024-3400-pan-",
+        "detail": "Validated Elastic sync check contract (dry_run mode)",
+        "local_query": "any where url.path:\"*/ssl-vpn/hipreport.esp\" and (http.request.headers.cookie like~ (\"*`*\", \"*$(*\", \"*;wget*\", \"*;curl*\", \"*|sh*\", \"*|bash*\", \"*&&*\", \"*;echo*\"))",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:5601/api/detection_engine/rules?rule_id=hecate-h-0030-webserver---cve-2024-3400-pan-",
+          "headers": {
+            "Authorization": "ApiKey ***",
+            "kbn-xsrf": "true"
+          }
+        }
+      },
+      {
+        "file": "webserver__cve_2024_3400_pan_os_globalprotect_command_injection_attempt.leql",
+        "target": "rapid7_leql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "r7_h-0030",
+        "detail": "Validated Rapid7 sync check contract (dry_run mode)",
+        "local_query": "where(uri_path=/^.*\\/ssl-vpn\\/hipreport\\.esp$/i AND (cookie=/^.*`.*$/i OR cookie=/^.*\\$\\(.*$/i OR cookie=/^.*;wget.*$/i OR cookie=/^.*;curl.*$/i OR cookie=/^.*\\|sh.*$/i OR cookie=/^.*\\|bash.*$/i OR cookie=/^.*&&.*$/i OR cookie=/^.*;echo.*$/i))",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://us.rest.logs.insight.rapid7.com/management/saved_queries/r7_h-0030",
+          "headers": {
+            "x-api-key": "***"
+          }
+        }
+      },
+      {
+        "file": "webserver__cve_2024_3400_pan_os_globalprotect_command_injection_attempt.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0030_Webserver_-_Cve_2024_3400_Pan__b39d76",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "\"cs-uri-stem\"=\"*/ssl-vpn/hipreport.esp\" \"cs-cookie\" IN (\"*`*\", \"*$(*\", \"*;wget*\", \"*;curl*\", \"*|sh*\", \"*|bash*\", \"*&&*\", \"*;echo*\")",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0030_Webserver_-_Cve_2024_3400_Pan__b39d76?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      }
+    ],
+    "H-0031": [
+      {
+        "file": "network_connection__outbound_connection_from_web_server_process_in_wordpress_upg.cql",
+        "target": "crowdstrike_cql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "cql_h-0031",
+        "detail": "Validated Falcon LogScale sync check contract (dry_run mode)",
+        "local_query": "Image=/\\/wp-content\\/upgrade\\//i Initiated=true",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://api.crowdstrike.com/api/v1/repositories/default/queries/cql_h-0031",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "network_connection__outbound_connection_from_web_server_process_in_wordpress_upg.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0031_Network_Connection_-_Outbound__06d7e4",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "Image=\"*/wp-content/upgrade/*\" Initiated=true",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0031_Network_Connection_-_Outbound__06d7e4?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__suspicious_child_process_spawned_from_wordpress_upgrade_stag.cql",
+        "target": "crowdstrike_cql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "cql_h-0031",
+        "detail": "Validated Falcon LogScale sync check contract (dry_run mode)",
+        "local_query": "event_platform=/^Lin$/i ImageFileName=/\\/wp-content\\/upgrade\\//i",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://api.crowdstrike.com/api/v1/repositories/default/queries/cql_h-0031",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__suspicious_child_process_spawned_from_wordpress_upgrade_stag.eql",
+        "target": "elastic_eql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate-h-0031-process-creation---suspicious-",
+        "detail": "Validated Elastic sync check contract (dry_run mode)",
+        "local_query": "any where process.executable:\"*/wp-content/upgrade/*\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:5601/api/detection_engine/rules?rule_id=hecate-h-0031-process-creation---suspicious-",
+          "headers": {
+            "Authorization": "ApiKey ***",
+            "kbn-xsrf": "true"
+          }
+        }
+      },
+      {
+        "file": "process_creation__suspicious_child_process_spawned_from_wordpress_upgrade_stag.kql",
+        "target": "sentinel_kql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate_h_0031_process_creation___suspicious_child_proc",
+        "detail": "Validated Sentinel sync check contract (dry_run mode)",
+        "local_query": "DeviceProcessEvents\n| where FolderPath contains \"/wp-content/upgrade/\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://management.azure.com/subscriptions/SUB_ID/resourceGroups/RG/providers/Microsoft.OperationalInsights/workspaces/WORKSPACE_ID/savedSearches/hecate_h_0031_process_creation___suspicious_child_proc?api-version=2020-08-01",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__suspicious_child_process_spawned_from_wordpress_upgrade_stag.leql",
+        "target": "rapid7_leql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "r7_h-0031",
+        "detail": "Validated Rapid7 sync check contract (dry_run mode)",
+        "local_query": "where(process.exe_path=/^.*\\/wp-content\\/upgrade\\/.*$/i)",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://us.rest.logs.insight.rapid7.com/management/saved_queries/r7_h-0031",
+          "headers": {
+            "x-api-key": "***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__suspicious_child_process_spawned_from_wordpress_upgrade_stag.s1ql",
+        "target": "sentinelone_s1ql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "s1_h-0031",
+        "detail": "Validated SentinelOne sync check contract (dry_run mode)",
+        "local_query": "EventType = \"Process Creation\" AND (EndpointOS = \"linux\" AND TgtProcImagePath containsCIS \"/wp-content/upgrade/\")",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://usea1.sentinelone.net/web/api/v2.1/dv/saved-queries/s1_h-0031",
+          "headers": {
+            "Authorization": "ApiToken ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__suspicious_child_process_spawned_from_wordpress_upgrade_stag.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0031_Process_Creation_-_Suspicious__c0b9b4",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "Image=\"*/wp-content/upgrade/*\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0031_Process_Creation_-_Suspicious__c0b9b4?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "webserver__wordpress_core_upgrade_endpoint_concurrent_access_pattern.cql",
+        "target": "crowdstrike_cql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "cql_h-0031",
+        "detail": "Validated Falcon LogScale sync check contract (dry_run mode)",
+        "local_query": "\"cs-uri-stem\"=/\\/wp-admin\\/update-core\\.php/i or \"cs-uri-stem\"=/\\/wp-content\\/upgrade\\//i",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://api.crowdstrike.com/api/v1/repositories/default/queries/cql_h-0031",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "webserver__wordpress_core_upgrade_endpoint_concurrent_access_pattern.eql",
+        "target": "elastic_eql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate-h-0031-webserver---wordpress-core-upg",
+        "detail": "Validated Elastic sync check contract (dry_run mode)",
+        "local_query": "any where url.path like~ (\"*/wp-admin/update-core.php*\", \"*/wp-content/upgrade/*\")",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:5601/api/detection_engine/rules?rule_id=hecate-h-0031-webserver---wordpress-core-upg",
+          "headers": {
+            "Authorization": "ApiKey ***",
+            "kbn-xsrf": "true"
+          }
+        }
+      },
+      {
+        "file": "webserver__wordpress_core_upgrade_endpoint_concurrent_access_pattern.leql",
+        "target": "rapid7_leql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "r7_h-0031",
+        "detail": "Validated Rapid7 sync check contract (dry_run mode)",
+        "local_query": "where(uri_path=/^.*\\/wp-admin\\/update-core\\.php.*$/i OR uri_path=/^.*\\/wp-content\\/upgrade\\/.*$/i)",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://us.rest.logs.insight.rapid7.com/management/saved_queries/r7_h-0031",
+          "headers": {
+            "x-api-key": "***"
+          }
+        }
+      },
+      {
+        "file": "webserver__wordpress_core_upgrade_endpoint_concurrent_access_pattern.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0031_Webserver_-_Wordpress_Core_Upg_daeae4",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "\"cs-uri-stem\" IN (\"*/wp-admin/update-core.php*\", \"*/wp-content/upgrade/*\")",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0031_Webserver_-_Wordpress_Core_Upg_daeae4?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      }
+    ],
+    "H-0032": [
+      {
+        "file": "process_creation__command_the_source_shows_being_run_python3_tooling_checker_c.cql",
+        "target": "crowdstrike_cql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "cql_h-0032",
+        "detail": "Validated Falcon LogScale sync check contract (dry_run mode)",
+        "local_query": "event_platform=/^Lin$/i ImageFileName=/\\/python3$/i CommandLine=/tooling\\/checker\\/checker\\.py/i",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://api.crowdstrike.com/api/v1/repositories/default/queries/cql_h-0032",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__command_the_source_shows_being_run_python3_tooling_checker_c.eql",
+        "target": "elastic_eql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate-h-0032-process-creation---command-the",
+        "detail": "Validated Elastic sync check contract (dry_run mode)",
+        "local_query": "any where process.executable:\"*/python3\" and process.command_line:\"*tooling/checker/checker.py*\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:5601/api/detection_engine/rules?rule_id=hecate-h-0032-process-creation---command-the",
+          "headers": {
+            "Authorization": "ApiKey ***",
+            "kbn-xsrf": "true"
+          }
+        }
+      },
+      {
+        "file": "process_creation__command_the_source_shows_being_run_python3_tooling_checker_c.kql",
+        "target": "sentinel_kql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate_h_0032_process_creation___command_the_source_sh",
+        "detail": "Validated Sentinel sync check contract (dry_run mode)",
+        "local_query": "DeviceProcessEvents\n| where FolderPath endswith \"/python3\" and ProcessCommandLine contains \"tooling/checker/checker.py\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://management.azure.com/subscriptions/SUB_ID/resourceGroups/RG/providers/Microsoft.OperationalInsights/workspaces/WORKSPACE_ID/savedSearches/hecate_h_0032_process_creation___command_the_source_sh?api-version=2020-08-01",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__command_the_source_shows_being_run_python3_tooling_checker_c.leql",
+        "target": "rapid7_leql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "r7_h-0032",
+        "detail": "Validated Rapid7 sync check contract (dry_run mode)",
+        "local_query": "where(process.exe_path=/^.*\\/python3$/i AND process.cmd_line=/^.*tooling\\/checker\\/checker\\.py.*$/i)",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://us.rest.logs.insight.rapid7.com/management/saved_queries/r7_h-0032",
+          "headers": {
+            "x-api-key": "***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__command_the_source_shows_being_run_python3_tooling_checker_c.s1ql",
+        "target": "sentinelone_s1ql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "s1_h-0032",
+        "detail": "Validated SentinelOne sync check contract (dry_run mode)",
+        "local_query": "EventType = \"Process Creation\" AND (EndpointOS = \"linux\" AND (TgtProcImagePath endswithCIS \"/python3\" AND TgtProcCmdLine containsCIS \"tooling/checker/checker.py\"))",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://usea1.sentinelone.net/web/api/v2.1/dv/saved-queries/s1_h-0032",
+          "headers": {
+            "Authorization": "ApiToken ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__command_the_source_shows_being_run_python3_tooling_checker_c.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0032_Process_Creation_-_Command_The_2a7fa5",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "Image=\"*/python3\" CommandLine=\"*tooling/checker/checker.py*\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0032_Process_Creation_-_Command_The_2a7fa5?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__php_web_server_spawning_shell_after_suspicious_http_request.cql",
+        "target": "crowdstrike_cql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "cql_h-0032",
+        "detail": "Validated Falcon LogScale sync check contract (dry_run mode)",
+        "local_query": "event_platform=/^Lin$/i ParentBaseFileName=/\\/php-fpm/i or ParentBaseFileName=/\\/php-cgi/i ImageFileName=/\\/bin\\/sh$/i or ImageFileName=/\\/bin\\/bash$/i or ImageFileName=/\\/bin\\/dash$/i or ImageFileName=/\\/bin\\/zsh$/i or ImageFileName=/\\/bin\\/ksh$/i",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://api.crowdstrike.com/api/v1/repositories/default/queries/cql_h-0032",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__php_web_server_spawning_shell_after_suspicious_http_request.eql",
+        "target": "elastic_eql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate-h-0032-process-creation---php-web-ser",
+        "detail": "Validated Elastic sync check contract (dry_run mode)",
+        "local_query": "any where (process.parent.executable like~ (\"*/php-fpm*\", \"*/php-cgi*\")) and (process.executable like~ (\"*/bin/sh\", \"*/bin/bash\", \"*/bin/dash\", \"*/bin/zsh\", \"*/bin/ksh\"))",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:5601/api/detection_engine/rules?rule_id=hecate-h-0032-process-creation---php-web-ser",
+          "headers": {
+            "Authorization": "ApiKey ***",
+            "kbn-xsrf": "true"
+          }
+        }
+      },
+      {
+        "file": "process_creation__php_web_server_spawning_shell_after_suspicious_http_request.kql",
+        "target": "sentinel_kql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate_h_0032_process_creation___php_web_server_spawni",
+        "detail": "Validated Sentinel sync check contract (dry_run mode)",
+        "local_query": "DeviceProcessEvents\n| where (InitiatingProcessFolderPath contains \"/php-fpm\" or InitiatingProcessFolderPath contains \"/php-cgi\") and (FolderPath endswith \"/bin/sh\" or FolderPath endswith \"/bin/bash\" or FolderPath endswith \"/bin/dash\" or FolderPath endswith \"/bin/zsh\" or FolderPath endswith \"/bin/ksh\")",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://management.azure.com/subscriptions/SUB_ID/resourceGroups/RG/providers/Microsoft.OperationalInsights/workspaces/WORKSPACE_ID/savedSearches/hecate_h_0032_process_creation___php_web_server_spawni?api-version=2020-08-01",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__php_web_server_spawning_shell_after_suspicious_http_request.leql",
+        "target": "rapid7_leql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "r7_h-0032",
+        "detail": "Validated Rapid7 sync check contract (dry_run mode)",
+        "local_query": "where((parent_process.exe_path=/^.*\\/php-fpm.*$/i OR parent_process.exe_path=/^.*\\/php-cgi.*$/i) AND (process.exe_path=/^.*\\/bin\\/sh$/i OR process.exe_path=/^.*\\/bin\\/bash$/i OR process.exe_path=/^.*\\/bin\\/dash$/i OR process.exe_path=/^.*\\/bin\\/zsh$/i OR process.exe_path=/^.*\\/bin\\/ksh$/i))",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://us.rest.logs.insight.rapid7.com/management/saved_queries/r7_h-0032",
+          "headers": {
+            "x-api-key": "***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__php_web_server_spawning_shell_after_suspicious_http_request.s1ql",
+        "target": "sentinelone_s1ql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "s1_h-0032",
+        "detail": "Validated SentinelOne sync check contract (dry_run mode)",
+        "local_query": "EventType = \"Process Creation\" AND (EndpointOS = \"linux\" AND ((SrcProcImagePath containsCIS \"/php-fpm\" OR SrcProcImagePath containsCIS \"/php-cgi\") AND (TgtProcImagePath endswithCIS \"/bin/sh\" OR TgtProcImagePath endswithCIS \"/bin/bash\" OR TgtProcImagePath endswithCIS \"/bin/dash\" OR TgtProcImagePath endswithCIS \"/bin/zsh\" OR TgtProcImagePath endswithCIS \"/bin/ksh\")))",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://usea1.sentinelone.net/web/api/v2.1/dv/saved-queries/s1_h-0032",
+          "headers": {
+            "Authorization": "ApiToken ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__php_web_server_spawning_shell_after_suspicious_http_request.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0032_Process_Creation_-_Php_Web_Ser_79fc35",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "ParentImage IN (\"*/php-fpm*\", \"*/php-cgi*\") Image IN (\"*/bin/sh\", \"*/bin/bash\", \"*/bin/dash\", \"*/bin/zsh\", \"*/bin/ksh\")",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0032_Process_Creation_-_Php_Web_Ser_79fc35?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "webserver__http_request_to_php2shell_vulnerable_endpoint.cql",
+        "target": "crowdstrike_cql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "cql_h-0032",
+        "detail": "Validated Falcon LogScale sync check contract (dry_run mode)",
+        "local_query": "\"cs-uri-stem\"=/\\/ping\\.php$/i",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://api.crowdstrike.com/api/v1/repositories/default/queries/cql_h-0032",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "webserver__http_request_to_php2shell_vulnerable_endpoint.eql",
+        "target": "elastic_eql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate-h-0032-webserver---http-request-to-ph",
+        "detail": "Validated Elastic sync check contract (dry_run mode)",
+        "local_query": "any where url.path:\"*/ping.php\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:5601/api/detection_engine/rules?rule_id=hecate-h-0032-webserver---http-request-to-ph",
+          "headers": {
+            "Authorization": "ApiKey ***",
+            "kbn-xsrf": "true"
+          }
+        }
+      },
+      {
+        "file": "webserver__http_request_to_php2shell_vulnerable_endpoint.leql",
+        "target": "rapid7_leql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "r7_h-0032",
+        "detail": "Validated Rapid7 sync check contract (dry_run mode)",
+        "local_query": "where(uri_path=/^.*\\/ping\\.php$/i)",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://us.rest.logs.insight.rapid7.com/management/saved_queries/r7_h-0032",
+          "headers": {
+            "x-api-key": "***"
+          }
+        }
+      },
+      {
+        "file": "webserver__http_request_to_php2shell_vulnerable_endpoint.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0032_Webserver_-_Http_Request_To_Ph_0bc4a7",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "\"cs-uri-stem\"=\"*/ping.php\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0032_Webserver_-_Http_Request_To_Ph_0bc4a7?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      }
+    ],
+    "H-0033": [
+      {
+        "file": "process_creation__gpustack_service_spawning_shell_process.cql",
+        "target": "crowdstrike_cql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "cql_h-0033",
+        "detail": "Validated Falcon LogScale sync check contract (dry_run mode)",
+        "local_query": "event_platform=/^Lin$/i ParentBaseFileName=/gpustack/i or ParentBaseFileName=/\\/gpustack/i ImageFileName=/\\/bin\\/sh$/i or ImageFileName=/\\/bin\\/bash$/i or ImageFileName=/\\/bin\\/dash$/i",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://api.crowdstrike.com/api/v1/repositories/default/queries/cql_h-0033",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__gpustack_service_spawning_shell_process.eql",
+        "target": "elastic_eql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate-h-0033-process-creation---gpustack-se",
+        "detail": "Validated Elastic sync check contract (dry_run mode)",
+        "local_query": "any where (process.parent.executable like~ (\"*gpustack*\", \"*/gpustack*\")) and (process.executable like~ (\"*/bin/sh\", \"*/bin/bash\", \"*/bin/dash\"))",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:5601/api/detection_engine/rules?rule_id=hecate-h-0033-process-creation---gpustack-se",
+          "headers": {
+            "Authorization": "ApiKey ***",
+            "kbn-xsrf": "true"
+          }
+        }
+      },
+      {
+        "file": "process_creation__gpustack_service_spawning_shell_process.kql",
+        "target": "sentinel_kql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate_h_0033_process_creation___gpustack_service_spaw",
+        "detail": "Validated Sentinel sync check contract (dry_run mode)",
+        "local_query": "DeviceProcessEvents\n| where (InitiatingProcessFolderPath contains \"gpustack\" or InitiatingProcessFolderPath contains \"/gpustack\") and (FolderPath endswith \"/bin/sh\" or FolderPath endswith \"/bin/bash\" or FolderPath endswith \"/bin/dash\")",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://management.azure.com/subscriptions/SUB_ID/resourceGroups/RG/providers/Microsoft.OperationalInsights/workspaces/WORKSPACE_ID/savedSearches/hecate_h_0033_process_creation___gpustack_service_spaw?api-version=2020-08-01",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__gpustack_service_spawning_shell_process.leql",
+        "target": "rapid7_leql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "r7_h-0033",
+        "detail": "Validated Rapid7 sync check contract (dry_run mode)",
+        "local_query": "where((parent_process.exe_path=/^.*gpustack.*$/i OR parent_process.exe_path=/^.*\\/gpustack.*$/i) AND (process.exe_path=/^.*\\/bin\\/sh$/i OR process.exe_path=/^.*\\/bin\\/bash$/i OR process.exe_path=/^.*\\/bin\\/dash$/i))",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://us.rest.logs.insight.rapid7.com/management/saved_queries/r7_h-0033",
+          "headers": {
+            "x-api-key": "***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__gpustack_service_spawning_shell_process.s1ql",
+        "target": "sentinelone_s1ql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "s1_h-0033",
+        "detail": "Validated SentinelOne sync check contract (dry_run mode)",
+        "local_query": "EventType = \"Process Creation\" AND (EndpointOS = \"linux\" AND ((SrcProcImagePath containsCIS \"gpustack\" OR SrcProcImagePath containsCIS \"/gpustack\") AND (TgtProcImagePath endswithCIS \"/bin/sh\" OR TgtProcImagePath endswithCIS \"/bin/bash\" OR TgtProcImagePath endswithCIS \"/bin/dash\")))",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://usea1.sentinelone.net/web/api/v2.1/dv/saved-queries/s1_h-0033",
+          "headers": {
+            "Authorization": "ApiToken ***"
+          }
+        }
+      },
+      {
+        "file": "process_creation__gpustack_service_spawning_shell_process.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0033_Process_Creation_-_Gpustack_Se_cbf6e2",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "ParentImage IN (\"*gpustack*\", \"*/gpustack*\") Image IN (\"*/bin/sh\", \"*/bin/bash\", \"*/bin/dash\")",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0033_Process_Creation_-_Gpustack_Se_cbf6e2?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "webserver__gpustack_cve_2026_102895_exploitation_via_inference_backends_yaml.cql",
+        "target": "crowdstrike_cql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "cql_h-0033",
+        "detail": "Validated Falcon LogScale sync check contract (dry_run mode)",
+        "local_query": "\"cs-uri-stem\"=/\\/v2\\/inference-backends\\/from-yaml/i \"cs-method\"=/^POST$/i",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://api.crowdstrike.com/api/v1/repositories/default/queries/cql_h-0033",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      },
+      {
+        "file": "webserver__gpustack_cve_2026_102895_exploitation_via_inference_backends_yaml.eql",
+        "target": "elastic_eql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "hecate-h-0033-webserver---gpustack-cve-2026-",
+        "detail": "Validated Elastic sync check contract (dry_run mode)",
+        "local_query": "any where url.path:\"*/v2/inference-backends/from-yaml*\" and http.request.method:\"POST\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:5601/api/detection_engine/rules?rule_id=hecate-h-0033-webserver---gpustack-cve-2026-",
+          "headers": {
+            "Authorization": "ApiKey ***",
+            "kbn-xsrf": "true"
+          }
+        }
+      },
+      {
+        "file": "webserver__gpustack_cve_2026_102895_exploitation_via_inference_backends_yaml.leql",
+        "target": "rapid7_leql",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "r7_h-0033",
+        "detail": "Validated Rapid7 sync check contract (dry_run mode)",
+        "local_query": "where(uri_path=/^.*\\/v2\\/inference-backends\\/from-yaml.*$/i AND http_method=/^POST$/i)",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://us.rest.logs.insight.rapid7.com/management/saved_queries/r7_h-0033",
+          "headers": {
+            "x-api-key": "***"
+          }
+        }
+      },
+      {
+        "file": "webserver__gpustack_cve_2026_102895_exploitation_via_inference_backends_yaml.spl",
+        "target": "splunk_spl",
+        "status": "dry_run",
+        "ok": true,
+        "remote_id": "Hecate_H-0033_Webserver_-_Gpustack_Cve_2026__b7be9d",
+        "detail": "Validated Splunk sync check contract (dry_run mode)",
+        "local_query": "\"cs-uri-stem\"=\"*/v2/inference-backends/from-yaml*\" \"cs-method\"=\"POST\"",
+        "remote_query": null,
+        "drift_diff": null,
+        "request_summary": {
+          "method": "GET",
+          "url": "https://localhost:8089/servicesNS/nobody/search/saved/searches/Hecate_H-0033_Webserver_-_Gpustack_Cve_2026__b7be9d?output_mode=json",
+          "headers": {
+            "Authorization": "Bearer ***"
+          }
+        }
+      }
+    ]
+  },
+  "drifted_by_hunt": {},
+  "missing_by_hunt": {},
+  "decommissioned_by_hunt": {},
+  "pending_decommission_by_hunt": {},
+  "hunt_lifecycles": {
+    "H-0021": {
+      "hunt_id": "H-0021",
+      "found": true,
+      "title": "DRAFT - Adversaries use unauthenticated HTTP POST requests to deploy malicious Node-RED flows containing...",
+      "status": "active",
+      "raw_status": "active",
+      "is_active": true,
+      "is_testing": false,
+      "is_deprecated": false,
+      "is_retired": false,
+      "deprecated_at": null,
+      "deprecated_by": null,
+      "deprecation_reason": null,
+      "retired_at": null,
+      "retired_by": null,
+      "retirement_reason": null,
+      "path": "/home/runner/work/Hecate-Public/Hecate-Public/hunts/2026/Q4/H-0021.md"
+    },
+    "H-0030": {
+      "hunt_id": "H-0030",
+      "found": true,
+      "title": "Adversaries exploit CVE-2024-3400 in PAN-OS GlobalProtect gateway using crafted HTTP requests with...",
+      "status": "active",
+      "raw_status": "active",
+      "is_active": true,
+      "is_testing": false,
+      "is_deprecated": false,
+      "is_retired": false,
+      "deprecated_at": null,
+      "deprecated_by": null,
+      "deprecation_reason": null,
+      "retired_at": null,
+      "retired_by": null,
+      "retirement_reason": null,
+      "path": "/home/runner/work/Hecate-Public/Hecate-Public/hunts/2026/Q4/H-0030.md"
+    },
+    "H-0031": {
+      "hunt_id": "H-0031",
+      "found": true,
+      "title": "Adversaries exploit CVE-2026-119977 TOCTOU race conditions in WordPress Core during upgrade windows",
+      "status": "active",
+      "raw_status": "active",
+      "is_active": true,
+      "is_testing": false,
+      "is_deprecated": false,
+      "is_retired": false,
+      "deprecated_at": null,
+      "deprecated_by": null,
+      "deprecation_reason": null,
+      "retired_at": null,
+      "retired_by": null,
+      "retirement_reason": null,
+      "path": "/home/runner/work/Hecate-Public/Hecate-Public/hunts/2026/Q4/H-0031.md"
+    },
+    "H-0032": {
+      "hunt_id": "H-0032",
+      "found": true,
+      "title": "Adversaries use public PoC tooling to probe PHP web servers for CVE-2026-109618 (php2shell) remote...",
+      "status": "active",
+      "raw_status": "active",
+      "is_active": true,
+      "is_testing": false,
+      "is_deprecated": false,
+      "is_retired": false,
+      "deprecated_at": null,
+      "deprecated_by": null,
+      "deprecation_reason": null,
+      "retired_at": null,
+      "retired_by": null,
+      "retirement_reason": null,
+      "path": "/home/runner/work/Hecate-Public/Hecate-Public/hunts/2026/Q4/H-0032.md"
+    },
+    "H-0033": {
+      "hunt_id": "H-0033",
+      "found": true,
+      "title": "Adversaries exploit CVE-2026-102895 improper authentication in GPUStack",
+      "status": "active",
+      "raw_status": "active",
+      "is_active": true,
+      "is_testing": false,
+      "is_deprecated": false,
+      "is_retired": false,
+      "deprecated_at": null,
+      "deprecated_by": null,
+      "deprecation_reason": null,
+      "retired_at": null,
+      "retired_by": null,
+      "retirement_reason": null,
+      "path": "/home/runner/work/Hecate-Public/Hecate-Public/hunts/2026/Q4/H-0033.md"
+    }
+  },
+  "audited_at": "2026-11-11T01:28:30.916352+00:00",
+  "dry_run": true
+}
