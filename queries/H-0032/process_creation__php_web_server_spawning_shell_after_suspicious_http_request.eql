@@ -1,0 +1,1 @@
+any where (process.parent.executable like~ ("*/php-fpm*", "*/php-cgi*")) and (process.executable like~ ("*/bin/sh", "*/bin/bash", "*/bin/dash", "*/bin/zsh", "*/bin/ksh"))

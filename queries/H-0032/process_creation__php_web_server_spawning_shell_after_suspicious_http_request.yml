@@ -1,0 +1,48 @@
+title: PHP Web Server Spawning Shell After Suspicious HTTP Request
+id: 5872f88f-8093-44ab-b691-fab8b897d4f8
+status: experimental
+description: Detects PHP web server processes spawning shell interpreters, which may indicate successful
+  exploitation of PHP vulnerabilities such as CVE-2026-109618 (php2shell) leading to remote code execution.
+  Adversaries probing vulnerable PHP endpoints may achieve code execution, causing the web server to spawn
+  child processes like sh, bash, or dash.
+references:
+- https://github.com/JoshRob297/php2shell-research
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-11-10'
+tags:
+- attack.t1059.004
+- attack.t1190
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection_parent:
+    ParentImage|contains:
+    - /php-fpm
+    - /php-cgi
+  selection_child:
+    Image|endswith:
+    - /bin/sh
+    - /bin/bash
+    - /bin/dash
+    - /bin/zsh
+    - /bin/ksh
+  condition: selection_parent and selection_child
+falsepositives:
+- Legitimate PHP applications that execute system commands as part of normal functionality
+- Administrative scripts or maintenance tasks triggered through web interfaces
+- Monitoring or health-check scripts executed by PHP applications
+level: high
+hunt_id: H-0032
+hecate_review:
+  verdict: revise
+  issues:
+  - The hypothesis describes adversaries probing PHP web servers via HTTP requests to vulnerable endpoints,
+    but the rule detects post-exploitation behavior (shell spawning) rather than the probing activity
+    itself
+  - The passages describe a PoC tool (checker.py) that probes endpoints like /ping.php, but the rule does
+    not detect HTTP requests or network activity - it only detects process creation after successful exploitation
+  - The rule assumes successful RCE has already occurred, which goes beyond what the passages describe
+    as 'not observed attacker activity' and 'not evidence of exploitation in the wild'
+  - The detection logic is reasonable for post-exploitation but does not align with the hypothesis focus
+    on 'probe' and 'HTTP requests to vulnerable endpoints'

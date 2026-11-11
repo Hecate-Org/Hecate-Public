@@ -1,0 +1,37 @@
+{
+  "auto_merge": false,
+  "files": [
+    "hunts/2026/Q4/H-0032.md",
+    "queries/H-0032/process_creation__command_the_source_shows_being_run_python3_tooling_checker_c.cql",
+    "queries/H-0032/process_creation__command_the_source_shows_being_run_python3_tooling_checker_c.eql",
+    "queries/H-0032/process_creation__command_the_source_shows_being_run_python3_tooling_checker_c.kql",
+    "queries/H-0032/process_creation__command_the_source_shows_being_run_python3_tooling_checker_c.leql",
+    "queries/H-0032/process_creation__command_the_source_shows_being_run_python3_tooling_checker_c.s1ql",
+    "queries/H-0032/process_creation__command_the_source_shows_being_run_python3_tooling_checker_c.spl",
+    "queries/H-0032/process_creation__command_the_source_shows_being_run_python3_tooling_checker_c.yml",
+    "queries/H-0032/process_creation__php_web_server_spawning_shell_after_suspicious_http_request.cql",
+    "queries/H-0032/process_creation__php_web_server_spawning_shell_after_suspicious_http_request.eql",
+    "queries/H-0032/process_creation__php_web_server_spawning_shell_after_suspicious_http_request.kql",
+    "queries/H-0032/process_creation__php_web_server_spawning_shell_after_suspicious_http_request.leql",
+    "queries/H-0032/process_creation__php_web_server_spawning_shell_after_suspicious_http_request.s1ql",
+    "queries/H-0032/process_creation__php_web_server_spawning_shell_after_suspicious_http_request.spl",
+    "queries/H-0032/process_creation__php_web_server_spawning_shell_after_suspicious_http_request.yml",
+    "queries/H-0032/webserver__http_request_to_php2shell_vulnerable_endpoint.cql",
+    "queries/H-0032/webserver__http_request_to_php2shell_vulnerable_endpoint.eql",
+    "queries/H-0032/webserver__http_request_to_php2shell_vulnerable_endpoint.leql",
+    "queries/H-0032/webserver__http_request_to_php2shell_vulnerable_endpoint.spl",
+    "queries/H-0032/webserver__http_request_to_php2shell_vulnerable_endpoint.yml",
+    "research/R-1010.md"
+  ],
+  "hunt_id": "H-0032",
+  "merge_method": "squash",
+  "promotion_reasons": [
+    "source has no explicit TLP marking"
+  ],
+  "publisher": "hecate-runner",
+  "review_required": true,
+  "schema_version": 1,
+  "sha256": "c12dc42e7007feae0ae2db61e78b8ed57ad85a287dd724cab6130dedaf9c6066",
+  "target_repository": "Hecate-Org/Hecate-Public",
+  "target_visibility": "public"
+}

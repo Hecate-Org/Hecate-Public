@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where (InitiatingProcessFolderPath contains "/php-fpm" or InitiatingProcessFolderPath contains "/php-cgi") and (FolderPath endswith "/bin/sh" or FolderPath endswith "/bin/bash" or FolderPath endswith "/bin/dash" or FolderPath endswith "/bin/zsh" or FolderPath endswith "/bin/ksh")
