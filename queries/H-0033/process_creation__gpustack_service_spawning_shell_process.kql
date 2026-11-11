@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where (InitiatingProcessFolderPath contains "gpustack" or InitiatingProcessFolderPath contains "/gpustack") and (FolderPath endswith "/bin/sh" or FolderPath endswith "/bin/bash" or FolderPath endswith "/bin/dash")

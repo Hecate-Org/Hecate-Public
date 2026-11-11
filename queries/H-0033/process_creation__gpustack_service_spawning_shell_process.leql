@@ -1,0 +1,1 @@
+where((parent_process.exe_path=/^.*gpustack.*$/i OR parent_process.exe_path=/^.*\/gpustack.*$/i) AND (process.exe_path=/^.*\/bin\/sh$/i OR process.exe_path=/^.*\/bin\/bash$/i OR process.exe_path=/^.*\/bin\/dash$/i))

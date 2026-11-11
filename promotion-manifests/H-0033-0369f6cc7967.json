@@ -1,0 +1,28 @@
+{
+  "auto_merge": true,
+  "files": [
+    "hunts/2026/Q4/H-0033.md",
+    "queries/H-0033/process_creation__gpustack_service_spawning_shell_process.cql",
+    "queries/H-0033/process_creation__gpustack_service_spawning_shell_process.eql",
+    "queries/H-0033/process_creation__gpustack_service_spawning_shell_process.kql",
+    "queries/H-0033/process_creation__gpustack_service_spawning_shell_process.leql",
+    "queries/H-0033/process_creation__gpustack_service_spawning_shell_process.s1ql",
+    "queries/H-0033/process_creation__gpustack_service_spawning_shell_process.spl",
+    "queries/H-0033/process_creation__gpustack_service_spawning_shell_process.yml",
+    "queries/H-0033/webserver__gpustack_cve_2026_102895_exploitation_via_inference_backends_yaml.cql",
+    "queries/H-0033/webserver__gpustack_cve_2026_102895_exploitation_via_inference_backends_yaml.eql",
+    "queries/H-0033/webserver__gpustack_cve_2026_102895_exploitation_via_inference_backends_yaml.leql",
+    "queries/H-0033/webserver__gpustack_cve_2026_102895_exploitation_via_inference_backends_yaml.spl",
+    "queries/H-0033/webserver__gpustack_cve_2026_102895_exploitation_via_inference_backends_yaml.yml",
+    "research/R-1014.md"
+  ],
+  "hunt_id": "H-0033",
+  "merge_method": "squash",
+  "promotion_reasons": [],
+  "publisher": "hecate-runner",
+  "review_required": false,
+  "schema_version": 1,
+  "sha256": "0369f6cc7967106a4ddb7d0df939e4e2d0140a666cd2a8647ff90ab4ba09fbe5",
+  "target_repository": "Hecate-Org/Hecate-Public",
+  "target_visibility": "public"
+}
