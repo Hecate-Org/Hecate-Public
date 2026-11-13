@@ -1,0 +1,2 @@
+DeviceFileEvents
+| where (InitiatingProcessFolderPath endswith "/httpd" or InitiatingProcessFolderPath endswith "/apache2") and (FolderPath contains "/var/www/" or FolderPath contains "/usr/share/nginx/html/" or FolderPath contains "/srv/http/" or FolderPath contains "/tmp/" or FolderPath contains "/dev/shm/") and (not((FolderPath endswith ".log" or FolderPath endswith ".pid" or FolderPath endswith ".lock")))

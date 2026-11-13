@@ -1,0 +1,48 @@
+title: Apache httpd Worker Process Initiating Outbound Network Connection
+id: 24eb9e99-e822-4c0e-a9c2-02557cbc00a0
+status: experimental
+description: Detects outbound network connections initiated by Apache httpd worker processes, which may
+  indicate successful exploitation of CVE-2026-119618 or similar mod_http2 vulnerabilities leading to
+  remote code execution. Legitimate httpd workers typically only accept inbound connections and do not
+  initiate outbound connections unless configured for specific proxy or backend communication scenarios.
+references:
+- https://github.com/LLCForge/CVE-2026-119618
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-11-13'
+tags:
+- attack.t1190
+logsource:
+  category: network_connection
+  product: linux
+detection:
+  selection:
+    Image|endswith:
+    - /httpd
+    - /apache2
+    Initiated: true
+  filter:
+    DestinationIp|cidr:
+    - 127.0.0.0/8
+    - ::1/128
+  condition: selection and not filter
+falsepositives:
+- Apache httpd configured as a reverse proxy connecting to backend application servers
+- Legitimate modules performing external API calls or webhook notifications
+- Health check or monitoring integrations initiated by httpd processes
+- Content delivery or caching modules fetching remote resources
+level: high
+hunt_id: H-0035
+hecate_review:
+  verdict: revise
+  issues:
+  - The rule detects outbound network connections from httpd workers, but the source passages explicitly
+    state detection should be based on server-side indicators like 'Unexpected httpd child termination',
+    'Repeated HTTP/2 connection resets', 'Segmentation faults', 'Worker restarts', 'Abnormal crash frequency',
+    and 'Repeated failures on h2-enabled listeners' (passages 4-10). Outbound network connections are
+    not mentioned as an indicator.
+  - The passages emphasize that 'There is no guaranteed unique network signature' and 'The relevant HTTP/2
+    traffic can resemble legitimate traffic' (passages 1-2), suggesting network-based detection alone
+    is insufficient.
+  - The rule focuses on post-exploitation behavior (C2 communication) rather than the exploitation indicators
+    the passages describe, which are primarily crash/restart patterns and HTTP/2 anomalies.
+x_hecate_synthetic_holdout_status: unavailable

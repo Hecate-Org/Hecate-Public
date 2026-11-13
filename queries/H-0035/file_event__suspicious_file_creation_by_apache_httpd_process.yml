@@ -1,0 +1,53 @@
+title: Suspicious File Creation by Apache httpd Process
+id: 12077dda-c43b-4ea3-b60c-21e281c74b75
+status: experimental
+description: Detects file creation by Apache httpd worker processes in web-accessible or temporary directories,
+  potentially indicating successful exploitation of CVE-2026-119618 or similar mod_http2 vulnerabilities
+  leading to remote code execution. Attackers exploiting race conditions in mod_http2 may write webshells,
+  backdoors, or payloads to disk after achieving code execution.
+references:
+- https://github.com/LLCForge/CVE-2026-119618
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-11-13'
+tags:
+- attack.t1190
+logsource:
+  category: file_event
+  product: linux
+detection:
+  selection_process:
+    Image|endswith:
+    - /httpd
+    - /apache2
+  selection_path:
+    TargetFilename|contains:
+    - /var/www/
+    - /usr/share/nginx/html/
+    - /srv/http/
+    - /tmp/
+    - /dev/shm/
+  filter_legitimate:
+    TargetFilename|endswith:
+    - .log
+    - .pid
+    - .lock
+  condition: selection_process and selection_path and not filter_legitimate
+falsepositives:
+- Legitimate web application file uploads or cache operations
+- Content management systems writing files to web directories
+- Automated deployment or update processes
+- Web server modules creating temporary files during normal operation
+level: medium
+hunt_id: H-0035
+hecate_review:
+  verdict: revise
+  issues:
+  - The rule detects file creation by httpd processes, but the source passages do not describe file creation
+    as an indicator of CVE-2026-119618 exploitation
+  - 'Passages [4]-[10] list server-side indicators: child termination, connection resets, segmentation
+    faults, worker restarts, crash frequency, and failures on h2-enabled listeners - none mention file
+    creation'
+  - Passage [3] emphasizes detection should be based on multiple signals, but this rule focuses on a single
+    behavior (file creation) not mentioned in the detection guidance
+  - The rule assumes post-exploitation file writing (webshells, backdoors) but the passages focus on crash/fault
+    indicators during exploitation attempts, not post-exploitation artifacts

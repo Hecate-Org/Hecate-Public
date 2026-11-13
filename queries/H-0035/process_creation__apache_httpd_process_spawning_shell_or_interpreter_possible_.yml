@@ -1,0 +1,53 @@
+title: Apache HTTPD Process Spawning Shell or Interpreter - Possible CVE-2026-119618 Exploitation
+id: a126feb2-8e83-4761-9ac9-c24bceeec0ec
+status: experimental
+description: Detects Apache httpd or apache2 worker processes spawning shell interpreters or scripting
+  engines, which may indicate successful exploitation of CVE-2026-119618 (mod_http2 race condition RCE).
+  The public PoC references python3 execution, and successful RCE typically results in web server processes
+  launching unexpected child processes for command execution.
+references:
+- https://github.com/LLCForge/CVE-2026-119618
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-11-13'
+tags:
+- attack.t1059.006
+- attack.t1190
+logsource:
+  category: process_creation
+  product: linux
+detection:
+  selection_parent:
+    ParentImage|endswith:
+    - /httpd
+    - /apache2
+  selection_child:
+    Image|endswith:
+    - /bin/sh
+    - /bin/bash
+    - /bin/dash
+    - /bin/zsh
+    - /usr/bin/python
+    - /usr/bin/python3
+    - /usr/bin/perl
+    - /usr/bin/ruby
+    - /usr/bin/php
+  condition: selection_parent and selection_child
+falsepositives:
+- Legitimate CGI scripts or server-side scripting configurations that spawn interpreters
+- Administrative maintenance scripts executed via Apache modules
+- Monitoring or health-check scripts invoked by httpd configuration
+level: high
+hunt_id: H-0035
+hecate_review:
+  verdict: revise
+  issues:
+  - The rule detects process spawning behavior that is not explicitly described in the passages as an
+    indicator of CVE-2026-119618 exploitation
+  - Passage [18] mentions 'python3 --version' as attacker_tooling with 'unknown' status, but this is a
+    README artifact, not a confirmed exploitation indicator
+  - Passages [4]-[10] list server-side indicators (child termination, connection resets, segfaults, worker
+    restarts, crash frequency) but do not mention shell/interpreter spawning as a detection signal
+  - Passage [3] states detection should be based on 'multiple signals' and passage [12] emphasizes correlation
+    of logs, but the rule uses only process creation without the multi-signal approach recommended
+x_hecate_replay_matched: true
+x_hecate_synthetic_holdout_status: failed

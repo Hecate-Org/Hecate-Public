@@ -1,0 +1,1 @@
+any where (process.executable like~ ("*/httpd", "*/apache2")) and (file.path like~ ("*/var/www/*", "*/usr/share/nginx/html/*", "*/srv/http/*", "*/tmp/*", "*/dev/shm/*")) and (not (file.path like~ ("*.log", "*.pid", "*.lock")))

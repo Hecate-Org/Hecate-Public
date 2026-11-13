@@ -1,0 +1,1 @@
+where((process.exe_path=/^.*\/httpd$/i OR process.exe_path=/^.*\/apache2$/i) AND (file.path=/^.*\/var\/www\/.*$/i OR file.path=/^.*\/usr\/share\/nginx\/html\/.*$/i OR file.path=/^.*\/srv\/http\/.*$/i OR file.path=/^.*\/tmp\/.*$/i OR file.path=/^.*\/dev\/shm\/.*$/i) AND NOT (file.path=/^.*\.log$/i OR file.path=/^.*\.pid$/i OR file.path=/^.*\.lock$/i))
