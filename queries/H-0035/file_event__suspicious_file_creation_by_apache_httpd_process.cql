@@ -1,0 +1,1 @@
+Image=/\/httpd$/i or Image=/\/apache2$/i TargetFilename=/\/var\/www\//i or TargetFilename=/\/usr\/share\/nginx\/html\//i or TargetFilename=/\/srv\/http\//i or TargetFilename=/\/tmp\//i or TargetFilename=/\/dev\/shm\//i not (TargetFilename=/\.log$/i or TargetFilename=/\.pid$/i or TargetFilename=/\.lock$/i)

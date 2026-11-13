@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where (InitiatingProcessFolderPath endswith "/httpd" or InitiatingProcessFolderPath endswith "/apache2") and (FolderPath endswith "/bin/sh" or FolderPath endswith "/bin/bash" or FolderPath endswith "/bin/dash" or FolderPath endswith "/bin/zsh" or FolderPath endswith "/usr/bin/python" or FolderPath endswith "/usr/bin/python3" or FolderPath endswith "/usr/bin/perl" or FolderPath endswith "/usr/bin/ruby" or FolderPath endswith "/usr/bin/php")

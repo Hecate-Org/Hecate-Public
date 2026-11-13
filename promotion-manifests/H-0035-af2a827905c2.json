@@ -1,0 +1,35 @@
+{
+  "auto_merge": false,
+  "files": [
+    "hunts/2026/Q4/H-0035.md",
+    "queries/H-0035/file_event__suspicious_file_creation_by_apache_httpd_process.cql",
+    "queries/H-0035/file_event__suspicious_file_creation_by_apache_httpd_process.eql",
+    "queries/H-0035/file_event__suspicious_file_creation_by_apache_httpd_process.kql",
+    "queries/H-0035/file_event__suspicious_file_creation_by_apache_httpd_process.leql",
+    "queries/H-0035/file_event__suspicious_file_creation_by_apache_httpd_process.s1ql",
+    "queries/H-0035/file_event__suspicious_file_creation_by_apache_httpd_process.spl",
+    "queries/H-0035/file_event__suspicious_file_creation_by_apache_httpd_process.yml",
+    "queries/H-0035/network_connection__apache_httpd_worker_process_initiating_outbound_network_conn.spl",
+    "queries/H-0035/network_connection__apache_httpd_worker_process_initiating_outbound_network_conn.yml",
+    "queries/H-0035/process_creation__apache_httpd_process_spawning_shell_or_interpreter_possible_.cql",
+    "queries/H-0035/process_creation__apache_httpd_process_spawning_shell_or_interpreter_possible_.eql",
+    "queries/H-0035/process_creation__apache_httpd_process_spawning_shell_or_interpreter_possible_.kql",
+    "queries/H-0035/process_creation__apache_httpd_process_spawning_shell_or_interpreter_possible_.leql",
+    "queries/H-0035/process_creation__apache_httpd_process_spawning_shell_or_interpreter_possible_.s1ql",
+    "queries/H-0035/process_creation__apache_httpd_process_spawning_shell_or_interpreter_possible_.spl",
+    "queries/H-0035/process_creation__apache_httpd_process_spawning_shell_or_interpreter_possible_.yml",
+    "research/R-1020.md"
+  ],
+  "hunt_id": "H-0035",
+  "merge_method": "squash",
+  "promotion_reasons": [
+    "live adversary emulation verification failed (simulation_match)",
+    "source has no explicit TLP marking"
+  ],
+  "publisher": "hecate-runner",
+  "review_required": true,
+  "schema_version": 1,
+  "sha256": "af2a827905c2ff639e218757608362e939000907e8cd2230ff375bc8ba762dc9",
+  "target_repository": "Hecate-Org/Hecate-Public",
+  "target_visibility": "public"
+}
