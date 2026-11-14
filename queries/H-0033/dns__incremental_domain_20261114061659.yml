@@ -1,0 +1,22 @@
+title: H-0033 Incremental Campaign Detection (domain)
+id: inc-h-0033-20261114061659
+status: experimental
+description: Incremental rule variant generated from correlated campaign intelligence
+  for H-0033.
+author: hecate-runner correlation-engine
+date: 2026/11/14
+logsource:
+  product: windows
+  category: dns_query
+detection:
+  selection:
+    QueryName:
+    - www.rapid7.com
+    - www.cve.org
+    - cve.org
+  condition: selection
+falsepositives:
+- Legitimate administration or research scanning
+level: medium
+tags:
+- attack.campaign.h-0033

@@ -1,94 +1,122 @@
 # Hecate-Public
 
-> **The Version-Controlled Threat Hunting & Detection Engineering Workspace.**
-> Living repository holding peer-reviewed hunts, Sigma rules, multi-engine SIEM queries, and grounded research dossiers.
+The shared Hecate catalog contains hunt definitions, candidate Sigma rules,
+native query artifacts, research and starter knowledge. Presence in this catalog
+or a merged PR does not prove live detection coverage in your environment.
 
-[![Ecosystem: Hecate](https://img.shields.io/badge/ecosystem-Hecate-blue.svg)](https://github.com/Hecate-Org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Format: LOCK](https://img.shields.io/badge/pattern-LOCK-green.svg)](https://github.com/Hecate-Org/Hecate-Core/blob/main/docs/lock-pattern.md)
+## Repository responsibilities
 
----
+[Core](https://github.com/Hecate-Org/Hecate-Core) supplies functional code and the
+`hecate-agent` CLI. [Runner](https://github.com/Hecate-Org/Hecate-Runner) supplies
+scheduling, integrations, execution approvals and the `hecate-runner` CLI. This
+repository supplies content. Your enterprise-specific component should be a
+private workspace seeded with the content you want to use.
 
-## 🧭 Overview
+| Directory | Contents |
+| --- | --- |
+| `hunts/` | LOCK-format hunt records (`H-XXXX.md`) |
+| `queries/` | Sigma YAML and native `.spl`, `.kql`, `.eql`, `.cql`, `.leql`, `.s1ql` artifacts |
+| `research/` | Research dossiers (`R-XXXX.md`) |
+| `knowledge/` | Starter environment contract and hunting guidance |
+| `scripts/` and `.github/workflows/` | Content review and promotion checks |
 
-**Hecate-Public** (`Hecate-Workspace`) is the central content catalog of the Hecate threat hunting platform. Generated detection bundles, behavioral threat hypotheses, and Sigma rules drafted autonomously by [Hecate-Runner](https://github.com/Hecate-Org/Hecate-Runner) are submitted here via automated pull requests for human review, verification, and automated promotion into production SIEMs.
+`.cql` is the CrowdStrike LogScale query format; `.leql` is Rapid7 LEQL.
 
-It enforces strict content hygiene:
-- **LOCK Pattern Format:** Every hunt follows **Learn, Observe, Check, Keep** structure.
-- **Audited Provenance:** Every claim is grounded against primary CTI sources or research dossiers.
-- **Automated Promotion Gates:** `promotion-policy.yaml` blocks credentials and restricted TLP material while enforcing review approvals.
+## Install and browse
 
----
-
-## 📂 Catalog Structure
-
-| Directory | Contents & Purpose |
-| :--- | :--- |
-| **`hunts/`** | Threat hunt records in LOCK markdown format (`H-XXXX.md`). |
-| **`queries/`** | Synthesized Sigma rules and transpiled native SIEM queries (`Splunk .spl`, `Elastic .eql`, `CrowdStrike .cql`, `Logscale .leql`). |
-| **`research/`** | Model-assisted deep research dossiers grounding hunts (`R-XXXX.md`). |
-| **`knowledge/`** | Organization telemetry mapping, logsource definitions, and ATT&CK matrix references. |
-
----
-
-## 🚀 Getting Started for Developers & Analysts
-
-### 1. Prerequisites & Side-by-Side Setup
-Check out this repository alongside `Hecate-Core` and `Hecate-Runner`:
+Python 3.11+, Git and uv are required for this source setup. `.github`, Core,
+Runner and Public can be sibling directories; `.github` is optional to clone.
 
 ```bash
-mkdir -p ~/betas && cd ~/betas
-
+mkdir hecate-dev
+cd hecate-dev
 git clone https://github.com/Hecate-Org/Hecate-Core.git
 git clone https://github.com/Hecate-Org/Hecate-Runner.git
-git clone https://github.com/Hecate-Org/Hecate-Public.git Hecate-Workspace
+git clone https://github.com/Hecate-Org/Hecate-Public.git
+uv venv .venv
+source .venv/bin/activate
+uv pip install -e './Hecate-Core[all,dev]' -e './Hecate-Runner[dev]'
+export HECATE_WORKSPACE="$PWD/Hecate-Public"
+export HECATE_BIN="$PWD/.venv/bin/hecate-agent"
+cd Hecate-Public
+hecate-runner demo
+hecate-agent hunt list
 ```
 
-### 2. Configure Local Environment
-Copy the environment template:
+This setup uses one development environment for both packages. The demo is
+isolated and needs no keys. It does not add a new hunt to Public. For persistent
+shell setup, see [Runner onboarding](https://github.com/Hecate-Org/Hecate-Runner/blob/main/docs/ONBOARDING.md).
+
+## Select knowledge, credentials and output locations
+
+Export `HECATE_WORKSPACE` before running either application. Both use that
+workspace's `.env`; a cwd `.env` can override it, and existing environment
+variables take precedence. No `.env` symlink is created automatically.
+
+Copy `.env.example` to `.env` only if a file does not already exist, then supply
+only the keys required by the features you enable. Nothing supplies working API
+keys for adopters. Keep `.env`, `.hecate/`, logs, evidence and private findings
+out of public commits.
+
+The selected workspace supplies `knowledge/environment.md` and
+`knowledge/hunting-knowledge.md`. The public environment file is an **unverified
+template**: complete its actual sources, fields, coverage, retention and evidence
+before live use. Compact stage-specific guidance is enabled by default;
+`HECATE_HUNTING_KNOWLEDGE=false` disables that optional guidance without removing
+evidence requirements or execution gates.
+
+For enterprise use, copy reviewed catalog content into a private workspace, set
+`HECATE_WORKSPACE` to it, and keep your real environment profile and results
+there. Applications do not automatically merge Public with a second workspace.
+
+## Run catalog hunts without generating new H files
+
+Configure a query provider and approval policy in your private workspace. Replace
+`H-0001` with an existing ID:
 
 ```bash
-cd ~/betas/Hecate-Workspace
-cp .env.example .env
-export HECATE_WORKSPACE="$PWD"
+hecate-agent hunt list
+hecate-agent context --hunt H-0001 --format json
+hecate-agent hunt update H-0001 --status active
+hecate-runner sweep stage --hunt-id H-0001 --days 1
+hecate-runner sweep pending
+hecate-runner sweep approve <SWEEP-ID>
 ```
 
-The selected workspace supplies `knowledge/hunting-knowledge.md` and
-`knowledge/environment.md`. Core contains the readers; Runner uses the workspace
-configured for its execution. Keeping the repositories beside one another does
-not make Core's knowledge directory the source of truth for Public.
+`HECATE_RUNNER_QUERY_PROVIDER=mock` performs no live SIEM search. Keep
+`HECATE_AUTO_HUNT_APPROVAL_REQUIRED=true` while establishing verified mappings.
+For continuous scheduling, configure `HECATE_AUTO_HUNT_EXECUTION_ENABLED` and run
+`hecate-runner sweep daemon`. CTI intake, research and new-hunt generation are
+separate; you do not need to run `hecate-runner daemon`. Optional finding triage,
+pivots and rule tuning may use model calls.
 
-The public environment profile is an **unverified adopter template**. Fill its
-telemetry contract with your actual sources, fields, coverage, retention and
-verification evidence before relying on hunt results. Credentials belong in `.env`;
-private environment details and findings belong in your controlled workspace.
+## Publication and validation boundaries
 
-Agents load bounded, stage-specific guidance blocks, rather than the whole
-reference. Compact guidance is enabled by default and can be disabled with
-`HECATE_HUNTING_KNOWLEDGE=false`; essential evidence rules and execution approvals
-still apply. An unchanged template or missing profile never establishes telemetry
-availability. Existing hunts can be reviewed and run through Runner's `sweep`
-commands without enabling new-hunt generation.
+Generated hunts start in planning. Publication, query deployment, active-hunt
+execution and BAS each have their own opt-ins. GitHub promotion checks do not
+configure or enable a production SIEM alert.
 
-### 3. Inspect & Navigate the Hunt Catalog
+Public snapshots require exact-snapshot privacy/redistribution review before
+upload. Synthetic replay, local BAS rule matches, smoke checks, native search
+matches and correlated fired-alert evidence are reported separately. Review
+[BAS boundaries](https://github.com/Hecate-Org/Hecate-Runner/blob/main/docs/BAS_AUTOMATION.md)
+and [community/publication controls](https://github.com/Hecate-Org/Hecate-Runner/blob/main/docs/COMMUNITY_RELEASES.md).
 
-```bash
-# List all hunts and their promotion status
-uv run --directory ../Hecate-Core hecate-agent hunt list
+See [LICENSE](LICENSE), [LICENSES.md](LICENSES.md) and the source attribution on
+imported content before redistributing it.
 
-# Launch the interactive terminal monitor
-uv run --directory ../Hecate-Core hecate-agent monitor
 
-# Generate a new research topic
-uv run --directory ../Hecate-Core hecate-agent research new --topic "CVE-2026-4444 Edge Appliance Exploitation"
-```
+## GitHub Actions deployment settings
 
----
+Review `.github/workflows/siem-*.yml` before configuring repository secrets.
+These workflows use GitHub secrets/variables rather than the local `.env`.
+The current deploy workflow can push saved queries on relevant `main` updates
+when its endpoint/token are configured; local Runner dry-run flags do not govern
+that separate workflow. Missing endpoint/token or an explicit workflow dry-run
+selects its preview path. Review permissions, workflow triggers and destination
+namespaces before enabling live credentials.
 
-## 🛡️ Promotion Workflow & Security
-
-- **Safe by Default:** Automated drafts enter in `status: planning`. No detection logic executes unattended against production environments.
-- **Sanitization:** Credentials, local runtime caches (`.cursors/`, `.*_cursor_state.json`), and private logs are strictly excluded via `.gitignore`.
-- **Policy Enforcement:** CI runs `promotion-policy.yaml` to validate syntax, verify Sigma rules, audit technique grounding, and confirm review approvals before merging.
-
-See [license scope](LICENSES.md) for what the MIT license covers.
+Runner includes community-release tooling, but this checkout does not contain
+`catalog/catalog.yaml` or a community-release workflow. A reviewed explicit
+catalog and publication workflow must be added before following that optional
+release path; ordinary hunt/query content is not automatically a release bundle.

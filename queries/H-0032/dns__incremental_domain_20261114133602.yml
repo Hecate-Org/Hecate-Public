@@ -1,0 +1,19 @@
+title: H-0032 Incremental Campaign Detection (domain)
+id: inc-h-0032-20261114133602
+status: experimental
+description: Incremental rule variant generated from correlated campaign intelligence
+  for H-0032.
+author: hecate-runner correlation-engine
+date: 2026/11/14
+logsource:
+  product: windows
+  category: dns_query
+detection:
+  selection:
+    QueryName: config.ini
+  condition: selection
+falsepositives:
+- Legitimate administration or research scanning
+level: medium
+tags:
+- attack.campaign.h-0032
