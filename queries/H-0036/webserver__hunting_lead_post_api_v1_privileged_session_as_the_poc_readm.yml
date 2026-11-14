@@ -1,0 +1,25 @@
+title: 'Hunting lead: POST /api/v1/privileged/session as the PoC README documents'
+id: 82aa498b-a7b0-471d-b4e7-95d8d21a58d7
+status: experimental
+description: 'Deterministic candidate from a documented reference procedure; not evidence of an observed
+  intrusion or successful exploitation. The source documents this procedure: "POST /api/v1/privileged/session".'
+references:
+- https://github.com/tc4dy/CVE-2026-121529-Toolkit
+author: hecate (auto-generated from commands quoted in the source - requires analyst review)
+date: '2026-11-14'
+tags: []
+logsource:
+  category: webserver
+detection:
+  selection:
+    cs-method: POST
+    cs-uri-stem: /api/v1/privileged/session
+  condition: selection
+falsepositives:
+- Legitimate clients of the product send POST /api/v1/privileged/session too. Separate the exploit by
+  what the log cannot show here, such as a missing Authorization header or an unexpected client, using
+  a network capture or the product's own audit log
+level: low
+hunt_id: H-0036
+x_hecate_replay_matched: true
+x_hecate_synthetic_holdout_status: passed

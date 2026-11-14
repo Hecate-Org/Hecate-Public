@@ -1,0 +1,1 @@
+any where process.parent.executable.caseless:"*\\FortiVRS.exe" and (not process.executable.caseless:"*\\FortiVRS.exe")

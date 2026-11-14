@@ -1,0 +1,2 @@
+DeviceProcessEvents
+| where InitiatingProcessFolderPath endswith "\\FortiVRS.exe" and (not(FolderPath endswith "\\FortiVRS.exe"))

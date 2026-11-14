@@ -1,0 +1,1 @@
+where(process.exe_path=/^.*\\FortiVRS\.exe$/i)

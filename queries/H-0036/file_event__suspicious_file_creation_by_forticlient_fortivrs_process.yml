@@ -1,0 +1,37 @@
+title: Suspicious File Creation by FortiClient FortiVRS Process
+id: 2f687736-5d30-41dc-b80e-35e29b152209
+status: experimental
+description: Detects file creation activity by FortiVRS.exe, the FortiPAM privileged session component.
+  When exploited via CVE-2026-121529, this process may write payloads, scripts, or tools to disk as part
+  of post-exploitation activity following remote code execution through the local API CORS vulnerability.
+references:
+- https://github.com/tc4dy/CVE-2026-121529-Toolkit
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-11-14'
+tags:
+- attack.t1105
+logsource:
+  category: file_event
+  product: windows
+detection:
+  selection:
+    Image|endswith: \FortiVRS.exe
+  condition: selection
+falsepositives:
+- Legitimate FortiClient updates or configuration changes
+- Administrative deployment or troubleshooting activities involving FortiPAM
+level: high
+hunt_id: H-0036
+hecate_review:
+  verdict: revise
+  issues:
+  - Rule is overly broad - it triggers on ANY file creation by FortiVRS.exe without filtering for suspicious
+    file types, locations, or patterns that would indicate post-exploitation activity
+  - No evidence in passages that file creation is a documented behavior of CVE-2026-121529 exploitation
+    - passages describe CORS misconfiguration, API requests to ws://127.0.0.1:9191/ws and POST /api/v1/privileged/session,
+    but do not mention file writes as part of the exploit chain
+  - Description assumes post-exploitation file writes without source evidence - this is speculative rather
+    than grounded in the threat report
+  - Will generate high false positive rate as FortiVRS.exe likely creates legitimate files during normal
+    FortiPAM operations
+x_hecate_synthetic_holdout_status: failed

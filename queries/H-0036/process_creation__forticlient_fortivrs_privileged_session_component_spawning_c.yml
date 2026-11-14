@@ -1,0 +1,33 @@
+title: FortiClient FortiVRS Privileged Session Component Spawning Child Process
+id: 0682b89f-ea69-4abb-8a79-0e7b81c9c8c4
+status: experimental
+description: Detects FortiVRS.exe (FortiClient FortiPAM privileged session component) spawning child processes,
+  which may indicate exploitation of CVE-2026-121529 CORS misconfiguration leading to remote code execution
+  via the local API endpoint. The vulnerability allows browser-delivered cross-origin requests to execute
+  commands through the privileged session component.
+references:
+- https://github.com/tc4dy/CVE-2026-121529-Toolkit
+author: hecate (auto-generated draft - requires analyst review)
+date: '2026-11-14'
+tags:
+- attack.t1059.006
+- attack.t1059.007
+- attack.t1190
+logsource:
+  category: process_creation
+  product: windows
+detection:
+  selection:
+    ParentImage|endswith: \FortiVRS.exe
+  filter_self:
+    Image|endswith: \FortiVRS.exe
+  condition: selection and not filter_self
+falsepositives:
+- Legitimate FortiClient administrative operations that spawn helper processes
+- FortiClient updates or maintenance tasks
+- Legitimate privileged session management workflows in FortiPAM
+level: high
+hunt_id: H-0036
+hecate_review:
+  verdict: keep
+x_hecate_synthetic_holdout_status: failed

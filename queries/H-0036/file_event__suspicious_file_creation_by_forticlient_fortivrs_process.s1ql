@@ -1,0 +1,1 @@
+ObjectType = "File" AND (EndpointOS = "windows" AND SrcProcImagePath endswithCIS "\FortiVRS.exe")
