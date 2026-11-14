@@ -1,0 +1,37 @@
+{
+  "auto_merge": false,
+  "files": [
+    "hunts/2026/Q4/H-0036.md",
+    "queries/H-0036/file_event__suspicious_file_creation_by_forticlient_fortivrs_process.cql",
+    "queries/H-0036/file_event__suspicious_file_creation_by_forticlient_fortivrs_process.eql",
+    "queries/H-0036/file_event__suspicious_file_creation_by_forticlient_fortivrs_process.kql",
+    "queries/H-0036/file_event__suspicious_file_creation_by_forticlient_fortivrs_process.leql",
+    "queries/H-0036/file_event__suspicious_file_creation_by_forticlient_fortivrs_process.s1ql",
+    "queries/H-0036/file_event__suspicious_file_creation_by_forticlient_fortivrs_process.spl",
+    "queries/H-0036/file_event__suspicious_file_creation_by_forticlient_fortivrs_process.yml",
+    "queries/H-0036/process_creation__forticlient_fortivrs_privileged_session_component_spawning_c.cql",
+    "queries/H-0036/process_creation__forticlient_fortivrs_privileged_session_component_spawning_c.eql",
+    "queries/H-0036/process_creation__forticlient_fortivrs_privileged_session_component_spawning_c.kql",
+    "queries/H-0036/process_creation__forticlient_fortivrs_privileged_session_component_spawning_c.leql",
+    "queries/H-0036/process_creation__forticlient_fortivrs_privileged_session_component_spawning_c.s1ql",
+    "queries/H-0036/process_creation__forticlient_fortivrs_privileged_session_component_spawning_c.spl",
+    "queries/H-0036/process_creation__forticlient_fortivrs_privileged_session_component_spawning_c.yml",
+    "queries/H-0036/webserver__hunting_lead_post_api_v1_privileged_session_as_the_poc_readm.cql",
+    "queries/H-0036/webserver__hunting_lead_post_api_v1_privileged_session_as_the_poc_readm.eql",
+    "queries/H-0036/webserver__hunting_lead_post_api_v1_privileged_session_as_the_poc_readm.leql",
+    "queries/H-0036/webserver__hunting_lead_post_api_v1_privileged_session_as_the_poc_readm.spl",
+    "queries/H-0036/webserver__hunting_lead_post_api_v1_privileged_session_as_the_poc_readm.yml",
+    "research/R-1022.md"
+  ],
+  "hunt_id": "H-0036",
+  "merge_method": "squash",
+  "promotion_reasons": [
+    "source has no explicit TLP marking"
+  ],
+  "publisher": "hecate-runner",
+  "review_required": true,
+  "schema_version": 1,
+  "sha256": "414ea6bd02121fda8a29bd70f9123571fd8fd5bdac3a8592c4ee40f012d257d5",
+  "target_repository": "Hecate-Org/Hecate-Public",
+  "target_visibility": "public"
+}

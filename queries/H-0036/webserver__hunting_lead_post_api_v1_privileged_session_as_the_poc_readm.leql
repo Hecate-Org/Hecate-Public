@@ -1,0 +1,1 @@
+where(http_method=/^POST$/i AND uri_path=/^\/api\/v1\/privileged\/session$/i)

@@ -1,0 +1,1 @@
+Image=/\\FortiVRS\.exe$/i
