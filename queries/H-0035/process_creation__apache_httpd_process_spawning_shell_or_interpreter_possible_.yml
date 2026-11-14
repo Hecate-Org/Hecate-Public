@@ -10,6 +10,7 @@ references:
 author: hecate (auto-generated draft - requires analyst review)
 date: '2026-11-13'
 tags:
+- attack.t1059.004
 - attack.t1059.006
 - attack.t1190
 logsource:
